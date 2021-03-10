@@ -12,3 +12,80 @@
 /****************************************
 *** Theme customization starts below ***
 *****************************************/
+
+/* Remove space between nav bar and page sub header */
+#page-sub-header {
+  padding-top: 0 ;
+}
+
+/* Styling of caption that appears over each image in the carousel */
+.carousel-caption {
+  background-color: #333 ;
+  font-size: 2em ;
+  opacity: 0.7 ;
+}
+
+/* Override theme masthead background, which is a dark purple */
+header#masthead {
+  background-color: #fff ;
+}
+
+/* Override theme site title colour, which is blue */
+a.site-title {
+  color: #000 ;
+}
+
+/* Customise hover look of site title link */
+a.site-title:hover {
+  color: #666 ;
+  text-decoration: none ;
+}
+
+/* Customise starting look of navbar menu items */
+body:not(.theme-preset-active) #masthead .navbar-nav > li > a {
+  color: #000 ;
+  font-size: 1rem ;
+}
+
+/* Customise look of navbar menu items on hover and when current */
+body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover,
+body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a
+{
+  color: #999;
+  text-decoration: none ;
+}
+
+/* Styling for the background image in the page footer */
+#colophon {
+  background-position: center ;
+  background-repeat: no-repeat ;
+  background-size: cover ;
+}
+
+/* Styling for the text continer in the page footer */
+#colophon .container {
+  color: #154360 ;
+  font-weight: bold ;
+  margin-bottom: 10px ;
+  margin-top: 20px ;
+}
+
+/* Increase the size of h1 entries at the top of the page */
+h1 {
+  font-size: 3rem !important ;
+}
+
+/* Hide the byline in posts */
+.byline {
+  display: none !important ;
+}
+
+#secondary .current-menu-item {
+  background: #eee ;
+}
+
+figcaption {
+  color: #666 ;
+  font-style: italic ;
+  text-align: center ;
+}
