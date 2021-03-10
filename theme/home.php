@@ -124,21 +124,25 @@
   <!-- Key Financial Backers -->
 	<h2>Our Key Financial Backers</h2>
   <div class="row">
-    <div class="col-sm-4 text-center">
+    <div class="col text-md-center">
       <a href="http://railwayheritagetrust.co.uk/" target="_blank">
         <img style="height: auto ; width: 90px ;" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/RHT-Logo-RGB-Small.jpg">
       </a>
-      <hr class="d-block d-sm-none">
     </div>
-    <div class="col-sm-4 text-center">
+    <div class="col">
       <a href="https://www.heritagefund.org.uk/" target="_blank">
         <img style="height: auto ; width: 175px ;" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/heritage_trust_logo_en_2.png">
       </a>
-      <hr class="d-block d-sm-none">
     </div>
-    <div class="col-sm-4 text-center">
+    <div class="w-100 mt-4 d-md-none"></div>
+    <div class="col">
       <a href="https://historicengland.org.uk/" target="_blank">
         <img style="height: auto ; width: 220px ;" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/Historic England.png">
+      </a>
+    </div>
+    <div class="col">
+      <a href="https://www.wmf.org/" target="_blank">
+        <img style="height: auto ; width: 220px ;" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/wmf-logo.png">
       </a>
     </div>
   </div>
