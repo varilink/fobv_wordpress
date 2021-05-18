@@ -25,7 +25,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-6">
-              <img width="175px" class="float-left" src="<?php echo home_url ( ) . '/wp-content/themes' . '/wp-bootstrap-starter-child/assets/img' . '/final-logo-round-1-1024x1024.png' ?>">
+              <img width="175px" class="float-left" src="<?php echo home_url ( ) . '/wp-content/themes/wp-bootstrap-starter-child/assets/img/logo-footer.png' ?>">
               <p class="d-none d-lg-block" style="position: relative ; top: 70px ;">
                 Dedicated to restoring, conserving and celebrating Bennerley Viaduct. Registered in England and Wales with charity number 1187044.
               </p>
