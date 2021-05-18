@@ -34,30 +34,9 @@
 
         <div class="navbar-brand text-center">
           <a href="<?php echo esc_url( home_url( '/' )); ?>">
-            <img src="<?php echo esc_url ( get_theme_mod ( 'wp_bootstrap_starter_logo' ) ) ; ?>" alt="<?php echo esc_attr ( get_bloginfo ( 'name' ) ) ; ?>">
+            <img src="<?php echo esc_url ( get_theme_mod ( 'wp_bootstrap_starter_logo' ) ) ; ?>" alt="<?php echo esc_attr ( get_bloginfo ( 'name' ) ) ; ?>" width="125px">
           </a>
-          <br>
-          <a class="site-title" href="<?php echo esc_url ( home_url ( '/' ) ) ; ?>">
-            <?php esc_url ( bloginfo ( 'name' ) ) ; print "\n" ; ?>
-          </a>
-          <br>
-<?php
-  global $wp_query ;
-  $post_id = $wp_query -> get_queried_object_id ( ) ;
-  if ( $post_id != FOBV_DONATE_VIA_AMAZON_SMILE_PAGE_ID ) :
-?>
-          <!-- #amazon-smile -->
-          <div>
-            <a href="<?php echo get_permalink ( FOBV_DONATE_VIA_AMAZON_SMILE_PAGE_ID ) ; ?>">
-              Support us via
-              <img src="<?php echo esc_url( home_url( '/wp-content/uploads/2020/11/amazon-smile.jpg' )); ?>" width="125px">
-            </a>
         </div>
-          <!-- /#amazon-smile -->
-<?php endif ; ?>
-
-        </div>
-
 
         <!-- #main-nav -->
         <div id="main-nav" class="collapse navbar-collapse">

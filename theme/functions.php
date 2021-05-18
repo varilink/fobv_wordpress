@@ -788,15 +788,20 @@ fobv_start_form ( 'fobv_donations_form' ) . '
       If you enter an email address for us to contact you, then it must be a valid one.
     </div>
   </div>
-  <div class="form-row">
+  <div class="form-row mb-3">
     <label for="inputConfirmEmailAddress" class="col-3 pt-1">Confirm Email Address:</label>
     <input id="inputConfirmEmailAddress" name="confirm_email" type="text" class="form-control col-9" placeholder="If you entered an email address above, repeat it here to confirm it" aria-label="Confirm Email Address" disabled>
     <div class="invalid-feedback">
       You must exactly match the email address that you entered above to confirm it.
     </div>
   </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
+  <div class="form-row">
+    <button id="buttonSubmit" type="submit" class="btn btn-primary col-2">Submit</button>
+    <label for="buttonSubmit" class="col-10 pt-1">
+      Personal data provided to us is protected by our <a href="' .
+      get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
+      '" target="_blank">privacy policy</a>' . '
+    </label>
   </div>
 </form>
 <!-- /varilink_donations_form -->
@@ -1031,7 +1036,14 @@ fobv_contact_details ( 'join' ) . '
     </div>
   </div>' .
 fobv_payment_details ( 'join' ) . '
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="row justify-content-center">
+    <button id="buttonJoinSubmit" type="submit" class="btn btn-primary col-2 pl-2">Submit</button>
+    <label for="buttonJoinSubmit" class="col-9 pt-1">
+      Personal data provided to us is protected by our <a href="' .
+      get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
+      '" target="_blank">privacy policy</a>' . '
+    </label>
+  </div>
 </form>
 <!-- /fobv_join_form -->
 '
@@ -1069,7 +1081,14 @@ fobv_contact_details ( 'renew' ) . '
     </div>
   </div>' .
 fobv_payment_details ( 'renew' ) . '
-  <button type="submit" class="btn btn-primary">Submit</button>
+<div class="row justify-content-center">
+  <button id="buttonJoinSubmit" type="submit" class="btn btn-primary col-2 pl-2">Submit</button>
+  <label for="buttonJoinSubmit" class="col-9 pt-1">
+    Personal data provided to us is protected by our <a href="' .
+    get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
+    '" target="_blank">privacy policy</a>' . '
+  </label>
+</div>
 </form>
 <!-- /fobv_renew_form -->
 '
@@ -1131,9 +1150,16 @@ fobv_start_form ( 'fobv_subscribe_form' ) . '
   <input name="b_c7b4f78d87142e3b04cd3a365_634bd2db1e" tabindex="-1" type="text" value="">
 </div>
 
-<button name="subscribe" class="btn btn-primary mt-3 mb-3" type="submit" value="Subscribe">
-  Subscribe
-</button>
+<div class="form-group row justify-content-center">
+  <button id="buttonSubscribe" name="subscribe" class="btn btn-primary col-2" type="submit" value="Subscribe">
+    Subscribe
+  </button>
+  <label class="col-9 pt-1" for="buttonSubscribe">
+    Personal data provided to us is protected by our <a href="' .
+    get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
+    '" target="_blank">privacy policy</a>' . '
+  </label>
+</div>
 
 </form>
 <!-- /fobv_subscribe_form -->
