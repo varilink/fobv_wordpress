@@ -1,8 +1,7 @@
 // Custom.scss
 
 // Variable overrides
-$carousel-caption-width: 40% ;
 $dropdown-min-width: 19rem !default;
 
 // Replace this with an include of only the parts that I use
-@import "../../../node_modules/bootstrap/scss/bootstrap" ;
+@import "/node_modules/bootstrap/scss/bootstrap" ;
