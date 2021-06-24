@@ -55,3 +55,4 @@
     ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
+<a href="#page"><i class="fa fa-fw fa-angle-up"></i>Top</a>

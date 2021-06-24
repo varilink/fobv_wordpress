@@ -1,7 +1,10 @@
 // Custom.scss
 
 // Variable overrides
-$dropdown-min-width: 19rem !default;
+$carousel-caption-width:      100%;
+//$carousel-control-color:      #ced4da;
+//$carousel-control-opacity:    .6;
+//$carousel-control-icon-width: 30px;
 
 // Replace this with an include of only the parts that I use
 @import "/node_modules/bootstrap/scss/bootstrap" ;

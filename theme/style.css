@@ -20,9 +20,22 @@
 
 /* Styling of caption that appears over each image in the carousel */
 .carousel-caption {
-  background-color: #333 ;
-  font-size: 2em ;
-  opacity: 0.7 ;
+  background: rgba(0, 0, 0, 0.45) ;
+  bottom: 0px;
+  font-size: 1.6em;
+  padding-top: 10px;
+  padding-bottom: 0px;
+}
+
+.carousel-caption a {
+  color: white;
+  opacity: .75;
+}
+
+.carousel-caption a:hover {
+  color: white;
+  text-decoration: none;
+  opacity: 1;
 }
 
 /* Override theme masthead background, which is a dark purple */

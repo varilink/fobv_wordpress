@@ -120,6 +120,7 @@
 
 <!-- Financial Backers -->
 <div class="container">
+  <a href="#page"><i class="fa fa-fw fa-angle-up"></i>Top</a>
 
   <!-- Key Financial Backers -->
 	<h2>Our Key Financial Backers</h2>
