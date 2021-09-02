@@ -1,0 +1,41 @@
+# Changes arising as part of the marketing review
+# These go alongide file changes associated with the following topic branches:
+# - topic-footer-logo
+# - topic-header-logo
+# - topic-privacy-policy
+# - topic-sliders
+
+# Set new header background image
+wp theme mod set header_image                                                  \
+  /wp-content/themes/wp-bootstrap-starter-child/assets/img/cropped-footer.jpg
+
+# Rename top-level menu items for clarity and consistency
+wp menu item update 2025 --title='Bennerley Viaduct'
+wp menu item update 2026 --title='Our Project'
+
+# Reorder top-level menu items
+wp menu item update 2025 --position=30
+wp menu item update 2026 --position=40
+wp menu item update 1995 --position=50
+
+# Blank out home page title and revise its content slightly
+wp post update 24 --post_title='' - <<EOF
+<!-- wp:paragraph -->
+<p class="pb-3">Bennerley Viaduct is a grade 2* listed  railway viaduct built in 1877 by the Great Northern Railway Company. At over quarter of a mile long, it is the longest wrought iron viaduct in the country.  It straddles the River Erewash connecting Ilkeston in Derbyshire with Awsworth in Nottinghamshire.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p class="pb-3">The "Iron Giant" has been described by the World Monuments Fund as being an "extraordinary monument"  meriting inclusion  in the <a href="https://www.wmf.org/2020Watch">2020 World Monuments Watch</a>, one of only 25 sites chosen globally.  Historic England consider the viaduct is a “stunning example of the genius of British Engineering”</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p class="mt-2">The Friends of Bennerley Viaduct are dedicated to give our "Iron Giant" a new lease of life.  Working in partnership with the owners, Railway Paths Limited, an inspiring community driven project is bringing the iconic structure  back to life.  In 2021, Bennerley Viaduct should be re-opened to the public following fifty years of closure following a £1.4 million investment.</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>The best way to give the Viaduct the future it deserves is to become a member of the Friends of Bennerley Viaduct. For the cost of a cup of coffee and a piece of cake,  you can <a href="/?page_id=1832">become a member of the group</a> and actively support this inspirational project.</p>
+<!-- /wp:paragraph -->
+EOF
+
+# Change title of "Donate to Our Cause" to "Donate to Our Project"
+wp post update 1975 --post_title='Donate to Our Project' - <<EOF
+
+# Publish the privacy policy
+wp post update 1464 --post_status='publish'

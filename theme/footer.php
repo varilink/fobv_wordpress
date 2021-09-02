@@ -34,12 +34,14 @@
 
                 <?php echo '<a href="' . home_url ( ) . '">' . get_bloginfo ( 'name' ) .'</a>' ; ?>
 
+                <br>
+                <a class="credits" href="<?php echo get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) ; ?>" target="_blank">Privacy Policy</a>
                 <!-- sep or br dependent on screen size -->
                 <span class="sep d-xs-inline d-sm-none d-lg-inline">|</span>
                 <br class="d-none d-sm-block d-lg-none">
                 <!-- / sep or break dependent on screen size -->
                 Site by
-                <a class="credits" href="https://www.linkedin.com/in/davidwilliamson6/" target="_blank" alt="Varilink Computing Ltd" title="Site Design, Build and Hosting">
+                <a class="credits" href="https://www.varilink.co.uk" target="_blank" alt="Varilink Computing Ltd" title="Site Design, Build and Hosting">
                   Varilink Computing Ltd
                 </a>
               </div>

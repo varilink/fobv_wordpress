@@ -1,0 +1,6 @@
+wp theme install wp-bootstrap-starter
+
+wp theme mod set header_banner_title_setting                                   \
+  'The Friends of Bennerley Viaduct'
+
+wp plugin install custom-sidebars --activate --version=3.31

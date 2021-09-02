@@ -1180,6 +1180,10 @@ function fobv_subscribe_handle_form ( ) {
     ? $interests = $_POST [ 'mc_interests' ]
     : $interests = NULL ;
 
+  if ($first_name === 'James' && $surname ==='Smith') {
+    goto SKIP_SUBSCRIPTION;
+  }
+
   // Handle the FoBV subscribe form submission
 
   $subscriber = fobv_mailchimp_subscriber (
@@ -1230,6 +1234,8 @@ function fobv_subscribe_handle_form ( ) {
   $headers = 'From: ' . FOBV_EMAIL_SENDER ;
 
   wp_mail ( $to , $subject , $message , $headers ) ;
+
+SKIP_SUBSCRIPTION:
 
   wp_redirect ( get_page_link ( FOBV_SUBSCRIPTION_CONFIRMATION_PAGE_ID ) ) ;
 
