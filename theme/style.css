@@ -93,6 +93,20 @@ h1 {
   display: none !important ;
 }
 
+/* Potential fix for Kieran's menu display issue */
+@media screen and (max-width: 1199px) {
+  .navbar-dark .dropdown-item {
+    color: #fff;
+  }
+  .navbar-nav .dropdown-menu {
+    background: #fff;
+  	border: 1px solid rgba(0, 0, 0, 0.15);
+  	border-radius: 0.25rem;
+  }
+}
+
+
+
 #secondary .current-menu-item {
   background: #eee ;
 }

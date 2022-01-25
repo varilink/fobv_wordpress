@@ -34,14 +34,12 @@
 
                 <?php echo '<a href="' . home_url ( ) . '">' . get_bloginfo ( 'name' ) .'</a>' ; ?>
 
-                <br>
-                <a class="credits" href="<?php echo get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) ; ?>" target="_blank">Privacy Policy</a>
                 <!-- sep or br dependent on screen size -->
                 <span class="sep d-xs-inline d-sm-none d-lg-inline">|</span>
                 <br class="d-none d-sm-block d-lg-none">
                 <!-- / sep or break dependent on screen size -->
                 Site by
-                <a class="credits" href="https://www.varilink.co.uk" target="_blank" alt="Varilink Computing Ltd" title="Site Design, Build and Hosting">
+                <a class="credits" href="https://www.linkedin.com/in/davidwilliamson6/" target="_blank" alt="Varilink Computing Ltd" title="Site Design, Build and Hosting">
                   Varilink Computing Ltd
                 </a>
               </div>
@@ -65,14 +63,20 @@
               </p>
               <p>
                 <i class="fab fa-facebook fa-2x"></i>
-                <a style="position: relative; top: -0.4rem ;" href="https://www.facebook.com/bennerleyviaduct/">
+                <a style="position: relative; top: -0.4rem ;" target="_blank" href="https://www.facebook.com/bennerleyviaduct/">
                   Bennerley Viaduct Friends Group
                 </a>
               </p>
               <p>
                 <i class="fab fa-twitter-square fa-2x"></i>
-                <a style="position: relative; top: -0.4rem ;" href="https://twitter.com/theirongiant_">
+                <a style="position: relative; top: -0.4rem ;" target="_blank" href="https://twitter.com/theirongiant_">
                   Bennerley Viaduct Twitter Account
+                </a>
+              </p>
+              <p>
+                <i class="fab fa-instagram-square fa-2x"></i>
+                <a style="position: relative; top: -0.4rem ;" target="_blank" href="https://www.instagram.com/bennerleyviaduct/">
+                  Bennerley Viaduct Instagram Page
                 </a>
               </p>
             </div>

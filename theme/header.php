@@ -49,7 +49,7 @@
 ): ?>
 
 <?php if(is_front_page()): ?>
-      <div class="min-vh-100">
+      <div>
 <?php endif; ?>
 
       <header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?>" role="banner">
@@ -94,6 +94,91 @@
 
 <?php if(is_front_page()): ?>
 
+      </div>
+
+        <div class="container-fluid pl-0 pr-0 mb-1 pb-0">
+          <div id="homepageCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+            <div class="carousel-inner">
+
+              <!-- The FoBV Carousel Item -->
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-1.jpg" alt="The FoBV">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_FOBV_PAGE_ID ) ; ?>">
+                    Become a Friend of Bennerley Viaduct
+                  </a></p>
+                </div>
+              </div>
+              <!-- /The FoBV Carousel Item -->
+
+              <!-- Bennerley Viaduct Carousel Item -->
+              <div class="carousel-item">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-2.png" alt="Bennerley Viaduct">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_VIADUCT_PAGE_ID ) ; ?>">
+                    Find out how and why to visit Bennerley Viaduct
+                  </a></p>
+                </div>
+              </div>
+              <!-- /Bennerley Viaduct Carousel Item -->
+
+              <!-- Our Project Carousel Item -->
+              <div class="carousel-item">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-3.png" alt="Our Project">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_PROJECT_PAGE_ID) ; ?>">
+                    Learn about Our Project to save the &quot;Iron Giant&quot
+                  </a></p>
+                </div>
+              </div>
+              <!-- /Our Project Carousel Item -->
+
+              <!-- The FoBV Carousel Item -->
+              <div class="carousel-item">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-4.png" alt="The FoBV">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_FOBV_PAGE_ID ) ; ?>">
+                    Become a Friend of Bennerley Viaduct
+                  </a></p>
+                </div>
+              </div>
+              <!-- /The FoBV Carousel Item -->
+
+              <!-- Bennerley Viaduct Carousel Item -->
+              <div class="carousel-item">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-5.png" alt="Bennerley Viaduct">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_VIADUCT_PAGE_ID ) ; ?>">
+                    Find out how and why to visit Bennerley Viaduct
+                  </a></p>
+                </div>
+              </div>
+              <!-- /Bennerley Viaduct Carousel Item -->
+
+              <!-- Our Project Carousel Item -->
+              <div class="carousel-item">
+                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-6.png" alt="Our Project">
+                <div class="carousel-caption d-block">
+                  <p><a href="<?php echo get_page_link ( FOBV_THE_PROJECT_PAGE_ID) ; ?>">
+                    Learn about Our Project to save the &quot;Iron Giant&quot
+                  </a></p>
+                </div>
+              </div>
+              <!-- /Our Project Carousel Item -->
+
+            </div>
+			<div class="d-none d-sm-block">			
+              <a class="carousel-control-prev" href="#homepageCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#homepageCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+			</div>
+          </div>
+        </div>
       <div class="pb-1 pt-4" id="page-sub-header" <?php if(has_header_image()) { ?>style="background-image: url('<?php header_image(); ?>');" <?php } ?>>
             <div class="container">
                 <h1>
@@ -105,96 +190,8 @@
                     }
                     ?>
                 </h1>
-                <p class="text-justify">
-                  The Friends of Bennerley Viaduct (<a href="<?php echo get_page_link ( FOBV_THE_FOBV_PAGE_ID ) ; ?>">The FoBV</a>) are dedicated to restoring, conserving and celebrating <a href="<?php echo get_page_link ( FOBV_THE_VIADUCT_PAGE_ID ) ; ?>">Bennerley Viaduct</a>. In 2021 <a href="<?php echo get_page_link ( FOBV_THE_PROJECT_PAGE_ID) ; ?>">Our Project</a> goal is to re-open Bennerley Viaduct to the public after 50 years of closure. Please support us by <a href="<?php echo get_page_link ( FOBV_JOIN_US_OR_RENEW_YOUR_MEMBERSHIP_PAGE_ID ) ; ?>">becoming a Friend of Bennerley Viaduct</a> or by <a href="<?php echo get_page_link ( FOBV_DONATE_TO_OUR_CAUSE_PAGE_ID ) ; ?>">donating to Our Project</a>. <a href="<?php echo get_page_link ( FOBV_SUBSCRIBE_TO_OUR_MAILING_LIST_PAGE_ID ) ; ?>">Subscribe to our email bulletin</a> to be kept up to date with our latest news.
-                </p>
-                <a href="#homepageCarousel" class="page-scroller"><i class="fa fa-fw fa-angle-down"></i></a>
             </div>
       </div>
-
-      </div>
-
-        <div class="container-fluid pl-0 pr-0 mb-1 pb-0">
-          <div id="homepageCarousel" class="carousel slide" data-ride="carousel" data-interval="10000">
-            <div class="carousel-inner">
-
-              <!-- The FoBV Carousel Item -->
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-1.jpg" alt="The FoBV">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_FOBV_PAGE_ID ) ; ?>">
-                    Become a Friend of Bennerley Viaduct
-                  </a></p>
-                </div>
-              </div>
-              <!-- /The FoBV Carousel Item -->
-
-              <!-- Bennerley Viaduct Carousel Item -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-2.png" alt="Bennerley Viaduct">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_VIADUCT_PAGE_ID ) ; ?>">
-                    Find out how and why to visit Bennerley Viaduct
-                  </a></p>
-                </div>
-              </div>
-              <!-- /Bennerley Viaduct Carousel Item -->
-
-              <!-- Our Project Carousel Item -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-3.png" alt="Our Project">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_PROJECT_PAGE_ID) ; ?>">
-                    Learn about Our Project to save the &quot;Iron Giant&quot
-                  </a></p>
-                </div>
-              </div>
-              <!-- /Our Project Carousel Item -->
-
-              <!-- The FoBV Carousel Item -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-4.png" alt="The FoBV">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_FOBV_PAGE_ID ) ; ?>">
-                    Become a Friend of Bennerley Viaduct
-                  </a></p>
-                </div>
-              </div>
-              <!-- /The FoBV Carousel Item -->
-
-              <!-- Bennerley Viaduct Carousel Item -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-5.png" alt="Bennerley Viaduct">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_VIADUCT_PAGE_ID ) ; ?>">
-                    Find out how and why to visit Bennerley Viaduct
-                  </a></p>
-                </div>
-              </div>
-              <!-- /Bennerley Viaduct Carousel Item -->
-
-              <!-- Our Project Carousel Item -->
-              <div class="carousel-item">
-                <img class="d-block w-100" src="/wp-content/themes/wp-bootstrap-starter-child/assets/img/viaduct-panorama-6.png" alt="Our Project">
-                <div class="carousel-caption d-none d-md-block">
-                  <p><a href="<?php echo get_page_link ( FOBV_THE_PROJECT_PAGE_ID) ; ?>">
-                    Learn about Our Project to save the &quot;Iron Giant&quot
-                  </a></p>
-                </div>
-              </div>
-              <!-- /Our Project Carousel Item -->
-
-            </div>
-            <a class="carousel-control-prev" href="#homepageCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#homepageCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
         <div id="content" class="site-content mt-0 pt-0">
 <?php else: ?>
   <div class="container-fluid text-center bg-light d-none d-md-block">
