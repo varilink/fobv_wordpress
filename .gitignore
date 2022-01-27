@@ -1,1 +1,6 @@
-theme/assets/css
+# Don't ignore the minified, generated CSS files so that they are tracked in
+# this repository and so visible to the Ansible repository that includes this
+# repository as a submodule and needs to have these files so that it can deploy
+# them.
+themes/wp-bootstrap-starter-child/assets/css/bootstrap.css
+themes/wp-bootstrap-starter-child/assets/css/bootstrap.css.map
