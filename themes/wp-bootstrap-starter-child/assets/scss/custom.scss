@@ -1,10 +1,14 @@
 // Custom.scss
 
 // Variable overrides
-$carousel-caption-width:      100%;
-//$carousel-control-color:      #ced4da;
-//$carousel-control-opacity:    .6;
-//$carousel-control-icon-width: 30px;
+$carousel-caption-width: 100%;
+$dropdown-min-width: 19rem;
 
 // Replace this with an include of only the parts that I use
-@import "/node_modules/bootstrap/scss/bootstrap" ;
+@import "/node_modules/bootstrap/scss/bootstrap";
+
+// Direct overrides not supported by variables in the Bootstrap SASS framework
+.carousel-caption {
+  bottom: 0px;
+  padding-bottom: 0px;
+}
