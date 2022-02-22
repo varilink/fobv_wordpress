@@ -796,7 +796,7 @@ fobv_start_form ( 'fobv_donations_form' ) . '
     </div>
   </div>
   <div class="form-row">
-    <button id="buttonSubmit" type="submit" class="btn btn-primary col-2">Submit</button>
+    <button id="buttonSubmit" type="submit" class="btn btn-primary col-2">Next</button>
     <label for="buttonSubmit" class="col-10 pt-1">
       Personal data provided to us is protected by our <a href="' .
       get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .

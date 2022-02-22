@@ -191,9 +191,38 @@
           </h1>
         </div>
       </div>
+      <div class="container-fluid text-center bg-light border-top d-none
+      d-md-block pt-1 pb-1">
+        <a class="btn btn-outline-primary btn-sm mr-5"
+        href="<?php echo get_page_link(FOBV_JOIN_US_OR_RENEW_YOUR_MEMBERSHIP_PAGE_ID); ?>">
+          Become a Friend of Bennerley Viaduct
+        </a>
+        <a class="btn btn-outline-primary btn-sm"
+        href="<?php echo get_page_link(FOBV_DONATE_TO_OUR_CAUSE_PAGE_ID); ?>">
+          Donate to Our Project
+        </a>
+        <a class="btn btn-outline-primary btn-sm ml-5"
+        href="<?php echo get_page_link(FOBV_SUBSCRIBE_TO_OUR_MAILING_LIST_PAGE_ID); ?>">
+          Subscribe to Our Mailing List
+        </a>
+      </div>
+      <div class="container-fluid text-center bg-light d-block d-md-none">
+        <a class="btn btn-outline-primary btn-sm mr-3"
+        href="<?php echo get_page_link(FOBV_JOIN_US_OR_RENEW_YOUR_MEMBERSHIP_PAGE_ID); ?>">
+          Become a Friend
+        </a>
+        <a class="btn btn-outline-primary btn-sm"
+        href="<?php echo get_page_link(FOBV_DONATE_TO_OUR_CAUSE_PAGE_ID); ?>">
+          Donate
+        </a>
+        <a class="btn btn-outline-primary btn-sm ml-3" href="<?php echo get_page_link(FOBV_SUBSCRIBE_TO_OUR_MAILING_LIST_PAGE_ID); ?>">
+          Subscribe
+        </a>
+      </div>
       <div id="content" class="site-content mt-0 pt-0">
 <?php else: # not the front page ?>
-      <div class="container-fluid text-center bg-light d-none d-md-block">
+      <div class="container-fluid text-center bg-light d-none d-md-block
+      pt-1 pb-1">
         <a class="btn btn-outline-primary btn-sm mr-5"
         href="<?php echo get_page_link(FOBV_JOIN_US_OR_RENEW_YOUR_MEMBERSHIP_PAGE_ID); ?>">
           Become a Friend of Bennerley Viaduct
