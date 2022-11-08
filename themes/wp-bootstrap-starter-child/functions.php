@@ -224,9 +224,9 @@ function fobv_payment_details ( $instance ) {
           <div id="' . $instance . 'InputBankTransferHelp" class="collapse" data-parent="#' . $instance . 'PaymentMethods">
             <p>
               Please instruct your bank transfer to:<br>
-              Payee = The Friends of Bennerley Viaduct<br>
-              Account Number = 23286563<br>
-              Sort Code = 60-11-37<br>
+              Payee = Friends of Bennerley Viaduct<br>
+              Account Number = 34642813<br>
+              Sort Code = 40-19-15<br>
               and please use the reference ' . $reference . ' for the transaction.
             </p>
           </div>
