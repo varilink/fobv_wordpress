@@ -5921,9 +5921,9 @@ a.close.disabled {
 
 .carousel-caption {
   position: absolute;
-  right: 0%;
+  right: 30%;
   bottom: 20px;
-  left: 0%;
+  left: 30%;
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -9895,10 +9895,6 @@ h3 {
     color: inherit;
     border-color: #dee2e6;
   }
-}
-.carousel-caption {
-  bottom: 0px;
-  padding-bottom: 0px;
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
