@@ -6,91 +6,28 @@ jQuery ( function ( $ ) {
 
   $ ( document ) . ready ( function ( ) {
 
-    var prefices = [ '' , 'join' , 'renew' ] ;
+    // On any event that may have changed the value of #inputEmailAddress
+    $ ( '#inputEmailAddress' ) . on ( 'change keyup blur input' , function ( ) {
 
-    function isConfirmId ( id ) {
-      if ( id . includes ( 'Confirm' ) ) {
-        return true ;
+      if ( $ ( this ) . val ( ) === '' ) {
+        $ ( '#inputConfirmEmailAddress' ) . val ( '' ) ;
+        $ ( '#inputConfirmEmailAddress' ) . get ( 0 ) . setCustomValidity ( '' ) ;
+        $ ( '#inputConfirmEmailAddress' ) . prop ( 'disabled' , true ) ;
       } else {
-        return false ;
+        $ ( '#inputConfirmEmailAddress' ) . prop ( 'disabled' , false ) ;
       }
-    }
 
-    function id4ConfirmId ( idIn ) {
-      var idOut ;
-      if ( idIn === 'joinInputConfirmEmailAddress' ) {
-        idOut = 'joinInputEmailAddress' ;
-      } else if ( idIn === 'renewInputConfirmEmailAddress' ) {
-        idOut = 'renewInputEmailAddress' ;
+    } ) ;
+
+    $ ( '#inputEmailAddress,#inputConfirmEmailAddress' ) . change ( function ( ) {
+
+      if ( $ ( '#inputConfirmEmailAddress' ) . val ( ) === $ ( '#inputEmailAddress' ) . val ( ) ) {
+        $ ( '#inputConfirmEmailAddress' ) . get ( 0 ) . setCustomValidity ( '' ) ;
       } else {
-        idOut = 'inputEmailAddress' ;
+        $ ( '#inputConfirmEmailAddress' ) . get ( 0 ) . setCustomValidity ( 'Email address mismatch' ) ;
       }
-      return idOut ;
-    }
 
-    function confirmId4Id ( idIn ) {
-      var idOut ;
-      if ( idIn === 'joinInputEmailAddress' ) {
-        idOut = 'joinInputConfirmEmailAddress' ;
-      } else if ( idIn === 'renewInputEmailAddress' ) {
-        idOut = 'renewInputConfirmEmailAddress' ;
-      } else {
-        idOut = 'inputConfirmEmailAddress' ;
-      }
-      return idOut ;
-    }
-
-    for ( let i = 0 ; i < prefices . length ; i++ ) {
-
-      var suffix , confirmSuffix ;
-
-      prefices [ i ] === ''
-        ? suffix = 'inputEmailAddress'
-        : suffix = 'InputEmailAddress' ;
-
-      var id = prefices [ i ] + suffix ;
-      var confirmId = confirmId4Id ( id ) ;
-
-      $ ( '#' + id ) . on ( 'change keyup blur input' , function ( ) {
-
-        id = $ ( this ) . attr ( 'id' ) ;
-        confirmId = confirmId4Id ( id ) ;
-
-        if ( $ ( this ) . val ( ) === '' ) {
-          $ ( '#' + confirmId ) . val ( '' ) ;
-          $ ( '#' + confirmId ) . get ( 0 ) . setCustomValidity ( '' ) ;
-          if ( confirmId === 'inputConfirmEmailAddress' ) {
-            $ ( '#' + confirmId ) . prop ( 'disabled' , true ) ;
-          }
-        } else {
-          if ( confirmId === 'inputConfirmEmailAddress' ) {
-            $ ( '#' + confirmId ) . prop ( 'disabled' , false ) ;
-          }
-        }
-
-      } ) ;
-
-      $ ( '#' + id + ',' + '#' + confirmId ) . change ( function ( ) {
-
-        var idIn = $ ( this ) . attr ( 'id' ) ;
-
-        if ( isConfirmId ( idIn ) ) {
-          confirmId = idIn ;
-          id = id4ConfirmId ( confirmId ) ;
-        } else {
-          id = idIn ;
-          confirmId = confirmId4Id ( id ) ;
-        }
-
-        if ( $ ( '#' + confirmId ) . val ( ) == $ ( '#' + id ) . val ( ) ) {
-          $ ( '#' + confirmId ) . get ( 0 ) . setCustomValidity ( '' ) ;
-        } else {
-          $ ( '#' + confirmId ) . get ( 0 ) . setCustomValidity ( 'Email address mismatch' ) ;
-        }
-
-      } ) ;
-
-    }
+    } ) ;
 
     // Ensure #giftAid checkbox is unchecked on page reload
     if ( $ ( '#giftAid' ) . prop ( 'checked' ) == true ) {

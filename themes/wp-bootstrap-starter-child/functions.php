@@ -44,29 +44,27 @@ add_shortcode( 'site_year', 'site_year' );
  *
  * Customisation descriptions follow, further notes at the top of each
  * customisation section:
- * 1.  Function Overrides
- *     Override selected functions in the parents theme's template-tags.php
- *     using a child template-tags.php.
- * 2.  Bootstrap Styling
- *     Replace parent theme's bootstrap styles with my child version reflecting
- *     SAAS variations to the parent.
- * 3.  Call to Action Common Functions
- *     Functions that are common to at least two of the calls to action and so
- *     are defined in their own section.
- * 4.  Varilink Donations (varilink_donations)
- *     Implementation of the Varilink Donations call to action.
- * 5.  Varilink Join (varilink_join)
- *     Implementation of the Varilink Join call to action.
- * 6.  Varilink Renew (varilink_renew)
- *     Implementation of the Varilink Renew call to action.
- * 7.  Varilink Subscribe (varilink_subscribe)
- *     Implementation of the Varilink Subscribe call to action.
- * 8.  Varilink Gift Aid (varilink_gift_aid)
- *     Payment handling step to capture Gift Aid declarations
- * 9.  Custom Widgets
- *     Definition of a custom meta widget
- * 10. PayPal Webhook
- *     Functions to handle the PayPal Webhook callback via a REST API
+ * 1. Function Overrides
+ *    Override selected functions in the parents theme's template-tags.php
+ *    using a child template-tags.php.
+ * 2. Bootstrap Styling
+ *    Replace parent theme's bootstrap styles with my child version reflecting
+ *    SAAS variations to the parent.
+ * 3. Call to Action Common Functions
+ *    Functions that are common to at least two of the calls to action and so
+ *    are defined in their own section.
+ * 4. Varilink Donations (varilink_donations)
+ *    Implementation of the Varilink Donations call to action.
+ * 5. Varilink Join or Renew Membership (fobv_join_or_renew)
+ *    Implementation of the FoBV Join or Renew Membership call to action.
+ * 6. Varilink Subscribe (varilink_subscribe)
+ *    Implementation of the Varilink Subscribe call to action.
+ * 7. Varilink Gift Aid (varilink_gift_aid)
+ *    Payment handling step to capture Gift Aid declarations
+ * 8. Custom Widgets
+ *    Definition of a custom meta widget
+ * 9. PayPal Webhook
+ *    Functions to handle the PayPal Webhook callback via a REST API
  *
  */
 
@@ -113,147 +111,8 @@ function fobv_start_form ( $form_id ) {
 <form id=\"$form_id\" action=\"" . admin_url ( 'admin-post.php' ) . '" class="needs-validation" method="post" enctype="application/x-www-form-urlencoded" novalidate>' ;
 }
 
-function fobv_contact_details ( $instance ) {
-
-  // Function to return form inputs to capture basic (name and email) contact
-  // details for new or renewed memberships.
-
-  return '
-<div class="form-row mb-3">
-  <label for="' . $instance . 'InputFirstName" class="col-3 pt-1">First Name:</label>
-  <input id="' . $instance . 'InputFirstName" name="first_name" type="text" class="form-control col-9" placeholder="Enter your first name" aria-label="First Name" required>
-  <div class="invalid-feedback">
-    You must enter your first name
-  </div>
-</div>
-<div class="form-row mb-3">
-  <label for="' . $instance . 'InputSurname" class="col-3 pt-1">Surname:</label>
-  <input id="' . $instance . 'InputSurname" name="surname" type="text" class="form-control col-9" placeholder="Enter your surname" aria-label="Surname" required>
-  <div class="invalid-feedback">
-    You must enter your surname
-  </div>
-</div>
-<div class="form-row mb-3">
-  <label for="' . $instance . 'InputEmailAddress" class="col-3 pt-1">Email Address:</label>
-  <input id="' . $instance . 'InputEmailAddress" name="email" type="email" class="form-control col-9" placeholder="Enter your email address" aria-label="Email Address" required>
-  <div class="invalid-feedback">
-    You must enter a valid email address that you can be contacted via
-  </div>
-</div>
-<div class="form-row">
-  <label for="' . $instance . 'InputConfirmEmailAddress" class="col-3 pt-1">Confirm Email Address:</label>
-  <input id="' . $instance . 'InputConfirmEmailAddress" name="confirm_email" type="email" class="form-control col-9" placeholder="Repeat your email address to confirm it" aria-label="Confirm Email Address" required>
-  <div class="invalid-feedback">
-    You must exactly match the email address that you entered above to confirm it
-  </div>
-</div>
-' ;
-}
-
-function fobv_payment_details ( $instance ) {
-
-  // Function to return form inputs to capture payment details for new or
-  // renewed memberships.
-
-  global $reference ;
-
-  return '
-<!-- Payment Details -->
-<div class="row">
-  <div class="col-sm-10 offset-sm-1 shadow p-3 mb-5 bg-white rounded">
-    <p class="lead">Payment</p>
-    <p>
-      Please select your chosen payment amount and payment method. The payment amount is £5 or £50 depending on whether you wish to join/renew for one year or for life.
-    </p>
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-label col-sm-2">Payment Amount:</legend>
-        <div class="col-sm-10 mt-2">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="amount" id="' . $instance . 'AnnualAmount" value="5" checked required>
-            <label class="form-check-label" for="' . $instance . 'AnnualAmount">
-              £5 (One Year)
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="amount" id="' . $instance . 'LifeAmount" value="50" required>
-            <label class="form-check-label" for="' . $instance . 'AnnualAmount">
-              £50 (Life)
-            </label>
-          </div>
-        </div>
-      </div>
-    </fieldset>
-    <fieldset class="form-group">
-      <div class="row">
-        <legend class="col-form-label col-sm-2">Payment Method:</legend>
-        <div id="' . $instance . 'PaymentMethods" class="accordion col-sm-10 mt-2">
-          <!-- Cash -->
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="method" id="' . $instance . 'InputCash" value="cash" data-toggle="collapse" data-target="#' . $instance . 'InputCashHelp" required>
-            <label class="form-check-label" for="' . $instance . 'InputCash">
-              Cash
-            </label>
-          </div>
-          <div id="' . $instance . 'InputCashHelp" class="collapse" data-parent="#' . $instance . 'PaymentMethods">
-            <p>
-              Please give your cash payment to an officer of The Friends of Bennerley Viaduct when you first attend a membership meeting. Do not send cash payments through the post.
-            </p>
-          </div>
-          <!-- /Cash -->
-          <!-- Cheque -->
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="method" id="' . $instance . 'InputCheque" value="cheque" data-toggle="collapse" data-target="#' . $instance . 'InputChequeHelp" required>
-            <label class="form-check-label" for="' . $instance . 'InputCheque">
-              Cheque
-            </label>
-          </div>
-          <div id="' . $instance . 'InputChequeHelp" class="collapse" data-parent="#' . $instance . 'PaymentMethods">
-            <p>
-              Cheques should be made payable to "The Friends of Bennerley Viaduct" and be posted to Castledine House, 5-9 Heanor Road, Ilkeston DE7 8DY. Please write the reference ' . $reference . ' on the back.
-            </p>
-          </div>
-          <!-- /Cheque -->
-          <!-- Bank Transfer -->
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="method" id="' . $instance . 'InputBankTransfer" value="bank_transfer" data-toggle="collapse" data-target="#' . $instance . 'InputBankTransferHelp" required>
-            <label class="form-check-label" for="' . $instance . 'InputBankTransfer">
-              Bank Transfer
-            </label>
-          </div>
-          <div id="' . $instance . 'InputBankTransferHelp" class="collapse" data-parent="#' . $instance . 'PaymentMethods">
-            <p>
-              Please instruct your bank transfer to:<br>
-              Payee = Friends of Bennerley Viaduct<br>
-              Account Number = 34642813<br>
-              Sort Code = 40-19-15<br>
-              and please use the reference ' . $reference . ' for the transaction.
-            </p>
-          </div>
-          <!-- /Bank Transfer -->
-          <!-- Online -->
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="method" id="' . $instance  . 'InputOnline" value="online" data-toggle="collapse" data-target="#' . $instance . 'InputOnlineHelp" checked required>
-            <label class="form-check-label" for="' . $instance . 'InputOnline">
-              Online
-            </label>
-          </div>
-          <div id="' . $instance . 'InputOnlineHelp" class="collapse show" data-parent="#' . $instance . 'PaymentMethods">
-            <p>
-              When you click on Submit, you will be taken to a page to instruct your payment, either via PayPal or a debit or credit card.
-            </p>
-          </div>
-          <!-- /Online -->
-        </div>
-      </div>
-    </fieldset>
-  </div>
-</div>
-' ;
-}
-
 function fobv_mailchimp_subscriber (
-  $email , $first_name , $surname , $interests_in
+  $email_address , $first_name , $surname , $interests_in
 ) {
 
   // Returns Mailchimp merge_fields and optionally interests reflecting the
@@ -339,37 +198,113 @@ function fobv_mailchimp_subscriber (
 
 function fobv_membership_handle_form ( ) {
 
-  if ( function_exists ( 'varilink_write_log' ) ) {
-    ob_start ( ) ;
-    var_dump ( $_POST ) ;
-    $post = ob_get_clean ( ) ;
-    varilink_write_log ( $post ) ;
+  // If the varilink_write_log function exists then use it log the $_POST
+  if ( function_exists('varilink_write_log') ) {
+    ob_start();
+    var_dump($_POST);
+    $post = ob_get_clean();
+    varilink_write_log($post);
   }
 
-  // Common inputs. These are submitted by both join and renew actions.
-  $email = $_POST [ 'email' ] ;
-  $first_name = $_POST [ 'first_name' ] ;
-  $amount = $_POST [ 'amount' ] ;
-  $method = $_POST [ 'method' ] ;
-  $reference = $_POST [ 'reference' ] ;
-  $surname = $_POST [ 'surname' ] ;
-  $gift_aid = $_POST [ 'gift_aid' ] ;
-
-  if ( function_exists ( 'varilink_write_log' ) ) {
-    varilink_write_log ( "About to determine notification email recipient" ) ;
-    varilink_write_log ( 'FOBV_OVERRIDE_EMAIL:' ) ;
-    varilink_write_log ( FOBV_OVERRIDE_EMAIL ) ;
+  // Put the data received in $_POST into convenience variables
+  $first_name = $_POST['first_name'];
+  $surname = $_POST['surname'];
+  $email_address = $_POST['email_address'];
+  $postcode = $_POST['postcode'];
+  if ( array_key_exists('telephone', $_POST) ) {
+    $telephone = $_POST['telephone'];
+  } else {
+    $telephone = '';
+  }
+  $amount = $_POST['amount'];
+  $method = $_POST['method'];
+  $reference = $_POST['reference'];
+  if ( array_key_exists('gift_aid', $_POST) ) {
+    $gift_aid = $_POST['gift_aid'];
+  } else {
+    $gift_aid = '';
   }
 
-  // Environment values for the confirmation email to the membership secretary.
+  // Send membership welcome email
+
+  function wpdocs_set_html_mail_content_type ( ) {
+    return 'text/html';
+  }
+
+  add_filter ( 'wp_mail_content_type' , 'wpdocs_set_html_mail_content_type' ) ;
+
+  $message = <<<'EOD'
+  <p>
+    Thank you for signing up to become a Friend of Bennerley Viaduct, and a warm
+    welcome to you. If you are a new member, thank you for joining us: if you
+    are returning or renewing, welcome back, your continued support is much
+    appreciated.
+  </p>
+  <p>
+    The fee you pay for your membership is vital to support our ongoing work, it
+    is one of the major income streams for our charity. The strength of our
+    membership proves to external funders and potential partners how much
+    community support we have – whether you live and work near the Iron Giant or
+    are part of our global community, here because you love heritage, railways
+    or historic civil engineering.
+  </p>
+  <p>
+    You are also the lifeblood of the organisation: our members help us raise
+    the profile of the viaduct with their own friends, families and colleagues,
+    they volunteer in a host of ways, and they are part of our committees,
+    making important decisions for our future.
+  </p>
+  <p>
+    To find out more about your membership and our group please read this
+    <a href=
+    "https://www.bennerleyviaduct.org.uk/wp-content/uploads/2022/12/Members-Welcome-Pack-1.pdf"
+    >Welcome Pack</a>.
+  </p>
+  <p>
+    To understand the terms of your membership and how we store our data you can
+    read <a href=
+    "https://www.bennerleyviaduct.org.uk/wp-content/uploads/2022/12/Membership-Information-Sheet-.pdf"
+    >Membership Ts and Cs</a>.
+  </p>
+  <p>
+    We’re very happy you’ve taken the step to become a member, and please do get
+    in touch if you have any questions, or feedback, on your experience of being
+    part of FoBV.
+  </p>
+  <p>
+    You can email <a href="mailto:info@bennerleyviaduct.org.uk">
+    info@bennerleyviaduct.org.uk</a> to speak to the main office and volunteers
+    If you have questions about your membership or data you can contact our
+    Membership Secretary on <a href="mailto:membership@bennerleyviaduct.org.uk">
+    membership@bennerleyviaduct.org.uk</a>.
+  </p>
+  EOD;
+
+  wp_mail ( $email_address , 'Welcome to the Friends of Bennerley Viaduct' , $message , array ( 'Reply-To: membership@bennerleyviaduct.org.uk' ) ) ;
+
+  remove_filter ( 'wp_mail_content_type' , 'wpdocs_set_html_mail_content_type' ) ;
+
+  // If the varilink_write_log function exists the use it to report the
+  // FOBV_OVERRIDE_EMAIL constant. This provides a regex pattern, which if
+  // matched to $email_address causes all notification emails to be sent to
+  // $email_address.
+  if ( function_exists('varilink_write_log') ) {
+    varilink_write_log('About to determine notification email recipient');
+    varilink_write_log('FOBV_OVERRIDE_EMAIL:');
+    varilink_write_log(FOBV_OVERRIDE_EMAIL);
+  }
+
+  // Send notification email to the relevant officers of the FoBV or the
+  // override email address if it matches the address entered in the join or
+  // renew form.
   $to = (
-    preg_match ( FOBV_OVERRIDE_EMAIL , $email )
-      ? $email
+    preg_match(FOBV_OVERRIDE_EMAIL, $email_address)
+      ? $email_address
       : FOBV_MEMBERSHIP_EMAIL . ',' . FOBV_TREASURER_EMAIL . ',' . FOBV_MAILCHIMP_EMAIL
   ) ;
 
-  if ( function_exists ( 'varilink_write_log' ) ) {
-    varilink_write_log ( "Notification email recipient=$to" ) ;
+  if ( function_exists('varilink_write_log') ) {
+    varilink_write_log("Notification email recipient=$to");
   }
 
   $subject = (
@@ -382,113 +317,48 @@ function fobv_membership_handle_form ( ) {
     "---------------\r\n" .
     "First Name: $first_name\r\n" .
     "Surname: $surname\r\n" .
-    "Email Address: $email\r\n" ;
+    "Email Address: $email_address\r\n" .
+    "Postcode: $postcode\r\n";
+
+  if ($telephone) { $contact_details .= "Telephone: $telephone\r\n"; }
+
   $payment =
     "Payment\r\n" .
     "-------\r\n" .
     "Amount: $amount\r\n" .
     "Method: $method\r\n" .
-    "Reference: $reference\r\n" ;
-
-  // Send membership welcom email
-
-  function wpdocs_set_html_mail_content_type ( ) {
-    return 'text/html';
-  }
-
-  add_filter ( 'wp_mail_content_type' , 'wpdocs_set_html_mail_content_type' ) ;
+    "Reference: $reference\r\n";
 
   $message =
-    '<p>Thank you for either joining or renewing your membership to the Friends of Bennerley Viaduct. Please find below a link to information about our group which you may find helpful. If you have any questions about the group and how we work, please do not hesitate to get in contact with me.</p>' .
-    '<a href="https://bennerleyviaduct.us12.list-manage.com/track/click?u=c7b4f78d87142e3b04cd3a365&id=a509ec4720&e=a1acb9eb6a">Membership Information</a>' .
-    '<p>Adrian Chatfield<br>Membership Secretary</p>' .
-    '<a href="mailto://membership@bennerleyviaduct.org.uk">membership@bennerleyviaduct.org.uk</a>' ;
+    "New member or membership renewal captured via the website as follows\r\n" .
+    "\r\n" .
+    $contact_details .
+    $payment;
 
-  wp_mail ( $email , 'Welcome to the Friends of Bennerley Viaduct' , $message , array ( 'Reply-To: membership@bennerleyviaduct.org.uk' ) ) ;
+  if ($gift_aid === 'on') {
 
-  remove_filter ( 'wp_mail_content_type' , 'wpdocs_set_html_mail_content_type' ) ;
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $address3 = $_POST['address3'];
+    $address4 = $_POST['address4'];
+    $postcode = $_POST['postcode'];
 
-  if ( !$age && !$gender ) {
-
-    // This is a renew
-
-    $message =
-      "Membership renewal captured via the website as follows\r\n" .
+    $message .=
       "\r\n" .
-      $contact_details .
-      "\r\n"  .
-      $payment ;
-
-    if ( $gift_aid === 'on' ) {
-
-      $address1 = $_POST [ 'address1' ] ;
-      $address2 = $_POST [ 'address2' ] ;
-      $address3 = $_POST [ 'address3' ] ;
-      $address4 = $_POST [ 'address4' ] ;
-      $postcode = $_POST [ 'postcode' ] ;
-
-      $message .=
-        "\r\n" .
-        "\r\n" .
-        "The member elected for Gift Aid to be collected in respect of their membership fee and provided the following address:\r\n" .
-        "Address Line 1: $address1\r\n" .
-        "Address Line 2: $address2\r\n" .
-        "Address Line 3: $address3\r\n" .
-        "Address Line 4: $address4\r\n" .
-        "Postcode: $postcode\r\n" ;
-
-    } else {
-
-      $message .=
-        "\r\n" .
-        "\r\n" .
-        'The member did NOT elect for Gift Aid to be collected in respect of their membership fee.' ;
-
-    }
-
-  } else {
-
-    // Inputs specific to a join, i.e. not a renew.
-    $address1 = $_POST [ 'address1' ] ;
-    $address2 = $_POST [ 'address2' ] ;
-    $address3 = $_POST [ 'address3' ] ;
-    $address4 = $_POST [ 'address4' ] ;
-    $postcode = $_POST [ 'postcode' ] ;
-    $gender = $_POST [ 'gender' ] ;
-    $age_group = $_POST [ 'age_group' ] ;
-
-    $message =
-      "New member captured via the website as follows\r\n" .
       "\r\n" .
-      $contact_details .
+      "The member elected for Gift Aid to be collected in respect of their membership fee and provided the following address:\r\n" .
       "Address Line 1: $address1\r\n" .
       "Address Line 2: $address2\r\n" .
       "Address Line 3: $address3\r\n" .
       "Address Line 4: $address4\r\n" .
-      "Postcode: $postcode\r\n" .
-      "\r\n"  .
-      "Demographic\r\n" .
-      "-----------\r\n" .
-      "Gender: $gender\r\n" .
-      "Age Group: $age_group\r\n" .
+      "Postcode: $postcode\r\n" ;
+
+  } else {
+
+    $message .=
       "\r\n" .
-      $payment ;
-
-    if ( $gift_aid === 'on' ) {
-
-      $message .=
-        "\r\n" .
-        "\r\n" .
-        'The new member elected for Gift Aid to be collected in respect of their membership fee.' ;
-
-    } else {
-
-      $message .=
-        "\r\n" .
-        "\r\n" .
-        'The new member did NOT elect for Gift Aid to be collected in respect of their membership fee.' ;
-
-    }
+      "\r\n" .
+      'The member did NOT elect for Gift Aid to be collected in respect of their membership fee.' ;
 
   }
 
@@ -505,7 +375,7 @@ function fobv_membership_handle_form ( ) {
     FOBV_MAILCHIMP_API_KEY ,
     FOBV_MAILCHIMP_API_ROOT ,
     FOBV_MAILCHIMP_LIST_ID ,
-    $email ,
+    $email_address ,
     $fields
   ) ;
 
@@ -563,13 +433,13 @@ function fobv_membership_handle_form ( ) {
       }
 
       $subscriber = fobv_mailchimp_subscriber (
-        $email , $first_name , $surname , $interests
+        $email_address , $first_name , $surname , $interests
       ) ;
 
       $merge_fields = array_pop ( $subscriber ) ;
 
       $request = [
-        'email_address' => $email ,
+        'email_address' => $email_address ,
         'status_if_new' => 'subscribed' , // Can't be new, should use patch API
         'status' => 'subscribed' ,
         'merge_fields' => $merge_fields
@@ -610,13 +480,13 @@ function fobv_membership_handle_form ( ) {
       }
 
       $subscriber = fobv_mailchimp_subscriber (
-        $email , $first_name , $surname , $interests
+        $email_address , $first_name , $surname , $interests
       ) ;
 
       $merge_fields = array_pop ( $subscriber ) ;
 
       $request = [
-        'email_address' => $email ,
+        'email_address' => $email_address ,
         'status_if_new' => 'pending' ,
         'status' => 'pending' ,
         'merge_fields' => $merge_fields
@@ -650,13 +520,13 @@ function fobv_membership_handle_form ( ) {
     $interests = [ 'membership' ] ;
 
     $subscriber = fobv_mailchimp_subscriber (
-      $email , $first_name , $surname , $interests
+      $email_address , $first_name , $surname , $interests
     ) ;
 
     $merge_fields = array_pop ( $subscriber ) ;
 
     $request = [
-      'email_address' => $email ,
+      'email_address' => $email_address ,
       'status_if_new' => 'pending' ,
       'status' => 'pending' ,
       'merge_fields' => $merge_fields
@@ -783,20 +653,20 @@ fobv_start_form ( 'fobv_donations_form' ) . '
   </p>
   <div class="form-row mb-3">
     <label class="col-3 pt-1" for="inputEmailAddress">Email Address:</label>
-    <input id="inputEmailAddress" name="email" type="email" class="form-control col-9" placeholder="If you are okay for us to contact you, enter your email address" aria-label="Email Address">
+    <input id="inputEmailAddress" name="email_address" type="email" class="form-control col-9" placeholder="If you are okay for us to contact you, enter your email address" aria-label="Email Address">
     <div class="invalid-feedback">
       If you enter an email address for us to contact you, then it must be a valid one.
     </div>
   </div>
   <div class="form-row mb-3">
     <label for="inputConfirmEmailAddress" class="col-3 pt-1">Confirm Email Address:</label>
-    <input id="inputConfirmEmailAddress" name="confirm_email" type="text" class="form-control col-9" placeholder="If you entered an email address above, repeat it here to confirm it" aria-label="Confirm Email Address" disabled>
+    <input id="inputConfirmEmailAddress" name="confirm_email_address" type="text" class="form-control col-9" placeholder="If you entered an email address above, repeat it here to confirm it" aria-label="Confirm Email Address" disabled>
     <div class="invalid-feedback">
       You must exactly match the email address that you entered above to confirm it.
     </div>
   </div>
   <div class="form-row">
-    <button id="buttonSubmit" type="submit" class="btn btn-primary col-2">Next</button>
+    <button id="buttonSubmit" type="submit" class="btn btn-primary col-2">Submit</button>
     <label for="buttonSubmit" class="col-10 pt-1">
       Personal data provided to us is protected by our <a href="' .
       get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
@@ -818,7 +688,7 @@ function fobv_donations_handle_form ( ) {
   // Handle submit from the FoBV donations form
 
   $amount     = $_POST [ 'amount' ] ;
-  $email      = $_POST [ 'email' ] ;
+  $email_address      = $_POST [ 'email_address' ] ;
   $first_name = $_POST [ 'first_name' ] ;
   $surname    = $_POST [ 'surname' ] ;
   $address1   = $_POST [ 'address1' ] ;
@@ -861,13 +731,13 @@ function fobv_donations_handle_form ( ) {
   ) ;
 
   $to = (
-    preg_match ( FOBV_OVERRIDE_EMAIL , $email )
-      ? $email
+    preg_match ( FOBV_OVERRIDE_EMAIL , $email_address )
+      ? $email_address
       : FOBV_TREASURER_EMAIL
   ) ;
   $subject = 'Donation to ' . FOBV_PAYPAL_BRAND_NAME ;
-  if ( $email ) {
-    $message = "A donation of $amount was initiated via the website. This does not mean that the donor followed through to payment. The donor gave their email address as $email." ;
+  if ( $email_address ) {
+    $message = "A donation of $amount was initiated via the website. This does not mean that the donor followed through to payment. The donor gave their email address as $email_address." ;
   } else {
     $message = "A donation of $amount was initiated via the website. This does not mean that the donor followed through to payment. The donor chose not to provide their email address." ;
   }
@@ -900,142 +770,214 @@ add_action ( 'admin_post_nopriv_fobv_donations_form' , 'fobv_donations_handle_fo
 add_action ( 'admin_post_fobv_donations_form' , 'fobv_donations_handle_form' ) ;
 
 // -----------------------------------------------------------------------------
-// 5. FoBV Join (fobv_join)
+// 5. FoBV Join or Renew Membership (fobv_join_or_renew)
 //
-// The FoBV Join call to action.
+// The FoBV Join or Renew Membership call to action.
 //
 
-function fobv_join_output_form ( ) {
+function fobv_join_or_renew_output_form () {
 
-  // Output to form to accept new members
+  // Output to form for new members to join or existing members to renew their
+  // membership.
 
-  global $reference ;
-
+  global $reference;
   $output = '
-<!-- fobv_join_form -->' .
-fobv_start_form ( 'fobv_join_form' ) . '
+ <!-- fobv_join_or_renew_form -->' .
+fobv_start_form('fobv_join_or_renew_form') . '
   <input type="hidden" name="action" value="fobv_gift_aid_form" />
   <input type="hidden" name="next_action" value="fobv_membership_form">
-  ' . wp_nonce_field ( 'fobv_join_form' , 'fobv_join_nonce' , true , false ) . '
+  ' . wp_nonce_field ('fobv_join_or_renew_form', 'fobv_join_or_renew_nonce',
+  true, false) . '
   <input type="hidden" name="reference" value="' . $reference . '">
+  <!-- Contact Details -->
   <div class="row">
     <div class="col-sm-10 offset-sm-1 shadow p-3 mb-5 bg-white rounded">
-      <p class="lead">Contact Details</p>' .
-fobv_contact_details ( 'join' ) . '
-      <div class="form-row mt-3 mb-3">
-        <label for="inputAddress1" class="col-3 pt-1">Address Line 1:</label>
-        <input id="inputAddress1" name="address1" type="text" class="form-control col-9" placeholder="Enter the first line of your address" aria-label="Address" required>
+      <p class="lead">Contact Details</p>
+      <div class="form-row mb-3">
+        <label for="inputFirstName" class="col-3 pt-1">First Name:</label>
+        <input id="inputFirstName" name="first_name" type="text"
+        class="form-control col-9" placeholder="Enter your first name"
+        aria-label="First Name" required>
         <div class="invalid-feedback">
-          You must enter at least two lines of your address
+          You must enter your first name
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="inputAddress2" class="col-3 pt-1">Address Line 2:</label>
-        <input id="inputAddress2" name="address2" type="text" class="form-control col-9" placeholder="Enter the second line of your address" aria-label="Address" required>
+        <label for="inputSurname" class="col-3 pt-1">Surname:</label>
+        <input id="inputSurname" name="surname" type="text"
+        class="form-control col-9" placeholder="Enter your surname"
+        aria-label="Surname" required>
         <div class="invalid-feedback">
-          You must enter at least two lines of your address
+          You must enter your surname
         </div>
       </div>
       <div class="form-row mb-3">
-        <label for="inputAddress3" class="col-3 pt-1">Address Line 3:</label>
-        <input id="inputAddress3" name="address3" type="text" class="form-control col-9" placeholder="Enter the third line of your address" aria-label="Address">
-      </div>
-      <div class="form-row mb-3">
-        <label for="inputAddress4" class="col-3 pt-1">Address Line 4:</label>
-        <input id="inputAddress4" name="address4" type="text" class="form-control col-9" placeholder="Enter the fourth line of your address" aria-label="Address">
+        <label for="inputEmailAddress" class="col-3 pt-1">Email Address:</label>
+        <input id="inputEmailAddress" name="email_address" type="email"
+        class="form-control col-9" placeholder="Enter your email address"
+        aria-label="Email Address" required>
+        <div class="invalid-feedback">
+          You must enter a valid email address that you can be contacted via
+        </div>
       </div>
       <div class="form-row">
+        <label for="inputConfirmEmailAddress" class="col-3 pt-1">
+        Confirm Email Address:</label>
+        <input id="inputConfirmEmailAddress" name="confirm_email_address"
+        type="email" class="form-control col-9"
+        placeholder="Repeat your email address to confirm it"
+        aria-label="Confirm Email Address" required disabled>
+        <div class="invalid-feedback">
+          You must exactly match the email address that you entered above to
+          confirm it
+        </div>
+      </div>
+      <div class="form-row mb-3">
         <label for="inputPostcode" class="col-3 pt-1">Postcode:</label>
-        <input id="inputPostcode" name="postcode" type="text" class="form-control col-9" placeholder="Enter your postcode" aria-label="Postcode" required>
+        <input id="inputPostcode" name="postcode" type="text"
+        class="form-control col-9" placeholder="Enter your postcode"
+        aria-label="Postcode" required>
         <div class="invalid-feedback">
           You must enter your post code
         </div>
       </div>
-
+      <div class="form-row">
+        <label for="inputTelephone" class="col-3 pt-1">Telephone:</label>
+        <input id="inputTelephone" name="telephone" type="text"
+        class="form-control col-9"
+        placeholder="Optionally enter a contact telephone number"
+        aria-label="Telephone">
+        <div class="invalid-feedback">
+          You must enter a valid telephone number
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- Start of Demographic Section -->
+  <!-- /Contact Details -->
+  <!-- Payment Details -->
   <div class="row">
     <div class="col-sm-10 offset-sm-1 shadow p-3 mb-5 bg-white rounded">
-
-      <p class="lead">Demographic</p>
-
+      <p class="lead">Payment</p>
+      <p>
+        Please select your chosen payment amount and payment method. The payment
+        amount is £10 or £50 depending on whether you wish to join/renew for one
+        year or for life. In light of the current cost of living crisis, we are
+        also offering the option to join/renew for one year for £5.
+      </p>
       <fieldset class="form-group">
-
-        <div class="form-row align-items-center">
-
-          <legend class="col-form-label col-sm-2">Gender:</legend>
-
-          <div class="col-sm-10">
-
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="gender" id="inputGenderMale" value="male" required>
-              <label class="custom-control-label" for="inputGenderMale">Male</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="gender" id="inputGenderFemale" value="female" required>
-              <label class="custom-control-label" for="inputGenderFemale">Female</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="gender" id="inputGenderNone" value="none" required>
-              <label class="custom-control-label" for="inputGenderNone">Prefer not to say</label>
-              <div class="invalid-feedback">
-                You must select one of the Gender options above
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </fieldset>
-
-      <fieldset class="form-group">
-
         <div class="row">
-
-          <legend class="col-form-label col-sm-2">Age Group:</legend>
-
-          <div class="col-sm-10">
-
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroupUnder16" value="under 16" required>
-              <label class="custom-control-label" for="inputAgeGroupUnder16">Under 16</label>
+          <legend class="col-form-label col-sm-2">Payment Amount:</legend>
+          <div class="col-sm-10 mt-2">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="amount"
+              id="inputAnnualAmount" value="10" checked required>
+              <label class="form-check-label" for="inputAnnualAmount">
+                £10 (One Year)
+              </label>
             </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroup16-24" value="16-24" required>
-              <label class="custom-control-label" for="inputAgeGroup16-24">16-24</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="amount"
+              id="inputDiscountedAnnualAmount" value="5" required>
+              <label class="form-check-label" for="inputDiscountedAnnualAmount">
+                £5 (One Year)
+              </label>
             </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroup25-44" value="25-44" required>
-              <label class="custom-control-label" for="inputAgeGroup25-44">25-44</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="amount"
+              id="inputLifeAmount" value="50" required>
+              <label class="form-check-label" for="inputLifeAmount">
+                £50 (Life)
+              </label>
             </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroup45-64" value="45-64" required>
-              <label class="custom-control-label" for="inputAgeGroup45-64">45-64</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroup65Plus" value="65+" required>
-              <label class="custom-control-label" for="inputAgeGroup65Plus">65+</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input class="custom-control-input" type="radio" name="age_group" id="inputAgeGroupNone" value="none" required>
-              <label class="custom-control-label" for="inputAgeGroupNoe">Prefer not to say</label>
-              <div class="invalid-feedback">
-                You must select one of the Age Group options above
-              </div>
-            </div>
-
           </div>
-
         </div>
-
       </fieldset>
-
+      <fieldset class="form-group">
+        <div class="row">
+          <legend class="col-form-label col-sm-2">Payment Method:</legend>
+          <div id="optionsPaymentMethods" class="accordion col-sm-10 mt-2">
+            <!-- Cash -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="method"
+              id="inputCash" value="cash" data-toggle="collapse"
+              data-target="#inputCashHelp" required>
+              <label class="form-check-label" for="inputCash">
+                Cash
+              </label>
+            </div>
+            <div id="inputCashHelp" class="collapse"
+            data-parent="#optionsPaymentMethods">
+              <p>
+                Please give your cash payment to an officer of The Friends of
+                Bennerley Viaduct when you first attend a membership meeting.
+                Do not send cash payments through the post.
+              </p>
+            </div>
+            <!-- /Cash -->
+            <!-- Cheque -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="method"
+              id="inputCheque" value="cheque" data-toggle="collapse"
+              data-target="#inputChequeHelp" required>
+              <label class="form-check-label" for="inputCheque">
+                Cheque
+              </label>
+            </div>
+            <div id="inputChequeHelp" class="collapse"
+            data-parent="#optionsPaymentMethods">
+              <p>
+                Cheques should be made payable to "The Friends of Bennerley
+                Viaduct" and be posted to Castledine House, 5-9 Heanor Road,
+                Ilkeston DE7 8DY. Please write the reference ' . $reference . '
+                on the back.
+              </p>
+            </div>
+            <!-- /Cheque -->
+            <!-- Bank Transfer -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="method"
+              id="inputBankTransfer" value="bank_transfer"
+              data-toggle="collapse" data-target="#inputBankTransferHelp"
+              required>
+              <label class="form-check-label" for="inputBankTransfer">
+                Bank Transfer
+              </label>
+            </div>
+            <div id="inputBankTransferHelp" class="collapse"
+            data-parent="#optionsPaymentMethods">
+              <p>
+                Please instruct your bank transfer to:<br>
+                Payee = Friends of Bennerley Viaduct<br>
+                Account Number = 34642813<br>
+                Sort Code = 40-19-15<br>
+                and please use the reference ' . $reference . ' for the
+                transaction.
+              </p>
+            </div>
+            <!-- /Bank Transfer -->
+            <!-- Online -->
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="method"
+              id="inputOnline" value="online" data-toggle="collapse"
+              data-target="#inputOnlineHelp" checked required>
+              <label class="form-check-label" for="inputOnline">
+                Online
+              </label>
+            </div>
+            <div id="inputOnlineHelp" class="collapse show"
+            data-parent="#optionsPaymentMethods">
+              <p>
+                When you click on Submit, you will be taken to a page to
+                instruct your payment, either via PayPal or a debit or
+                credit card.
+              </p>
+            </div>
+            <!-- /Online -->
+          </div>
+        </div>
+      </fieldset>
     </div>
-  </div>' .
-fobv_payment_details ( 'join' ) . '
+  </div>
   <div class="row justify-content-center">
     <button id="buttonJoinSubmit" type="submit" class="btn btn-primary col-2 pl-2">Submit</button>
     <label for="buttonJoinSubmit" class="col-9 pt-1">
@@ -1045,62 +987,16 @@ fobv_payment_details ( 'join' ) . '
     </label>
   </div>
 </form>
-<!-- /fobv_join_form -->
-'
-;
-return $output ;
+<!-- /fobv_join_or_renew_form -->
+  '; 
+  return $output;
 }
 
-// Add shortcode for display of the FoBV Join form on a page
-add_shortcode ( 'fobv_join_form' , 'fobv_join_output_form' ) ;
+// Add shortcode for display of the FoBV join or renew form on a page
+add_shortcode ( 'fobv_join_or_renew_form' , 'fobv_join_or_renew_output_form' ) ;
 
 // -----------------------------------------------------------------------------
-// 6. FoBV Renew (fobv_renew)
-//
-// Implementation of the FoBV Renew call to action.
-//
-
-function fobv_renew_output_form ( ) {
-
-  // Function to output the FoBV Renew form.
-
-  global $reference ;
-
-  $output = '
-<!-- fobv_renew_form -->' .
-fobv_start_form ( 'fobv_renew_form' ) . '
-  <input type="hidden" name="action" value="fobv_gift_aid_form" />
-  <input type="hidden" name="next_action" value="fobv_membership_form">
-  ' . wp_nonce_field ( 'fobv_renew_form' , 'fobv_renew_nonce' , true , false ) .
-  '
-  <input type="hidden" name="reference" value="' . $reference . '">
-  <div class="row">
-    <div class="col-sm-10 offset-sm-1 shadow p-3 mb-5 bg-white rounded">
-      <p class="lead">Contact Details</p>' .
-fobv_contact_details ( 'renew' ) . '
-    </div>
-  </div>' .
-fobv_payment_details ( 'renew' ) . '
-<div class="row justify-content-center">
-  <button id="buttonJoinSubmit" type="submit" class="btn btn-primary col-2 pl-2">Submit</button>
-  <label for="buttonJoinSubmit" class="col-9 pt-1">
-    Personal data provided to us is protected by our <a href="' .
-    get_page_link ( FOBV_PRIVACY_POLICY_PAGE_ID ) .
-    '" target="_blank">privacy policy</a>' . '
-  </label>
-</div>
-</form>
-<!-- /fobv_renew_form -->
-'
-;
-return $output ;
-}
-
-// Add a shortcode so that FoBV Renew form can be incorporated in a page
-add_shortcode ( 'fobv_renew_form' , 'fobv_renew_output_form' ) ;
-
-// -----------------------------------------------------------------------------
-// 7. FoBV Subscribe (fobv_subscribe)
+// 6. FoBV Subscribe (fobv_subscribe)
 //
 // Implementation of the FoBV Subscribe call to action.
 //
@@ -1173,7 +1069,7 @@ add_shortcode ( 'fobv_subscribe_form' , 'fobv_subscribe_output_form' ) ;
 
 function fobv_subscribe_handle_form ( ) {
 
-  $email = $_POST [ 'mc_email' ] ;
+  $email_address = $_POST [ 'mc_email' ] ;
   $first_name = $_POST [ 'mc_first_name' ] ;
   $surname = $_POST [ 'mc_surname' ] ;
   isset ( $_POST [ 'mc_interests' ] )
@@ -1187,7 +1083,7 @@ function fobv_subscribe_handle_form ( ) {
   // Handle the FoBV subscribe form submission
 
   $subscriber = fobv_mailchimp_subscriber (
-    $email , $first_name , $surname , $interests
+    $email_address , $first_name , $surname , $interests
   ) ;
 
   if ( function_exists ( 'varilink_write_log' ) ) {
@@ -1200,7 +1096,7 @@ function fobv_subscribe_handle_form ( ) {
   $merge_fields = array_pop ( $subscriber ) ;
 
   $request = [
-    'email_address' => $email ,
+    'email_address' => $email_address ,
     'status_if_new' => 'pending' ,
     'status' => 'pending' ,
     'merge_fields' => $merge_fields
@@ -1216,8 +1112,8 @@ function fobv_subscribe_handle_form ( ) {
   ) ;
 
   $to = (
-    preg_match ( FOBV_OVERRIDE_EMAIL , $email )
-      ? $email
+    preg_match ( FOBV_OVERRIDE_EMAIL , $email_address )
+      ? $email_address
       : FOBV_MAILCHIMP_EMAIL
   ) ;
 
@@ -1229,7 +1125,7 @@ function fobv_subscribe_handle_form ( ) {
     ? $interests_str = implode ( ' ' , $_POST [ 'mc_interests' ] )
     : $interests_str = 'No interests checked' ;
 
-  $message = "Someone has subscribed to the email bulletin via the website. The details they provided were as follow.\r\nEmail Address: $email\r\nFirst Name: $first_name\r\nSurname: $surname" ;
+  $message = "Someone has subscribed to the email bulletin via the website. The details they provided were as follow.\r\nEmail Address: $email_address\r\nFirst Name: $first_name\r\nSurname: $surname" ;
 
   $headers = 'From: ' . FOBV_EMAIL_SENDER ;
 
@@ -1246,23 +1142,22 @@ add_action ( 'admin_post_nopriv_fobv_subscribe_form' , 'fobv_subscribe_handle_fo
 add_action ( 'admin_post_fobv_subscribe_form' , 'fobv_subscribe_handle_form' ) ;
 
 // -----------------------------------------------------------------------------
-// 8. FoBV Gift Aid
+// 7. FoBV Gift Aid
 
 function fobv_gift_aid_output_form (
-  $action     ,
-  $amount     ,
-  $method     ,
-  $reference  ,
-  $email      ,
-  $first_name ,
-  $surname    ,
-  $address1   ,
-  $address2   ,
-  $address3   ,
-  $address4   ,
-  $postcode   ,
-  $gender     ,
-  $age_group
+  $action        ,
+  $amount        ,
+  $method        ,
+  $reference     ,
+  $email_address ,
+  $first_name    ,
+  $surname       ,
+  $address1      ,
+  $address2      ,
+  $address3      ,
+  $address4      ,
+  $postcode      ,
+  $telephone
 ) {
 
   // Function to output the Varilink Gift Aid form
@@ -1277,7 +1172,7 @@ fobv_start_form ( 'fobv_gift_aid_form' ) . '
 <input type="hidden" name="amount" value="' . $amount . '" />
 <input type="hidden" name="method" value="' . $method . '" />
 <input type="hidden" name="reference" value="' . $reference . '" />
-<input type="hidden" name="email" value="' . $email . '" />' ;
+<input type="hidden" name="email_address" value="' . $email_address . '" />' ;
 
   if ( $first_name && $surname ) {
 
@@ -1287,22 +1182,17 @@ fobv_start_form ( 'fobv_gift_aid_form' ) . '
 
   }
 
-  if ( $address1 && $address2 && $postcode ) {
+  if ( $postcode ) {
 
     $output .= '
-<input type="hidden" name="address1" value="' . $address1 . '" />
-<input type="hidden" name="address2" value="' . $address2 . '" />
-<input type="hidden" name="address3" value="' . $address3 . '" />
-<input type="hidden" name="address4" value="' . $address4 . '" />
 <input type="hidden" name="postcode" value="' . $postcode . '" />' ;
 
   }
 
-  if ( $gender && $age_group ) {
+  if ( $telephone ) {
 
     $output .= '
-<input type="hidden" name="gender" value="' . $gender . '" />
-<input type="hidden" name="age_group" value="' . $age_group . '" />' ;
+<input type="hidden" name="telephone" value="' . $telephone . '" />' ;
 
   }
 
@@ -1334,36 +1224,15 @@ If you want for us to be able to claim Gift Aid for your payment then please che
     </ul>
     <p>
       If you pay Income Tax at the higher or additional rate and want to receive the additional tax relief due to you, you must include all your Gift Aid donations on your Self-Assessment tax return or ask HM Revenue and Customs to adjust your tax code.
-    </p>' ;
-
-  if ( $first_name && $surname && $address1 && $address2 && $postcode ) {
-
-    $output .= '
-    <p>
-      If you are comfortable with the declaration above then please click on "Continue" below to proceed. We then be able to claim Gift Aid for your payment with the details that you have provided already. If you wish to change your mind and not enable Gift Aid for your payment then uncheck the box above and click on "Continue" below to proceed.
-    </p>' ;
-
-  } elseif (
-    $first_name && $surname && ( !$address1 or !$address2 or !$postcode )
-  ) {
-
-    $output .= '
+    </p>
     <p>
       If you are comfortable with the declaration above then please provide below the additional information that we need to claim Gift Aid for your payment and then click on "Continue" to proceed. If you wish to change your mind and not enable Gift Aid for your payment then uncheck the box above and click on "Continue" below to proceed.
     </p>' ;
 
-  } else {
-
-    $output .= '
-    <p>
-      If you are comfortable with the declaration above then please provide below the information that we need to claim Gift Aid for your payment and then click on "Continue" to proceed. If you wish to change your mind and not enable Gift Aid for your payment then uncheck the box above and click on "Continue" below to proceed.
-    </p>' ;
-
-  }
-
   if ( !$first_name or !$surname ) {
 
-    // We don't hvae the contact's name and so must capture is
+    // We don't have the contact's name and so must capture it. This can happen
+    // if we have come here via the Donate call to action.
 
     $output .= '
     <div class="form-row mt-3 mb-3">
@@ -1375,35 +1244,46 @@ If you want for us to be able to claim Gift Aid for your payment then please che
       <input id="inputSurname" name="surname" type="text" class="form-control col-9" placeholder="Enter your surname">
     </div>' ;
 
-    }
+  }
 
-  if ( !$address1 or !$address2 or !$postcode ) {
+  $output .= '
+  <div class="form-row mb-3">
+    <label for="inputAddress1" class="col-3 pt-1">Address Line 1:</label>
+    <input id="inputAddress1" name="address1" type="text" class="form-control col-9" placeholder="Enter the first line of your address" aria-label="Address">
+    <div class="invalid-feedback">
+      You must enter at least two lines of your address
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <label for="inputAddress2" class="col-3 pt-1">Address Line 2:</label>
+    <input id="inputAddress2" name="address2" type="text" class="form-control col-9" placeholder="Enter the second line of your address" aria-label="Address">
+    <div class="invalid-feedback">
+      You must enter at least two lines of your address
+    </div>
+  </div>
+  <div class="form-row mb-3">
+    <label for="inputAddress3" class="col-3 pt-1">Address Line 3:</label>
+    <input id="inputAddress3" name="address3" type="text" class="form-control col-9" placeholder="Enter the third line of your address" aria-label="Address">
+  </div>
+  <div class="form-row mb-3">
+    <label for="inputAddress4" class="col-3 pt-1">Address Line 4:</label>
+    <input id="inputAddress4" name="address4" type="text" class="form-control col-9" placeholder="Enter the fourth line of your address" aria-label="Address">
+  </div>' ;
 
-    // We don't have address details so they must be captured
+  if ( $postcode ) {
 
     $output .= '
-    <div class="form-row mb-3">
-      <label for="inputAddress1" class="col-3 pt-1">Address Line 1:</label>
-      <input id="inputAddress1" name="address1" type="text" class="form-control col-9" placeholder="Enter the first line of your address" aria-label="Address">
+    <div class="form-row">
+      <label for="inputPostcode" class="col-3 pt-1">Postcode:</label>
+      <input id="inputPostcode" name="postcode" type="text" class="form-control col-9" placeholder="Enter your postcode" aria-label="Postcode" value="' . $postcode . '">
       <div class="invalid-feedback">
-        You must enter at least two lines of your address
+        You must enter your post code
       </div>
-    </div>
-    <div class="form-row mb-3">
-      <label for="inputAddress2" class="col-3 pt-1">Address Line 2:</label>
-      <input id="inputAddress2" name="address2" type="text" class="form-control col-9" placeholder="Enter the second line of your address" aria-label="Address">
-      <div class="invalid-feedback">
-        You must enter at least two lines of your address
-      </div>
-    </div>
-    <div class="form-row mb-3">
-      <label for="inputAddress3" class="col-3 pt-1">Address Line 3:</label>
-      <input id="inputAddress3" name="address3" type="text" class="form-control col-9" placeholder="Enter the third line of your address" aria-label="Address">
-    </div>
-    <div class="form-row mb-3">
-      <label for="inputAddress4" class="col-3 pt-1">Address Line 4:</label>
-      <input id="inputAddress4" name="address4" type="text" class="form-control col-9" placeholder="Enter the fourth line of your address" aria-label="Address">
-    </div>
+    </div>' ;
+
+  } else {
+
+    $output .= '
     <div class="form-row">
       <label for="inputPostcode" class="col-3 pt-1">Postcode:</label>
       <input id="inputPostcode" name="postcode" type="text" class="form-control col-9" placeholder="Enter your postcode" aria-label="Postcode">
@@ -1428,67 +1308,66 @@ If you want for us to be able to claim Gift Aid for your payment then please che
   return $output ;
 }
 
-function fobv_gift_aid_show_form ( ) {
+function fobv_gift_aid_show_form() {
 
   // Show the form for capture of Gift Aid declarations
 
-  if ( function_exists ( 'varilink_write_log' ) ) {
-    varilink_write_log ( 'function fobv_gift_aid_show_form called' ) ;
+  if ( function_exists('varilink_write_log') ) {
+    varilink_write_log('function fobv_gift_aid_show_form called');
   }
 
-  $action = $_POST [ 'next_action' ] ;
-  $amount = $_POST [ 'amount' ] ;
-  $email  = $_POST [ 'email' ] ;
-  array_key_exists ( 'method' , $_POST )
-    ? $method = $_POST [ 'method' ]
-    : $method = '' ;
-  array_key_exists ( 'reference' , $_POST )
-    ? $reference = $_POST [ 'reference' ]
-    : $reference = '' ;
-  array_key_exists ( 'first_name' , $_POST )
-    ? $first_name = $_POST [ 'first_name' ]
-    : $first_name = '' ;
-  array_key_exists ( 'surname' , $_POST )
-    ? $surname = $_POST [ 'surname' ]
-    : $surname = '' ;
-  array_key_exists ( 'address1' , $_POST )
-    ? $address1 = $_POST [ 'address1' ]
-    : $address1 = '' ;
-  array_key_exists ( 'address2' , $_POST )
-    ? $address2 = $_POST [ 'address2' ]
-    : $address2 = '' ;
-  array_key_exists ( 'address3' , $_POST )
-    ? $address3 = $_POST [ 'address3' ]
-    : $address3 = '' ;
-  array_key_exists ( 'address4' , $_POST )
-    ? $address4 = $_POST [ 'address4' ]
-    : $address4 = '' ;
-  array_key_exists ( 'postcode' , $_POST )
-    ? $postcode = $_POST [ 'postcode' ]
-    : $postcode = '' ;
-  array_key_exists ( 'gender' , $_POST )
-    ? $gender = $_POST [ 'gender' ]
-    : $gender = '' ;
-  array_key_exists ( 'age_group' , $_POST )
-    ? $age_group = $_POST [ 'age_group' ]
-    : $age_group = '' ;
+  // Note that both the Donations and the Join or Renew Membership calls to
+  // action can direct to the Gift Aid form. So fields could be mandatory in
+  // one of those flows but not in another of those flows.
+  $action = $_POST['next_action'];
+  $amount = $_POST['amount'];
+  $email_address = $_POST['email_address'];
+  array_key_exists('method', $_POST)
+    ? $method = $_POST['method']
+    : $method = '';
+  array_key_exists('reference', $_POST)
+    ? $reference = $_POST['reference']
+    : $reference = '';
+  array_key_exists('first_name', $_POST)
+    ? $first_name = $_POST['first_name']
+    : $first_name = '';
+  array_key_exists('surname', $_POST)
+    ? $surname = $_POST['surname']
+    : $surname = '';
+  array_key_exists('address1', $_POST)
+    ? $address1 = $_POST['address1']
+    : $address1 = '';
+  array_key_exists('address2', $_POST)
+    ? $address2 = $_POST['address2']
+    : $address2 = '';
+  array_key_exists('address3', $_POST)
+    ? $address3 = $_POST['address3']
+    : $address3 = '';
+  array_key_exists('address4', $_POST)
+    ? $address4 = $_POST['address4']
+    : $address4 = '';
+  array_key_exists('postcode', $_POST)
+    ? $postcode = $_POST['postcode']
+    : $postcode = '';
+  array_key_exists('telephone', $_POST)
+    ? $telephone = $_POST['telephone']
+    : $telephone = '';
 
   get_header ( ) ;
   echo ( fobv_gift_aid_output_form (
-    $action     ,
-    $amount     ,
-    $method     ,
-    $reference  ,
-    $email      ,
-    $first_name ,
-    $surname    ,
-    $address1   ,
-    $address2   ,
-    $address3   ,
-    $address4   ,
-    $postcode   ,
-    $gender     ,
-    $age_group
+    $action        ,
+    $amount        ,
+    $method        ,
+    $reference     ,
+    $email_address ,
+    $first_name    ,
+    $surname       ,
+    $address1      ,
+    $address2      ,
+    $address3      ,
+    $address4      ,
+    $postcode      ,
+    $telephone
   ) ) ;
   get_footer ( ) ;
 
@@ -1499,7 +1378,7 @@ add_action ( 'admin_post_nopriv_fobv_gift_aid_form' , 'fobv_gift_aid_show_form' 
 add_action ( 'admin_post_fobv_gift_aid_form' , 'fobv_gift_aid_show_form' ) ;
 
 // -----------------------------------------------------------------------------
-// 9. Custom Widgets
+// 8. Custom Widgets
 //
 
 class My_Meta_Widget extends WP_Widget_Meta {
@@ -1549,7 +1428,7 @@ function my_meta_widget_register ( ) {
 add_action ( 'widgets_init' , 'my_meta_widget_register' ) ;
 
 // -----------------------------------------------------------------------------
-// 10. PayPal Webhook
+// 9. PayPal Webhook
 //
 
 function fobv_paypal_capture_payment ( ) {
