@@ -1,23 +1,27 @@
 <?php
 
-// Include php files
+// Include shortcodes.php file from the child theme.
 include get_theme_file_path('/includes/shortcodes.php');
 
-// Enqueue needed scripts
+// Enqueue some needed scripts and stylesheets
 function needed_styles_and_scripts_enqueue() {
 
-    // Add-ons
+  // Enqueue the child theme's script.js after jquery.js, which it uses.
+  wp_enqueue_script(
+    'wpbs-custom-script',
+    get_stylesheet_directory_uri() . '/assets/javascript/script.js',
+    array('jquery')
+  );
 
-
-    // Custom script
-    wp_enqueue_script( 'wpbs-custom-script', get_stylesheet_directory_uri() . '/assets/javascript/script.js' , array( 'jquery' ) );
-
-    // enqueue style
-	wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
-
+  // Enqueue the parent theme's style.css, which the child theme's style.css
+  // can subsequently modify.
+	wp_enqueue_style(
+    'parent-style',
+    get_template_directory_uri() . '/style.css'
+  );
 
 }
-add_action( 'wp_enqueue_scripts', 'needed_styles_and_scripts_enqueue' );
+add_action('wp_enqueue_scripts', 'needed_styles_and_scripts_enqueue');
 
 function cc_mime_types($mimes) {
 $mimes['svg'] = 'image/svg+xml';
@@ -84,15 +88,14 @@ require ( 'inc/template-tags.php') ;
 // Dequeue the parent theme's bootstrap stylesheet and enqueue my child version
 // with whatever variations that I want instead.
 
-function wp_bootstrap_starter_child_scripts ( ) {
-  wp_dequeue_style ( 'wp-bootstrap-starter-bootstrap-css' ) ;
+function varilink_theme_bootstrap_stylesheet () {
+  wp_dequeue_style('wp-bootstrap-starter-bootstrap-css');
   wp_enqueue_style(
-    'wp-bootstrap-starter-bootstrap-css' ,
-    get_template_directory_uri ( ) . '-child/assets/css/bootstrap.min.css'
+    'wp-bootstrap-starter-bootstrap-child',
+    get_stylesheet_directory_uri() . '/assets/css/bootstrap.min.css'
   );
 }
-
-add_action ( 'wp_enqueue_scripts' , 'wp_bootstrap_starter_child_scripts' ) ;
+add_action ('wp_enqueue_scripts', 'varilink_theme_bootstrap_stylesheet', 11);
 
 // -----------------------------------------------------------------------------
 // 3. Call to Action Common Functions
