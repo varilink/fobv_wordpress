@@ -1,5 +1,5 @@
-# Customised Bootstrap CSS files that are generated using Sass
-/theme/assets/css/
+# Gimp dist files that are generated from /gimp/src
+/gimp/dist/
 # npm cache directory
 /.npm/
 # npm nodemodules directory
