@@ -16,5 +16,9 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^26.5.0"
+	},
+	"dependencies": {
+		"@wordpress/compose": "^6.11.0",
+		"@wordpress/plugins": "^6.2.0"
 	}
 }
