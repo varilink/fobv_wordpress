@@ -1,12 +1,23 @@
 /**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
+ * This styling is all used by the custom panel we add to the document settings
+ * sidebar for the FoBV event post type in the post editor.
  */
 
-.wp-block-create-block-fobv-event {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+h2.fobv-event-heading {
+	font-size: calc(13px);
+}
+
+.fobv-event-panel-row {
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.fobv-event-panel-row span {
+	display: block;
+	padding: 6px 0;
+	width: 45%;
+}
+
+.fobv-event-close-button {
+	outline: none;
 }
