@@ -30,6 +30,12 @@ do
 
 done
 
+# ----------------
+# Theme activation
+# ----------------
+
+wp theme activate fobv-site-theme
+
 # --------------
 # Images (theme)
 # --------------
@@ -55,7 +61,7 @@ do
   done
 
   id=$(                                                                        \
-    wp media import wp-content/themes/fobv-site-theme/img/$image.webp          \
+    wp media import wp-content/themes/fobv-site-theme/assets/img/$image.webp   \
       --porcelain                                                              \
   )
 
