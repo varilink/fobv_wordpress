@@ -1,6 +1,12 @@
-# Gimp dist files that are generated from /gimp/src
-/gimp/dist/
-# npm cache directory
-/.npm/
-# npm nodemodules directory
-/node_modules/
+# .bash_history files generated when running bash scripts within containers
+# where the container user's home directory is mapped to a local volume.
+.bash_history
+
+# npm cache directories (theme and fobv-event plugin).
+.npm/
+
+# NPM dependency directories (theme and fobv-event plugin).
+node_modules/
+
+# Theme asset files, which are all generated.
+/fobv-site-theme/assets/
