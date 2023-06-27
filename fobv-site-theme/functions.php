@@ -13,8 +13,7 @@ function thr_enqueue_styles() {
     /* Fontawesome icons */
     wp_enqueue_style(
         'fontawesome',
-        get_stylesheet_directory_uri() .
-        '/node_modules/@fortawesome/fontawesome-free/css/all.min.css'
+        get_stylesheet_directory_uri() . '/assets/css/fontawesome-free.css'
     );
 
 }
