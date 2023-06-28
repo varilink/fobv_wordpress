@@ -47,6 +47,41 @@ add_action( 'init', function () {
 	}
 } );
 
+// Add event date and end date columns to the post editor for fobv-event posts.
+
+add_filter('manage_fobv-event_posts_columns', function ($original) {
+	$inserted = [
+		'event_date' => __('Event Date', 'textdomain'),
+		'event_end_date' => __('Event End Date', 'textdomain')
+	];
+	return array_merge(
+		array_slice($original, 1, 1),
+		$inserted,
+		array_slice($original, 2, 1)
+	);
+});
+
+// Define the output for the event date and end date columns in the post editor.
+
+add_action(
+	'manage_fobv-event_posts_custom_column',
+	function ($column_key, $post_id) {
+		if ($column_key == 'event_date') {
+			$event_date = get_post_meta(
+				$post_id, '_fobv_event_start_date', true
+			);
+			if ( $event_date ) echo substr($event_date, 0, 10);
+		} elseif ($column_key == 'event_end_date') {
+			$event_end_date = get_post_meta(
+				$post_id, '_fobv_event_end_date', true
+			);
+			if ( $event_end_date ) echo substr($event_end_date, 0, 10);
+		}
+	},
+	10,
+	2
+);
+
 // Queue the stylesheet and script for the panel we add to the document settings
 // for the Event custom post type to allow entry of the start and end dates.
 
