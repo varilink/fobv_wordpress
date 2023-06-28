@@ -1,11 +1,12 @@
 {
-	"$schema": "https://schemas.wp.org/wp/6.2/theme.json",
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"customTemplates": [
 		{
 			"name": "blank",
 			"postTypes": [
 				"page",
-				"post"
+				"post",
+				"fobv-event"
 			],
 			"title": "Blank"
 		},
@@ -15,6 +16,20 @@
 				"page"
 			],
 			"title": "Blog (Alternative)"
+		},
+		{
+			"name": "support-the-fobv-section-page",
+			"postTypes": [
+				"page"
+			],
+			"title": "Support the FoBV Section Page"
+		},
+		{
+			"name": "visit-the-viaduct-section-page",
+			"postTypes": [
+				"page"
+			],
+			"title": "Visit the Viaduct Section Page"
 		},
 		{
 			"name": "404",
@@ -754,6 +769,11 @@
 			"area": "header",
 			"name": "header",
 			"title": "Header"
+		},
+		{
+			"area": "header",
+			"name": "page-header",
+			"title": "Page Header"
 		},
 		{
 			"area": "footer",
