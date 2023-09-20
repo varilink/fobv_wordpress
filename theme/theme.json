@@ -1,5 +1,6 @@
 {
-	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"$schema": "https://schemas.wp.org/wp/6.3/theme.json",
+	"version": 2,
 	"customTemplates": [
 		{
 			"name": "blank",
@@ -637,6 +638,7 @@
 			"background": "var(--wp--preset--color--base)",
 			"text": "var(--wp--preset--color--contrast)"
 		},
+		"css": "h1{text-shadow:2px 2px #ccc}.fobv-page-menu-header{background-color:var(--wp--preset--color--custom-color-4);padding-bottom:.5em;padding-top:.5em;text-align:center}.fobv-page-menu-header a{color:#fff !important;text-decoration:none !important}.fobv-page-menu-header a:hover{text-decoration:underline !important}.fobv-page-menu{padding-left:0 !important;padding-right:0 !important}.fobv-page-menu nav .wp-block-navigation__submenu-container{border:none !important;position:relative !important;z-index:auto !important;width:160px !important}.fobv-page-menu nav .has-child{flex-wrap:wrap}.fobv-page-menu nav .submenu-break{flex-basis:100%;height:0}.fobv-page-menu nav>ul{padding-top:1.25em !important;padding-bottom:1.25em !important;padding-left:0 !important;padding-right:0 !important}.fobv-page-menu nav>ul>li>a{padding-left:1em !important;padding-right:1em !important}.fobv-page-menu nav>ul>li>ul{margin-left:1em !important}.fobv-page-content{clear:none}.fobv-page-content figure{clear:none}.error{color:red}input[type=text]{font-size:1em;width:100%}input[type=text]:disabled{background-color:var(--wp--preset--color--tertiary) !important}.wp-element-button{background-color:var(--wp--preset--color--custom-color-1)}",
 		"elements": {
 			"button": {
 				":active": {
@@ -689,13 +691,13 @@
 					"text": "var(--wp--preset--color--custom-color-6)"
 				},
 				"typography": {
-					"fontSize": "clamp(2.625rem, calc(2.625rem + ((1vw - 0.48rem) * 8.4135)), 3.25rem)",
+					"fontSize": "clamp(2.1rem, calc(2.1rem + ((1vw - 0.48rem) * 6.731)), 2.6rem)",
 					"lineHeight": "1.2"
 				}
 			},
 			"h3": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--x-large)"
+					"fontSize": "var(--wp--preset--font-size--large)"
 				}
 			},
 			"h4": {
@@ -790,6 +792,5 @@
 			"name": "post-meta",
 			"title": "Post Meta"
 		}
-	],
-	"version": 2
+	]
 }

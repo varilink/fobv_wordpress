@@ -1,0 +1,109 @@
+/*
+This file contains Sass that should be compiled to compressed CSS that is then
+either:
+1. Added to the theme.json file as the value of the styles.css field; or
+2. Pasted into the "Additional CSS" field in the theme editor
+
+The second option should be used as a temporary measure only during testing.
+Ultimately the first option should be used to preserve the integrity of the
+GitHub repository content.
+*/
+
+h1 {
+    text-shadow: 2px 2px #cccccc;
+}
+
+.fobv-page-menu-header {
+
+    background-color: var(--wp--preset--color--custom-color-4);
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    text-align: center;
+
+    a {
+
+        color: white !important;
+        text-decoration: none !important;
+
+        &:hover {
+            text-decoration: underline !important;
+        }
+
+    }
+
+}
+
+.fobv-page-menu {
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    nav {
+
+        .wp-block-navigation__submenu-container {
+            border: none !important;
+            position: relative !important;
+            z-index: auto !important;
+            width: 160px !important;
+        }
+        
+        .has-child {
+            flex-wrap: wrap;
+        }
+        
+        .submenu-break {
+            flex-basis: 100%;
+            height: 0;
+        }
+
+        > ul {
+
+            padding-top: 1.25em !important;
+            padding-bottom: 1.25em !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+    
+            > li > a {
+                padding-left: 1em !important;
+                padding-right: 1em !important;
+            }
+    
+            > li > ul {
+                margin-left: 1em !important;
+            }
+
+        }
+
+    }
+
+}
+
+.fobv-page-content {
+
+    clear: none;
+
+    figure {
+        clear: none;
+    }
+
+}
+
+.error {
+    color: red;
+}
+
+input[type=text] {
+
+    font-size: 1em;
+    width: 100%;
+
+    &:disabled {
+        background-color: var(--wp--preset--color--tertiary) !important;
+    }
+ 
+
+}
+
+.wp-element-button {
+    background-color: var(--wp--preset--color--custom-color-1);
+}

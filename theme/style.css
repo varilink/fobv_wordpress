@@ -9,10 +9,18 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-.wp-element-caption {
-    text-align: center;
+/*
+Settings are only actioned here rather than via theme.json by exception. The
+preference is to use theme.json. One implication of settings here rather than in
+theme.json is that they are not reflected in the block editor.
+*/
+
+html {
+	scroll-behavior: smooth;
 }
 
-h1 {
-    text-shadow: 2px 2px #cccccc;
+.fobv-page-menu {
+    position: sticky !important;
+	top: calc(0px + var(--wp-admin--admin-bar--height, 0px)) !important;
+    z-index: 10 !important;
 }
