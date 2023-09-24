@@ -107,7 +107,7 @@ function fobv_subscribe() {
                 $response[ 'rc' ] === 200 &&
                 $response[ 'body' ][ 'status' ] = 'pending'
             ) {
-                wp_redirect( '/subscribe-success' );
+                wp_redirect( '/subscription-confirmed/' );
                 exit();
             }
 

@@ -117,7 +117,7 @@ function fobv_pay() {
     // in the email and the recipients of it differ according to the payment
     // type, "donation" or "membership fee".
 
-    if ( $type = 'donation' ) {
+    if ( $type === 'donation' ) {
 
         $subject = 'Donation Notification';
 
@@ -169,7 +169,7 @@ EOD;
 
         $to = fobv_get_notification_addresses( 'donate' );
 
-    } elseif ( $type = 'membership fee' ) {
+    } elseif ( $type === 'membership fee' ) {
 
     }
 
@@ -185,11 +185,13 @@ EOD;
     if ( $method === 'Online' ) {
 
         if ( $type === 'donation' ) {
-            $return_url = site_url() . '/donation-confirmed';
-            $cancel_url = site_url() . '/donation-cancelled';
+            $return_url = site_url() . '/donation-received/';
+            $cancel_url = site_url() . '/donation-cancelled/';
         } elseif ( $type === 'membership fee' ) {
-            $return_url = site_url() . '/membership-confirmed';
-            $cancel_url = site_url() . '/membership-cancelled';
+            $return_url
+                = site_url() . '/membership-confirmed-and-payment-received/';
+            $cancel_url
+                = site_url() . '/membership-confirmed-and-payment-cancelled/';
         }
 
         $access_token = varilink_paypal_get_access_token(
@@ -204,7 +206,7 @@ EOD;
                 [
                     'custom_id' => "$reference",
                     'description' =>
-                        "The Friends of Bennerley Viaduct membership fee $type",
+                        "The Friends of Bennerley Viaduct $type",
                     'amount' => [
                         'currency_code' => 'GBP',
                         'value' => "$amount"
@@ -228,9 +230,13 @@ EOD;
         // Change to get approve link by rel name and not array offset
         wp_redirect( $response->links[ 1 ]->href );
 
-    } else {
+    } elseif ( $type === 'membership fee' ) {
 
-        wp_redirect( $return_url );
+        // The payment method is something other than online, which currently
+        // is only an option for the "membership-fee" transaction type. It may
+        // be introduced for the "donation" transaction type but it hasn't yet.
+
+        wp_redirect( '/membership-confirmed/' );
         exit();
 
     }

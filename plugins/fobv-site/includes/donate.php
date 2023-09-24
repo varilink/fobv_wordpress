@@ -2,6 +2,10 @@
 
 function fobv_donate() {
 
+    // -------------------------------------------------------------------------
+    // 1. Validation
+    // -------------------------------------------------------------------------
+
     $errors = [];
 
     foreach ( [
@@ -61,25 +65,32 @@ function fobv_donate() {
 
     }
 
-    if ( empty( $errors ) ) {
-
-        $_SESSION[ 'fobv_payment_type' ] = 'donation';
-        $_SESSION[ 'fobv_payment_method' ] = $method;
-        $_SESSION[ 'fobv_payment_amount' ] = $amount;
-        $_SESSION[ 'fobv_payment_reference' ] = $reference;
-        $_SESSION[ 'fobv_payment_email_address' ] = $email_address;
-        wp_redirect( '/gift-aid' );
-
-    } else {
+    if ( ! empty( $errors ) ) {
 
         foreach ( $errors as $key => $value ) {
             $_SESSION[ $key ] = $value;
         }
 
-        wp_redirect( '/support-the-fobv#fobvDonateForm' );
+        wp_redirect( '/support-the-fobv/#fobvDonateForm' );
         exit();
 
     }
+
+    // -------------------------------------------------------------------------
+    // 2. Notification
+    // -------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------
+    // 3. Execution
+    // -------------------------------------------------------------------------
+
+    $_SESSION[ 'fobv_payment_type' ] = 'donation';
+    $_SESSION[ 'fobv_payment_method' ] = $method;
+    $_SESSION[ 'fobv_payment_amount' ] = $amount;
+    $_SESSION[ 'fobv_payment_reference' ] = $reference;
+    $_SESSION[ 'fobv_payment_email_address' ] = $email_address;
+    wp_redirect( '/gift-aid/' );
+    exit();
 
 }
 

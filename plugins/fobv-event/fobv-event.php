@@ -142,3 +142,18 @@ add_filter(
 );
 // Apply Event custom query in the back end.
 add_filter('rest_fobv-event_query', 'fobv_event_query');
+
+add_action( 'wp_head', function () {
+
+	if ( is_front_page() ) {
+
+		$query_args = [ 'post_type' => 'fobv-event' ];
+		$query_args = fobv_event_query( $query_args );
+		$upcoming_events = new WP_Query( $query_args );
+		if ( ! $upcoming_events-> have_posts() ) {
+			echo '<style>.fobv-hide-if-no-upcoming-events{display:none}</style>';
+		}
+
+	}
+
+}, 100 );
