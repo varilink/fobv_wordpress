@@ -10,3 +10,6 @@ node_modules/
 
 # Theme asset files, which are all generated.
 /fobv-site-theme/assets/
+
+# Generated media files
+/media
