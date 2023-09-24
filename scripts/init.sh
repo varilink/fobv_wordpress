@@ -7,6 +7,29 @@
 # theme. They are constructed so as to be idempotent, so that they can be rerun
 # if needed.
 
+# -------
+# Plugins
+# -------
+
+# Plugins that are installed from the WordPress Plugin Directory and so the
+# versions of these plugins used are controlled by the install command. Note
+# that the restricted-site-access plugin is only activated when needed.
+wp plugin install contact-form-7 --activate
+wp plugin install restricted-site-access
+wp plugin install wp-mail-smtp --activate
+
+# My plugins that are installed from source repositories using Ansible. The
+# versions of these plugins used are controlled by Git.
+wp plugin activate fobv-event
+wp plugin activate fobv-site
+wp plugin activate varilink-forms
+wp plugin activate varilink-mailchimp
+wp plugin activate varilink-paypal
+
+# ----------
+# Permalinks
+# ----------
+
 wp option update permalink_structure /%postname%/
 
 # -----
@@ -15,7 +38,8 @@ wp option update permalink_structure /%postname%/
 
 # We create "classic" menus that can then be manually imported within the block
 # theme used by this website. There does not yet seem to be a straightforward
-# way to create the new type of menus used in block themes.
+# way to create the new type of menus used in block themes with their menu
+# items, short of setting the blocks in the post_content for the menu post.
 
 for menu in 'Main Menu' 'Visit the Viaduct Menu' 'Support the FoBV Menu'
 do
@@ -34,7 +58,7 @@ done
 # Theme activation
 # ----------------
 
-wp theme activate fobv-site-theme
+wp theme activate fobv-site
 
 # --------------
 # Images (theme)
@@ -61,7 +85,7 @@ do
   done
 
   id=$(                                                                        \
-    wp media import wp-content/themes/fobv-site-theme/assets/img/$image.webp   \
+    wp media import wp-content/themes/fobv-site/assets/img/$image.webp   \
       --porcelain                                                              \
   )
 
@@ -199,3 +223,30 @@ wp option update page_on_front $(                                              \
   wp post list --fields=ID,name --format=json --post_type=page |               \
     jq '.[] | select(.post_name == "home-page") | .ID'                         \
 )
+
+# ---------------------------------
+# Editor role access to site editor
+# ---------------------------------
+
+wp cap add administrator fobv_manage_options
+wp cap add editor edit_theme_options
+wp cap add editor fobv_manage_options
+
+# -------------------------------------
+# Disable comments and pings by default
+# -------------------------------------
+
+wp option update default_pingback_flag ""
+wp option update default_ping_status ""
+wp option update default_comment_status ""
+
+# ------------------------------------------------------
+# Disable comments and pings on existing posts and pages
+# ------------------------------------------------------
+
+wp post list --format=ids                                                      \
+  | xargs --no-run-if-empty wp post update --comment_status=closed
+wp post list --format=ids                                                      \
+  | xargs --no-run-if-empty wp post update --ping_status=closed
+wp post list --post_type=page --format=ids                                     \
+  | xargs --no-run-if-empty wp post update --ping_status=closed
