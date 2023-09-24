@@ -499,43 +499,5 @@
 
 )
 
-;; Becoming a member of the FoBV 1
-
-(let*
-
-    (
-        (becomingAMemberOfTheFoBV1Image (car (gimp-file-load
-            RUN-NONINTERACTIVE "src/becoming-a-member-of-the-fobv-1.png" ""
-        )))                
-        (becomingAMemberOfTheFoBV1Drawable (car (gimp-image-get-active-layer
-            becomingAMemberOfTheFoBV1Image
-        )))
-    )
-
-    (file-webp-save
-        RUN-NONINTERACTIVE
-        becomingAMemberOfTheFoBV1Image
-        becomingAMemberOfTheFoBV1Drawable
-        "dist/becoming-a-member-of-the-fobv-1.webp"
-        ""
-        0
-        0
-        90
-        100
-        0
-        0
-        0
-        0
-        0
-        0
-        0
-        0
-        0
-    )
-
-    (gimp-image-delete becomingAMemberOfTheFoBV1Image)
-
-)
-
 (gimp-image-delete logoImage)
 (gimp-quit 0)
