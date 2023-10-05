@@ -16,11 +16,17 @@ theme.json is that they are not reflected in the block editor.
 */
 
 html {
-	scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
-.fobv-page-menu {
-    position: sticky !important;
-	top: calc(0px + var(--wp-admin--admin-bar--height, 0px)) !important;
-    z-index: 10 !important;
+@media screen and (min-width: 782px) {
+    .fobv-page-menu {
+        position: sticky !important;
+        top: calc(0px + var(--wp-admin--admin-bar--height, 0px)) !important;
+        z-index: 10 !important;
+    }
+}
+
+#fobvDonateAmountOtherValue {
+    width: 5em;
 }
