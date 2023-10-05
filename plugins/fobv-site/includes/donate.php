@@ -1,15 +1,43 @@
 <?php
+/**
+ *  Implements the action invoked by submitting the donate form.
+ */
 
 function fobv_donate() {
 
     // -------------------------------------------------------------------------
-    // 1. Validation
+    // 1. Nonce security check
     // -------------------------------------------------------------------------
 
-    $errors = [];
+    if (
+        ! array_key_exists( 'fobv_donate_nonce', $_POST ) ||
+        ! wp_verify_nonce( $_POST[ 'fobv_donate_nonce' ], FOBV_DONATE_CONTEXT )
+    ) {
+        die( __( 'Security check', 'textdomain' ) );
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. Start or update the transaction
+    // -------------------------------------------------------------------------
+
+    $transaction = $_POST[ 'transaction' ];
+
+    if ( ! $transaction ) {
+
+        start_transaction:
+        $transaction = 'fobv_donate-' . wp_rand( 100000001, 999999999 );
+        if ( array_key_exists( $transaction, $_SESSION ) ) {
+            // Our randomly generated transaction id is the same as the one for
+            // an existing transaction. This is HIGHLY unlikely to happen.
+            goto start_transaction;
+        }
+
+    }
+
+    $query = http_build_query( [ 'transaction' => $transaction ] );
 
     foreach ( [
-        'nonce', 'amount', 'method', 'reference', 'email_address',
+        'amount', 'amount_other_value', 'method', 'reference', 'email_address',
         'confirm_email_address'
     ] as $var ) {
 
@@ -24,17 +52,51 @@ function fobv_donate() {
             $$var = NULL;
         }
 
+        $_SESSION[$transaction][$post_var] = $$var;
+
     }
 
-    if ( ! isset( $nonce ) or ! wp_verify_nonce( $nonce, FOBV_DONATE_CONTEXT )
-    ) {
-        die( __( 'Security check', 'textdomain' ) );
+    // -------------------------------------------------------------------------
+    // 3. Validate the form inputs just received
+    // -------------------------------------------------------------------------
+
+    foreach ( [
+        'amount_error', 'amount_other_value_error', 'amount_other_value_class',
+        'email_address_class', 'email_address_error',
+        'confirm_email_address_class', 'confirm_email_address_error'
+    ] as $var ) {
+
+        unset( $_SESSION[ $transaction ][ "fobv_donate_$var" ] );
+
     }
+
+    $errors = FALSE;
 
     if ( ! isset( $amount ) ) {
 
-        $errors[ 'fobv_donate_amount_error' ]
+        $_SESSION[ $transaction ][ 'fobv_donate_amount_error' ]
             = 'This field is required.';
+        $errors = TRUE;
+
+    } elseif ( $amount === 'Other' ) {
+
+        if ( ! isset( $amount_other_value ) ) {
+
+            $_SESSION[ $transaction ][ 'fobv_donate_amount_other_value_class' ]
+                = 'error';
+            $_SESSION[ $transaction ][ 'fobv_donate_amount_other_value_error' ]
+                = 'This field is required.';
+            $errors = TRUE;
+
+        } elseif ( ! preg_match( '/^[0-9]+$/', $amount_other_value ) ) {
+
+            $_SESSION[ $transaction ][ 'fobv_donate_amount_other_value_class' ]
+                = 'error';
+            $_SESSION[ $transaction ][ 'fobv_donate_amount_other_value_error' ]
+                = 'Please enter only digits.';
+            $errors = TRUE;
+
+        }
 
     }
 
@@ -43,10 +105,11 @@ function fobv_donate() {
         && ! filter_var( $email_address, FILTER_VALIDATE_EMAIL )
     ) {
 
-        $errors[ 'fobv_donate_email_address' ] = $email_address;
-        $errors[ 'fobv_donate_email_address_class' ] = 'error';
-        $errors[ 'fobv_donate_email_address_error' ]
+        $_SESSION[ $transaction ][ 'fobv_donate_email_address_class' ]
+            = 'error';
+        $_SESSION[ $transaction ][ 'fobv_donate_email_address_error' ]
             = 'Please enter a valid email address.';
+        $errors = TRUE;
 
     }
 
@@ -58,38 +121,26 @@ function fobv_donate() {
         )
     ) {
 
-        $errors[ 'fobv_donate_confirm_email_address' ] = $confirm_email_address;
-        $errors[ 'fobv_donate_confirm_email_address_class' ] = 'error';
-        $errors[ 'fobv_donate_confirm_email_address_error' ]
+        $_SESSION[ $transaction ][ 'fobv_donate_confirm_email_address_class' ]
+            = 'error';
+        $_SESSION[ $transaction ][ 'fobv_donate_confirm_email_address_error' ]
             = 'Please enter the same value again.';
+        $errors = TRUE;
 
     }
 
-    if ( ! empty( $errors ) ) {
+    if ( $errors ) {
 
-        foreach ( $errors as $key => $value ) {
-            $_SESSION[ $key ] = $value;
-        }
-
-        wp_redirect( '/support-the-fobv/#fobvDonateForm' );
+        wp_redirect( "/support-our-charity/?$query#fobvDonateForm" );
         exit();
 
     }
 
     // -------------------------------------------------------------------------
-    // 2. Notification
+    // 4. Execution
     // -------------------------------------------------------------------------
 
-    // -------------------------------------------------------------------------
-    // 3. Execution
-    // -------------------------------------------------------------------------
-
-    $_SESSION[ 'fobv_payment_type' ] = 'donation';
-    $_SESSION[ 'fobv_payment_method' ] = $method;
-    $_SESSION[ 'fobv_payment_amount' ] = $amount;
-    $_SESSION[ 'fobv_payment_reference' ] = $reference;
-    $_SESSION[ 'fobv_payment_email_address' ] = $email_address;
-    wp_redirect( '/gift-aid/' );
+    wp_redirect( "/gift-aid/?$query" );
     exit();
 
 }

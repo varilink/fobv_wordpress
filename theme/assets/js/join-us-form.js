@@ -1,74 +1,74 @@
 jQuery( document ).ready( function() {
 
-    if ( ! jQuery( '#fobvJoinUsPaymentMethodCash' ).attr('checked') ) {
-        jQuery( '#fobvJoinUsPaymentMethodCashHelp' ).hide();
+    if ( ! jQuery( '#fobvJoinUsMethodCash' ).attr('checked') ) {
+        jQuery( '#fobvJoinUsMethodCashHelp' ).hide();
     }
 
-    if ( ! jQuery( '#fobvJoinUsPaymentMethodCheque' ).attr('checked') ) {
-        jQuery( '#fobvJoinUsPaymentMethodChequeHelp' ).hide();
+    if ( ! jQuery( '#fobvJoinUsMethodCheque' ).attr('checked') ) {
+        jQuery( '#fobvJoinUsMethodChequeHelp' ).hide();
     }
 
-    if ( ! jQuery( '#fobvJoinUsPaymentMethodBankTransfer' ).attr('checked') ) {
-        jQuery( '#fobvJoinUsPaymentMethodBankTransferHelp' ).hide();
+    if ( ! jQuery( '#fobvJoinUsMethodBankTransfer' ).attr('checked') ) {
+        jQuery( '#fobvJoinUsMethodBankTransferHelp' ).hide();
     }
 
-    if ( ! jQuery( '#fobvJoinUsPaymentMethodOnline' ).attr('checked') ) {
-        jQuery( '#fobvJoinUsPaymentMethodOnlineHelp' ).hide();
+    if ( ! jQuery( '#fobvJoinUsMethodOnline' ).attr('checked') ) {
+        jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide();
     }
 
     jQuery(
-        'input[type=radio][name=fobv_join_us_payment_method]'
+        'input[type=radio][name=fobv_join_us_method]'
     ).change( function () {
         if ( this.value == 'Cash' ) {
-            jQuery( '#fobvJoinUsPaymentMethodCashHelp' ).show(
+            jQuery( '#fobvJoinUsMethodCashHelp' ).show(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodChequeHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodBankTransferHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodBankTransferHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodOnlineHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide(
                 'slow', function () {
             } );
         } else if ( this.value == 'Cheque' ) {
-            jQuery( '#fobvJoinUsPaymentMethodCashHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodChequeHelp' ).show(
+            jQuery( '#fobvJoinUsMethodChequeHelp' ).show(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodBankTransferHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodBankTransferHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodOnlineHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide(
                 'slow', function () {
             } );
         } else if ( this.value == 'Bank Transfer' ) {
-            jQuery( '#fobvJoinUsPaymentMethodCashHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodChequeHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodBankTransferHelp' ).show(
+            jQuery( '#fobvJoinUsMethodBankTransferHelp' ).show(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodOnlineHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide(
                 'slow', function () {
             } );
         } else if ( this.value == 'Online' ) {
-            jQuery( '#fobvJoinUsPaymentMethodCashHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodChequeHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodBankTransferHelp' ).hide(
+            jQuery( '#fobvJoinUsMethodBankTransferHelp' ).hide(
                 'slow', function () {
             } );
-            jQuery( '#fobvJoinUsPaymentMethodOnlineHelp' ).show(
+            jQuery( '#fobvJoinUsMethodOnlineHelp' ).show(
                 'slow', function () {
             } );
         }

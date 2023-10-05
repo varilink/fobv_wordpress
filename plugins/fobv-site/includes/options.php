@@ -3,9 +3,10 @@
  * Setup a menu page for FoBV site specific settings.
  */
 
-// Add the menu page including its content and associated help tabs.
-
 function fobv_add_menu_page () {
+
+    // This function adds the menu page including its content and associated
+    // help tabs.
 
     global $fobv_menu_page;
 
@@ -75,10 +76,11 @@ EOD;
 
 add_action( 'admin_menu', 'fobv_add_menu_page' );
 
-// Register the settings for the menu page, including associated validation and
-// how those settings are displayed on the menu page.
-
 function fobv_add_settings () {
+
+    // This function registers the settings for the menu page, including
+    // associated validation and how those settings are displayed on the menu
+    // page.
 
     global $fobv_menu_page;
 
@@ -229,13 +231,17 @@ echo get_option( 'fobv_join_us_notification_email_addresses' );
 
 add_action( 'admin_init', 'fobv_add_settings' );
 
-function fobv_get_notification_addresses( $call_to_action ) {
+function fobv_notification_email_addresses( $call_to_action ) {
+
+    // This function looks up the email addresses to notify when calls-to-action
+    // are executed. It gets these from the relevant option that's set for each
+    // call to action. The logic that enables these options to be set is above.
+
+    $email_addresses = [];
 
     $value = get_option(
         "fobv_${call_to_action}_notification_email_addresses"
     );
-
-    $email_addresses = [];
 
     foreach ( explode( PHP_EOL, $value ) as $line ) {
 
@@ -250,5 +256,32 @@ function fobv_get_notification_addresses( $call_to_action ) {
     }
 
     return $email_addresses;
+
+}
+
+function fobv_test_email_address () {
+
+    // This function returns a test email address if we are in test mode or NULL
+    // if we aren't. Test mode is defined as being logged in to WordPress as a
+    // user with the admin role. When in test mode, we send email notifications
+    // to the test user only, not the normal notification addresses.
+
+    $testing = FALSE; # Start with the assumption that we are using it for real
+
+    if ( is_user_logged_in() ) {
+
+        $user = wp_get_current_user();
+        $roles = (array) $user->roles;
+        if ( in_array( 'administrator', $roles ) ) {
+            $testing = TRUE;
+        }
+
+    }
+
+    if ( $testing ) {
+        return $user->user_email;
+    } else {
+        return NULL;
+    }
 
 }

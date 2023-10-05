@@ -1,13 +1,44 @@
 <?php
 /**
- * Handle the submission of the form for the subscribe call to action.
+ * Implements the action invoked by submitting the subscribe form.
  */
 
 function fobv_subscribe() {
 
-    // Gather the form inputs into variables
+    // -------------------------------------------------------------------------
+    // 1. Nonce security check
+    // -------------------------------------------------------------------------
 
-    foreach ( [ 'nonce', 'email_address', 'first_name', 'surname' ] as $var ) {
+    if (
+        ! array_key_exists( 'fobv_subscribe_nonce', $_POST ) ||
+        ! wp_verify_nonce(
+            $_POST[ 'fobv_subscribe_nonce' ], FOBV_SUBSCRIBE_CONTEXT
+        )
+    ) {
+        die( __( 'Security check', 'textdomain' ) );
+    }
+
+    // -------------------------------------------------------------------------
+    // 2. Start or update the transaction
+    // -------------------------------------------------------------------------
+
+    $transaction = $_POST[ 'transaction' ];
+
+    if ( ! $transaction ) {
+
+        start_transaction:
+        $transaction = 'fobv_subscribe-' . wp_rand( 100000001, 999999999 );
+        if ( array_key_exists( $transaction, $_SESSION ) ) {
+            // Our randomly generated transaction id is the same as the one for
+            // an existing transaction. This is HIGHLY unlikely to happen.
+            goto start_transaction;
+        }
+
+    }
+
+    $query = http_build_query( [ 'transaction' => $transaction ] );
+
+    foreach ( [ 'email_address', 'first_name', 'surname' ] as $var ) {
 
         $post_var = 'fobv_subscribe_' . $var;
 
@@ -20,115 +51,114 @@ function fobv_subscribe() {
             $$var = NULL;
         }
 
+        $_SESSION[ $transaction ][ $post_var ] = $$var;
+
     }
 
-    // Nonce based security check
+    // -------------------------------------------------------------------------
+    // 3. Validate the form inputs just received
+    // -------------------------------------------------------------------------
 
-    if (
-        ! isset( $nonce ) || ! wp_verify_nonce( $nonce, FOBV_SUBSCRIBE_CONTEXT )
-    ) {
-        die( __( 'Security check', 'textdomain' ) );
+    foreach ( [ 'email_address_class', 'email_address_error' ] as $var ) {
+
+        unset( $_SESSION[ $transaction ][ "fobv_subscribe_$var" ] );
+
     }
 
-    // Validate submitted data
-
-    $errors = [];
+    $errors = FALSE;
 
     if (
         ! isset( $email_address ) ||
         ! filter_var( $email_address, FILTER_VALIDATE_EMAIL )
     ) {
 
-        $errors[ 'fobv_subscribe_email_address_class' ] = 'error';
+        // We haven't been given a valid email so the form has failed validation
+        // without us having to check the email against our Mailchimp audience.
+
+        $errors = TRUE;
+        $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_class' ]
+            = 'error';
 
         if ( isset( $email_address ) ) {
-            $errors[ 'fobv_subscribe_email_address_error' ]
-                = 'The email address that you have entered is invalid';
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_error' ]
+                = 'Please enter a valid email address.';
         } else {
-            $errors[ 'fobv_subscribe_email_address_error' ]
-                = 'You MUST enter an email address';
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_error' ]
+                = 'This field is required.';
         }
 
-    }
+    } else {
 
-    if ( empty ( $errors ) ) {
-
-        // No errors in the form data so query the subscriber
-
-        $request[ 'email_address' ] = $email_address;
-        $request[ 'fields' ] = 'status';
+        // We have been passed a valid email address so check that doesn't
+        // correspond to an existing subscription or pending subscription.
 
         $response = varilink_mailchimp_get_member_info(
             FOBV_MAILCHIMP_API_KEY,
             FOBV_MAILCHIMP_API_ROOT,
             FOBV_MAILCHIMP_LIST_ID,
-            $request
+            $email_address,
+            [ 'fields' => 'status' ]
         );
 
         if (
             $response[ 'rc' ] === 200 &&
             $response[ 'body' ][ 'status' ] === 'subscribed'
         ) {
+
+            $errors = TRUE;
             $errors[ 'fobv_subscribe_email_address_class' ] = 'error';
             $errors[ 'fobv_subscribe_email_address_error' ]
                 = 'You are already subscribed.';
+
         } elseif (
             $response[ 'rc' ] === 200 &&
             $response[ 'body' ][ 'status' ] === 'pending'
         ) {
-            $errors[ 'fobv_subscribe_email_address_class' ] = 'error';
+
+            $errors = TRUE;
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_class' ]
+                = 'error';
             $message = <<<'EOD'
                 You have already subscribed but we are yet to receive
                 verification of your email address via a confirmation email that
                 has been sent to you. If you can not find this confirmation
                 email address then please contact us.
                 EOD;
-            $errors[ 'fobv_subscribe_email_address_error' ]
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_error' ]
                 = str_replace( PHP_EOL, ' ', $message );
-        } else {
-
-            $request[ 'status' ] = 'pending';
-            $request[ 'status_if_new' ] = 'pending';
-            if ( isset( $first_name ) ) {
-                $request[ 'first_name' ] = $first_name;
-            }
-            if ( isset( $surname ) ) {
-                $request[ 'surname' ] = $surname;
-            }
-
-            $response = varilink_mailchimp_add_or_update_list_member(
-                FOBV_MAILCHIMP_API_KEY,
-                FOBV_MAILCHIMP_API_ROOT,
-                FOBV_MAILCHIMP_LIST_ID,
-                $request
-            );
-
-            if (
-                $response[ 'rc' ] === 200 &&
-                $response[ 'body' ][ 'status' ] = 'pending'
-            ) {
-                wp_redirect( '/subscription-confirmed/' );
-                exit();
-            }
 
         }
 
     }
 
-    // The submitted data failed validation
+    if ( $errors ) {
 
-    # Provide validation errors for display in the form
-    foreach ( $errors as $key => $value ) {
-        $_SESSION[ $key ] = $value;
+        wp_redirect( "/latest-news/?$query#fobvSubscribeForm" );
+        exit();
+
     }
 
-    # Pass back the form inputs for display in the form
-    foreach ( [ 'email_address', 'first_name', 'surname' ] as $var ) {
-        $post_var = 'fobv_subscribe_' . $var;
-        $_SESSION[ $post_var ] = $$var;
+    // -------------------------------------------------------------------------
+    // 4. Execution
+    // -------------------------------------------------------------------------
+
+    $request[ 'status' ] = 'pending';
+    $request[ 'status_if_new' ] = 'pending';
+    if ( isset( $first_name ) ) {
+        $request[ 'first_name' ] = $first_name;
+    }
+    if ( isset( $surname ) ) {
+        $request[ 'surname' ] = $surname;
     }
 
-    wp_redirect( '/latest-news/#fobvSubscribeForm' );
+    $response = varilink_mailchimp_add_or_update_list_member(
+        FOBV_MAILCHIMP_API_KEY,
+        FOBV_MAILCHIMP_API_ROOT,
+        FOBV_MAILCHIMP_LIST_ID,
+        $request
+    );
+
+    wp_redirect( '/subscription-confirmed/' );
     exit();
 
 }

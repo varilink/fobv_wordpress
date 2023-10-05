@@ -1,12 +1,12 @@
 jQuery( document ).ready( function() {
 
-    if ( jQuery( '#fobvPaymentGiftAid' ).attr( 'checked' ) ) {
+    if ( jQuery( '#fobvGiftAidToggle' ).attr( 'checked' ) ) {
         jQuery( '#fobvGiftAidDeclaration' ).show();
     } else {
         jQuery( '#fobvGiftAidDeclaration' ).hide();
     }
 
-    jQuery( '#fobvPaymentGiftAid' ).on( 'change', function () {
+    jQuery( '#fobvGiftAidToggle' ).on( 'change', function () {
 
         if ( this.checked ) {
 
@@ -15,19 +15,19 @@ jQuery( document ).ready( function() {
 
             jQuery( '#fobvGiftAidForm' ).validate( {
                 rules: {
-                    fobv_payment_first_name: {
+                    fobv_gift_aid_first_name: {
                         required: true
                     },
-                    fobv_payment_surname: {
+                    fobv_gift_aid_surname: {
                         required: true
                     },
-                    fobv_payment_address_line_1: {
+                    fobv_gift_aid_address_line_1: {
                         required: true
                     },
-                    fobv_payment_address_line_2: {
+                    fobv_gift_aid_address_line_2: {
                         required: true
                     },
-                    fobv_payment_postcode: {
+                    fobv_gift_aid_postcode: {
                         required: true
                     }
                 }

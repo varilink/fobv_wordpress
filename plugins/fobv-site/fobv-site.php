@@ -34,7 +34,7 @@ add_action( 'wp', function () {
     global $post;
 
     $process_pages = [
-        'gift-aid' => '/support-the-fobv/',
+        'gift-aid' => '/support-our-charity/',
         'subscribe-successful' => '/latest-news/'
     ];
 
@@ -62,7 +62,8 @@ add_action( 'init', 'fobv_start_session' );
 function fobv_payment_reference ( $atts ) {
 
     $atts = shortcode_atts( [
-        'name' => NULL
+        'name' => NULL,
+        'clear' => 'no'
     ], $atts );
 
     if ( ! array_key_exists( 'payment_reference', $_SESSION ) ) {
@@ -77,6 +78,10 @@ function fobv_payment_reference ( $atts ) {
         $return .= '">';
     } else {
         $return = $_SESSION[ 'payment_reference' ];
+    }
+
+    if ( $atts[ 'clear' ] === 'yes' ) {
+        unset( $_SESSION[ 'payment_reference' ] );
     }
 
     return $return;

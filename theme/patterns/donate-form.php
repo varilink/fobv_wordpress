@@ -11,11 +11,15 @@
 <!-- /wp:html -->
 
 <!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
-[fobv-payment-reference name='fobv_donate_reference']
+[vari-nonce-field action='fobv_donate' name='fobv_donate_nonce']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
-[vari-nonce-field action='fobv_donate' name='fobv_donate_nonce']
+[vari-transaction action='fobv_donate']
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
+[fobv-payment-reference name='fobv_donate_reference' clear='yes']
 <!-- /wp:shortcode -->
 
 <!-- wp:paragraph -->
@@ -23,12 +27,12 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"templateLock":"all","lock":{"move":true,"remove":true},"style":{"spacing":{"blockGap":"0.5em"}},"layout":{"type":"flex","orientation":"vertical"}} -->
-<div class="wp-block-group"><!-- wp:group {"style":{"spacing":{"blockGap":"0.25em"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group"><!-- wp:shortcode -->
+<div class="wp-block-group"><!-- wp:group {"templateLock":"all","lock":{"move":true,"remove":true},"style":{"spacing":{"blockGap":"0.25em"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
 [vari-input-tag type='radio' id='fobvDonateAmount5' name='fobv_donate_amount' value='5']
 <!-- /wp:shortcode -->
 
-<!-- wp:html -->
+<!-- wp:html {"lock":{"move":true,"remove":true}} -->
 <label for='fobvDonateAmount5'>£5</label>&nbsp;
 <!-- /wp:html -->
 
@@ -48,13 +52,29 @@
 <label for='fobvDonateAmount20'>£20</label>&nbsp;
 <!-- /wp:html -->
 
-<!-- wp:shortcode -->
-[vari-input-tag type='radio' id='fobvDonateAmount30' name='fobv_donate_amount' value='30' last='yes']
+<!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
+[vari-input-tag type='radio' id='fobvDonateAmount50' name='fobv_donate_amount' value='50']
 <!-- /wp:shortcode -->
 
-<!-- wp:html -->
-<label for='fobvDonateAmount30'>£30</label>
-<!-- /wp:html --></div>
+<!-- wp:html {"lock":{"move":true,"remove":true}} -->
+<label for='fobvDonateAmount50'>£50</label>&nbsp;
+<!-- /wp:html -->
+
+<!-- wp:shortcode {"lock":{"move":true,"remove":true}} -->
+[vari-input-tag type='radio' id='fobvDonateAmountOther' name='fobv_donate_amount' value='Other']
+<!-- /wp:shortcode -->
+
+<!-- wp:html {"lock":{"move":true,"remove":true}} -->
+<label for='fobvDonateAmountOther'>Other</label>&nbsp;£
+<!-- /wp:html -->
+
+<!-- wp:shortcode -->
+[vari-input-tag id="fobvDonateAmountOtherValue" name="fobv_donate_amount_other_value"]
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode -->
+[vari-label-tag name="fobv_donate_amount_other_value_error" class="error" for="fobv_donate_amount_other_value"]
+<!-- /wp:shortcode --></div>
 <!-- /wp:group -->
 
 <!-- wp:shortcode -->
@@ -66,7 +86,7 @@
 <p>We would like to make contact with you to thank you personally for your donation. If you are okay for us to do that then please provide us with your email address. However, if you would rather not do so then you can leave this field blank.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:columns -->
+<!-- wp:columns {"templateLock":"all","lock":{"move":true,"remove":true}} -->
 <div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
 <div class="wp-block-column" style="flex-basis:13em"><!-- wp:html {"lock":{"move":true,"remove":true}} -->
 <label for="fobvDonateEmailAddress">Email Address:</label>
@@ -86,7 +106,7 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
-<!-- wp:columns -->
+<!-- wp:columns {"templateLock":"all","lock":{"move":true,"remove":true}} -->
 <div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
 <div class="wp-block-column" style="flex-basis:13em"><!-- wp:html {"lock":{"move":true,"remove":true}} -->
 <label for="fobvDonateConfirmEmailAddress">Confirm Email Address:</label>

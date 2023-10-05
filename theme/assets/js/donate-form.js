@@ -1,5 +1,27 @@
 jQuery( document ).ready( function() {
 
+    if ( jQuery( "#fobvDonateAmountOther" ).is( ":checked" ) ) {
+        jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", false );
+    } else {
+        jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", true );
+    }
+
+    jQuery( "input:radio[name=fobv_donate_amount]").change( function () {
+
+        if ( jQuery( "#fobvDonateAmountOther" ).is( ":checked" ) ) {
+            jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", false );
+        } else {
+            jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", true );
+        }
+
+    } );
+
+    if ( jQuery( "#fobvDonateEmailAddress" ).val() ) {
+        jQuery( '#fobvDonateConfirmEmailAddress' ).prop( "disabled", false );
+    } else {
+        jQuery( '#fobvDonateConfirmEmailAddress' ).prop( "disabled", true );
+    }
+
     jQuery( "#fobvDonateEmailAddress" ).on( "keydown", function() {
 
         setTimeout(() => {
@@ -12,7 +34,6 @@ jQuery( document ).ready( function() {
                 jQuery(
                     '#fobvDonateConfirmEmailAddress'
                 ).prop( "disabled", true );
-                console.log('Donate email address does NOT have a value');
             }
 
         }, 200)
@@ -28,6 +49,16 @@ jQuery( document ).ready( function() {
             },
             fobv_donate_confirm_email_address: {
                 equalTo: "#fobvDonateEmailAddress"
+            },
+            fobv_donate_amount_other_value: {
+                required: function () {
+                    if ( jQuery( "#fobvDonateAmountOther" ).is( ":checked" ) ) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                digits: true
             }
         }
     } );
