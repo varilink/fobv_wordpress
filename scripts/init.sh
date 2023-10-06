@@ -74,19 +74,14 @@ images="$images viaduct-panorama-9 viaduct-panorama-10"
 for image in $images
 do
 
-  for post in $(                                                               \
-    wp post list --post_type=attachment --fields=ID,name --format=json |       \
-    jq ".[] | select(.post_name == \"$image\") | .ID"                 \
-  )
-  do
+  wp post list --post_type=attachment --name=${image%.*} --format=ids          \
+    | xargs --no-run-if-empty wp post delete --force
 
-    wp post delete $post --force
-
-  done
+  wp_content="$(wp eval 'echo ABSPATH;')/wp-content"
 
   id=$(                                                                        \
-    wp media import wp-content/themes/fobv-site/assets/img/$image.webp   \
-      --porcelain                                                              \
+    wp media import                                                            \
+      ${wp_content}/${COMPOSE_PROJECT_NAME}-media/$image.webp --porcelain                                                              \
   )
 
   if [ "$image" == 'header-logo' ]
