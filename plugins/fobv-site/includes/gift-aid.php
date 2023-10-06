@@ -319,9 +319,11 @@ EOD;
 
                 $message .= <<<'EOD'
 
-The member already had a PENDING subscription to our Mailchimp list. Their
+The member already had a PENDING subscription to our Mailchimp list, meaning
+that they have subscribed but haven't yet confirmed their email address using
+the link in the email that Mailchimp has sent them to do this. Their
 subscription has been tagged with an interest in membership news, if it wasn't
-already, and a reminder to confirm their subscription has been sent to them.
+already.
 
 EOD;
 
