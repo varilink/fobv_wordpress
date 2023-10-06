@@ -203,7 +203,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p id="fobvJoinUsPaymentMethodCashHelp">Please give your cash payment to an officer of The Friends of Bennerley Viaduct when you first attend a membership meeting. Do not send cash payments through the post.</p>
+<p id="fobvJoinUsMethodCashHelp">Please give your cash payment to an officer of The Friends of Bennerley Viaduct when you first attend a membership meeting. Do not send cash payments through the post.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -217,7 +217,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p id="fobvJoinUsPaymentMethodChequeHelp">Cheques should be made payable to "The Friends of Bennerley Viaduct" and be posted to Castledine House, 5-9 Heanor Road, Ilkeston DE7 8DY. Please write the reference [fobv-payment-reference] on the back.</p>
+<p id="fobvJoinUsMethodChequeHelp">Cheques should be made payable to "The Friends of Bennerley Viaduct" and be posted to Castledine House, 5-9 Heanor Road, Ilkeston DE7 8DY. Please write the reference [fobv-payment-reference] on the back.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -231,7 +231,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p id="fobvJoinUsPaymentMethodBankTransferHelp">Please instruct your bank transfer to:<br>Payee: Friends of Bennerley Viaduct<br>Account Number = 34642813<br>Sort Code = 40-19-15<br>Reference = [fobv-payment-reference clear='yes']</p>
+<p id="fobvJoinUsMethodBankTransferHelp">Please instruct your bank transfer to:<br>Payee: Friends of Bennerley Viaduct<br>Account Number = 34642813<br>Sort Code = 40-19-15<br>Reference = [fobv-payment-reference clear='yes']</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
@@ -245,7 +245,7 @@
 <!-- /wp:group -->
 
 <!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p id="fobvJoinUsPaymentMethodOnlineHelp">When you click on Submit, you will be taken to a page to instruct your payment, either via PayPal or a credit or debit card.</p>
+<p id="fobvJoinUsMethodOnlineHelp">When you click on Submit, you will be taken to a page to instruct your payment, either via PayPal or a credit or debit card.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:column --></div>
