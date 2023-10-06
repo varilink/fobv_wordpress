@@ -2,14 +2,11 @@
 # where the container user's home directory is mapped to a local volume.
 .bash_history
 
-# npm cache directories (theme and fobv-event plugin).
+# Any npm cache directories whereever they occur.
 .npm/
 
-# NPM dependency directories (theme and fobv-event plugin).
+# Any NPM dependency directories wherever they occur.
 node_modules/
-
-# Theme asset files, which are all generated.
-/fobv-site-theme/assets/
 
 # Generated media files
 /media
