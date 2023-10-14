@@ -1,0 +1,6 @@
+{
+  "__file": "wp_block",
+  "title": "Adaptive location map",
+  "content": "<!-- wp:html -->\n<!-- Adaptive, embedded Google Map of the Viaduct's location -->\n\n<style>\n.google-maps {\n    position: relative;\n    padding-bottom: 75%; // This is the aspect ratio\n    height: 0;\n    overflow: hidden;\n}\n\n.google-maps iframe {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100% !important;\n    height: 100% !important;\n}\n</style>\n\n<div class=\"google-maps\">\n    <iframe\n        src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19213.695956947467!2d-1.315382161787756!3d52.98958110907446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879eb840332b0d7%3A0x8b8d805b1fe46729!2sBennerley%20Viaduct!5e0!3m2!1sen!2suk!4v1643631573153!5m2!1sen!2suk\"\n        style=\"border:0;\"\n        allowfullscreen=\"\"\n        loading=\"lazy\"\n        width=\"400\"\n        height=\"400\"\n    >\n    </iframe>\n</div>\n\n<!-- /wp:html -->",
+  "syncStatus": ""
+}
