@@ -1,0 +1,6 @@
+{
+  "__file": "wp_block",
+  "title": "Membership Confirmed Pre",
+  "content": "<!-- wp:paragraph -->\n<p>Thank you for signing up to become a Friend of Bennerley Viaduct.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>If you are a new member, thank you for joining us. If you are returning or renewing, welcome back, your continued support is much appreciated. The fee you pay for your membership is vital to support our ongoing work, it is one of the most important ways we make income for the charity.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>You should receive an automatic email confirming your sign-up. If it has not arrived, please check your SPAM or Junk folder. If you find it there then please add us to your safe senders' list. If you can't find it, confirm which email you used to register with us. If you still haven't received it, you can contact our <a href=\"mailto:membership@bennerleyviaduct.org.uk\">membership volunteer</a>.</p>\n<!-- /wp:paragraph -->",
+  "syncStatus": ""
+}
