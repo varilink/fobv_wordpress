@@ -106,8 +106,9 @@ function fobv_subscribe() {
         ) {
 
             $errors = TRUE;
-            $errors[ 'fobv_subscribe_email_address_class' ] = 'error';
-            $errors[ 'fobv_subscribe_email_address_error' ]
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_class' ]
+                = 'error';
+            $_SESSION[ $transaction ][ 'fobv_subscribe_email_address_error' ]
                 = 'You are already subscribed.';
 
         } elseif (
@@ -139,9 +140,49 @@ function fobv_subscribe() {
     }
 
     // -------------------------------------------------------------------------
-    // 4. Execution
+    // 4. Notification
     // -------------------------------------------------------------------------
 
+    $subject = 'Subscription Notification';
+
+    if ( $fobv_env != 'live' ) {
+        $subject .= " ($fobv_env)";
+    }
+
+    $message = <<<"EOD"
+Somebody just subscribed to our MailChimp mailing list via the website using the
+email address $email_address.
+
+EOD;
+
+    $notifications = fobv_notification_email_addresses( 'subscribe' );
+
+    if ( fobv_test_email_address() ) {
+
+        // We are in test mode for email notifications. In this mode all emails
+        // go to the current logged in user rather than the usual recipients.
+        // We also report who the true recipients would have been if we weren't
+        // in test mode within the email.
+
+        $true_to = implode( PHP_EOL, $notifications );
+        $message .= <<<"EOD"
+
+We are in test mode in respect of email notifications. The "true" recipients of
+this email would have been (if we weren't in test mode):
+$true_to
+EOD;
+        $to = fobv_test_email_address();
+    } else {
+        $to = $notifications;
+    }
+
+    wp_mail( $to, $subject, $message );
+
+    // -------------------------------------------------------------------------
+    // 5. Execution
+    // -------------------------------------------------------------------------
+
+    $request[ 'email_address' ] = $email_address;
     $request[ 'status' ] = 'pending';
     $request[ 'status_if_new' ] = 'pending';
     if ( isset( $first_name ) ) {
