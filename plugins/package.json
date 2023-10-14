@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@wordpress/create-block": "^4.18.0"
+  }
+}

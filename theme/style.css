@@ -1,118 +1,32 @@
 /*
- Theme Name:     WP Bootstrap Starter Child Theme
- Theme URI:      https://wordpress.org/themes/wp-bootstrap-starter/
- Description:    A child theme of WPBS Theme
- Author:         Afterimage Designs
- Author URI:     https://afterimagedesigns.com/
- Template:       wp-bootstrap-starter
- Version:        1.4
+Theme Name: Twenty Twenty-Three Child
+Theme URI: https://diviextended.com/
+Author: Elicus Technologies
+Author URI: https://elicus.com
+Template: twentytwentythree
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
+/*
+Settings are only actioned here rather than via theme.json by exception. The
+preference is to use theme.json. One implication of settings here rather than in
+theme.json is that they are not reflected in the block editor.
+*/
 
-/****************************************
-*** Theme customization starts below ***
-*****************************************/
-
-/* Remove space between nav bar and page sub header */
-#page-sub-header {
-  padding-top: 0 ;
+html {
+    scroll-behavior: smooth;
 }
 
-/* Styling of caption that appears over each image in the carousel */
-.carousel-caption {
-  background: rgba(0, 0, 0, 0.45) ;
-  bottom: 0px;
-  font-size: 1.6em;
-  padding-top: 10px;
-  padding-bottom: 0px;
+@media screen and (min-width: 782px) {
+    .fobv-page-menu {
+        position: sticky !important;
+        top: calc(0px + var(--wp-admin--admin-bar--height, 0px)) !important;
+        z-index: 10 !important;
+    }
 }
 
-.carousel-caption a {
-  color: white;
-  opacity: .75;
-}
-
-.carousel-caption a:hover {
-  color: white;
-  text-decoration: none;
-  opacity: 1;
-}
-
-/* Override theme masthead background, which is a dark purple */
-header#masthead {
-  background-color: #fff ;
-}
-
-/* Override theme site title colour, which is blue */
-a.site-title {
-  color: #000 ;
-}
-
-/* Customise hover look of site title link */
-a.site-title:hover {
-  color: #666 ;
-  text-decoration: none ;
-}
-
-/* Customise starting look of navbar menu items */
-body:not(.theme-preset-active) #masthead .navbar-nav > li > a {
-  color: #000 ;
-  font-size: 1rem ;
-}
-
-/* Customise look of navbar menu items on hover and when current */
-body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover,
-body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a
-{
-  color: #999;
-  text-decoration: none ;
-}
-
-/* Styling for the background image in the page footer */
-#colophon {
-  background-position: center ;
-  background-repeat: no-repeat ;
-  background-size: cover ;
-}
-
-/* Styling for the text continer in the page footer */
-#colophon .container {
-  color: #154360 ;
-  font-weight: bold ;
-  margin-bottom: 10px ;
-  margin-top: 20px ;
-}
-
-/* Increase the size of h1 entries at the top of the page */
-h1 {
-  font-size: 3rem !important ;
-}
-
-/* Hide the byline in posts */
-.byline {
-  display: none !important ;
-}
-
-/* Potential fix for Kieran's menu display issue */
-@media screen and (max-width: 1199px) {
-  .navbar-dark .dropdown-item {
-    color: #fff;
-  }
-  .navbar-nav .dropdown-menu {
-    background: #fff;
-  	border: 1px solid rgba(0, 0, 0, 0.15);
-  	border-radius: 0.25rem;
-  }
-}
-
-
-
-#secondary .current-menu-item {
-  background: #eee ;
-}
-
-figcaption {
-  color: #666 ;
-  font-style: italic ;
-  text-align: center ;
+#fobvDonateAmountOtherValue {
+    width: 5em;
 }

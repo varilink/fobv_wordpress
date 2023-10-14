@@ -1,0 +1,23 @@
+/**
+ * This styling is all used by the custom panel we add to the document settings
+ * sidebar for the FoBV event post type in the post editor.
+ */
+
+h2.fobv-event-heading {
+	font-size: calc(13px);
+}
+
+.fobv-event-panel-row {
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.fobv-event-panel-row span {
+	display: block;
+	padding: 6px 0;
+	width: 45%;
+}
+
+.fobv-event-close-button {
+	outline: none;
+}

@@ -1,6 +1,12 @@
-# Customised Bootstrap CSS files that are generated using Sass
-/theme/assets/css/
-# npm cache directory
-/.npm/
-# npm nodemodules directory
-/node_modules/
+# .bash_history files generated when running bash scripts within containers
+# where the container user's home directory is mapped to a local volume.
+.bash_history
+
+# Any npm cache directories whereever they occur.
+.npm/
+
+# Any NPM dependency directories wherever they occur.
+node_modules/
+
+# Generated media files
+/media
