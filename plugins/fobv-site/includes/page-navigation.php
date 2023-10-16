@@ -60,25 +60,60 @@ function fobv_index_page ( $content ) {
 
             foreach ( $headers as $header ) {
 
-                $has_id = False;
-                $tag_name = $header->tagName;
+                $has_id = FALSE;    # Posit no id attribute
+                $has_class = FALSE; # Posit no class attribute
+
+                $tag_name = $header->tagName; # h2 or h3
                 $text_content = $header->textContent;
+
+                // The text content from the DOMDocument is not HTML encoded.
+                // The HTML that was loaded to create it is HTML encoded, using
+                // numeric HTML entities that are generated when WordPress
+                // renders any characters that it encodes. Below we're going to
+                // do a regex search and replace on that HTML, so we need the
+                // text in its original form to search for it.
+
                 $preg_text_content = preg_quote(
+
+                    // The htmlentities function outputs named HTML entities.
+                    // WordPress uses numeric HTML entities so convert named
+                    // HTML entities that might be used in headings to their
+                    // numeric equivalents.
+
                     strtr( htmlentities( $text_content ), [
                         '&ldquo;' => '&#8220;',
                         '&rdquo;' => '&#8221;',
                         '&ndash;' => '&#8211;'
                     ]),
-                    '/'
+                    '/' # also preg_quote '/' as it's the delimiter we use below
+
                 );
 
-                // Determine if the header already has an id attribute.
+                // Determine if the header already has an id attribute and/or a
+                // a class attribute.
 
                 foreach ( $header->attributes as $attribute ) {
                     if ( $attribute->name === 'id' ) {
-                        $has_id = True;
-                        break;
+                        $has_id = TRUE;
+                    } elseif ( $attribute->name === 'class' ) {
+                        $has_class = TRUE;
                     }
+                }
+
+                if ( $tag_name === 'h2' ) {
+                    // Wrap the h2 tag in a div that contains a link back to the
+                    // top of the page.
+                    $prepend  = '<div style="display: flex; align-items: ';
+                    $prepend .= 'center; justify-content: space-between;">';
+                    $append   = '<span class="fobv-hide-on-desktop">';
+                    $append  .= '<i class="fa-solid fa-arrow-up"></i>&nbsp;';
+                    $append  .= '<a href="#fobv-page-top-link">Contents</a>';
+                    $append  .= '</span></div>';
+                } else {
+                    // Don't wrap a h3 tag in a div containing a link back to
+                    // the top of the page.
+                    $prepend = '';
+                    $append = '';
                 }
 
                 if ( $has_id ) {
@@ -87,13 +122,21 @@ function fobv_index_page ( $content ) {
                     // sure that its value is what we want, i.e. change it to
                     // what we want.
 
+                    // The tag split into what comes before the id attribute's
+                    // value, the id attribute's value itself and what comes
+                    // after the id attribute's value.
+
                     $pre_id = "<$tag_name.*?id=\"";
-                    $id = '[\w-]+';
+                    $id = '[\w-]+';  # The chars I use in ids
                     $post_id = "\".*?>$preg_text_content<\\/$tag_name>";
+
+                    // Replace the id with the value that will correspond to our
+                    // automatically generated page menus.
 
                     $content = preg_replace(
                         "/($pre_id)$id($post_id)/",
-                        '$1' . text_content_to_id( $text_content ) . '$2',
+                        $prepend . '$1' . text_content_to_id( $text_content ) .
+                        '$2' . $append,
                         $content
                     );
 
@@ -103,11 +146,47 @@ function fobv_index_page ( $content ) {
 
                     $content = preg_replace(
                         "/(<$tag_name.*?)(>$preg_text_content<\\/$tag_name>)/",
-                        '$1 id="' . text_content_to_id( $text_content ) . '"$2',
+                        $prepend . '$1 id="' .
+                        text_content_to_id( $text_content ) . '"$2' . $append,
                         $content
                     );
 
                 }
+
+                if ( $has_class ) {
+
+                    // The heading tag already has a class attribute. Add a
+                    // class to the existing classes to hide the header on a
+                    // mobile display.
+
+                    $pre_class = "<$tag_name.*?class=\"";
+                    $class = '[\w\- ]'; # The chars I use in class attributes
+                    $post_class = "\".*?>$preg_text_content<\\/$tag_name>";
+
+
+
+                    // Append the class fobv-hide-on-mobile to the other
+                    // classes set for this heading tag.
+
+                    $content = preg_replace(
+                        "/($pre_class)$class($post_class)/",
+                        '$1' . "$class fobv-hide-on-mobile" . '$2',
+                        $content
+                    );
+
+                } else {
+
+                    // The heading tag doesn't have a class attribute so add
+                    // one for the fobv-hide-on-mobile class.
+
+                    $content = preg_replace(
+                        "/(<$tag_name.*?)(>$preg_text_content<\\/$tag_name>)/",
+                        '$1 class="fobv-hide-on-mobile"$2',
+                        $content
+                    );
+
+                }
+
             }
             
         }
@@ -192,7 +271,15 @@ END;
                     // Output a h2 link that starts a submenu.
 
                     $output .= <<<END
-<li class="wp-block-navigation-item has-child wp-block-navigation-submenu">
+<!-- Displays if not showing submenus -->
+<li class="wp-block-navigation-item wp-block-navigation-link fobv-hide-submenus">
+<a class="wp-block-navigation-item__content" href="$link_href">
+<span class="wp-block-navigation-item__label">$link_text</span>
+</a>
+</li>
+<!-- /Displays if not showing submenus -->
+<!-- Displays if showing submenus -->
+<li class="wp-block-navigation-item has-child wp-block-navigation-submenu fobv-show-submenus">
 <a class="wp-block-navigation-item__content" href="$link_href">$link_text</a>
 <div class="submenu-break"></div>
 <ul class="wp-block-navigation__submenu-container wp-block-navigation-submenu">
@@ -213,12 +300,28 @@ END;
 </li>
 </ul>
 </li>
+<!-- /Display if showing submenus -->
+END;
+
+                } elseif (
+                    $header->tagName === 'h3' && $next_header
+                    && $next_header->tagName === 'h3'
+                ) {
+
+                    // Output a h3 link that does not end a submenu
+
+                    $output .= <<<END
+<li class="wp-block-navigation-item wp-block-navigation-link fobv-show-submenus">
+<a class="wp-block-navigation-item__content" href="$link_href">
+<span class="wp-block-navigation-item__label">$link_text</span>
+</a>
+</li>
 END;
 
                 } else {
 
-                    // Output a h2 or h3 link that neither starts nor closes a
-                    // submenu.
+                    // Output a h2 link that does not start a submenu
+
                     $output .= <<<END
 <li class="wp-block-navigation-item wp-block-navigation-link">
 <a class="wp-block-navigation-item__content" href="$link_href">

@@ -30,3 +30,15 @@ html {
 #fobvDonateAmountOtherValue {
     width: 5em;
 }
+
+@media screen and ( min-width: 1000px ) {
+    .fobv-hide-submenus { display: none !important; }
+}
+
+@media screen and ( max-width: 999px ) {
+    .fobv-show-submenus { display: none !important; }
+}
+
+@media screen and ( min-width: 782px ) {
+    .fobv-hide-on-desktop { display: none !important; }
+}
