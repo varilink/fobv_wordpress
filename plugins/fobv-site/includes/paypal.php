@@ -17,11 +17,11 @@ function fobv_paypal_create_order ( $transaction, $amount, $reference ) {
 
         $description .= ' Membership Fee';
         $return_url
-            = site_url() . '/membership-confirmed-and-gift_aid-received/';
+            = site_url() . '/membership-confirmed-and-payment-received/';
         $cancel_url
-            = site_url() . '/membership-confirmed-and-gift_aid-cancelled/';
+            = site_url() . '/membership-confirmed-and-payment-cancelled/';
 
-        }
+    }
 
     $access_token = varilink_paypal_get_access_token(
         FOBV_PAYPAL_API_DOMAIN,
