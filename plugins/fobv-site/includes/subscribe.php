@@ -145,8 +145,8 @@ function fobv_subscribe() {
 
     $subject = 'Subscription Notification';
 
-    if ( $fobv_env != 'live' ) {
-        $subject .= " ($fobv_env)";
+    if ( FOBV_ENV != 'live' ) {
+        $subject .= ' (' . FOBV_ENV . ')';
     }
 
     $message = <<<"EOD"
