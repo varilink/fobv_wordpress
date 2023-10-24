@@ -6,8 +6,19 @@
 ;; Source image files
 ;; ------------------
 
-;; Logo provided by The FoBV
-(define logoImage (car (gimp-file-load RUN-NONINTERACTIVE "src/logo.png" "")))
+(define originalLogoImage (car (gimp-file-load
+    RUN-NONINTERACTIVE
+    "src/logo.png"
+    ""
+)))
+;; blurred-logo.png is based on logo.png, which is the original image provided
+;; by the FoBV, with a mediun blur applied with radius set to 1 and alpha
+;; percentile set to 90 and all other settings left at their GIMP defaults.
+(define blurredLogoImage (car (gimp-file-load
+    RUN-NONINTERACTIVE
+    "src/blurred-logo.png"
+    ""
+)))
 
 ;; Create outputs
 ;; --------------
@@ -17,8 +28,34 @@
 (let*
 
     (
-        (headerLogoImage (car (gimp-image-duplicate logoImage)))
-        (headerLogoDrawable (car (gimp-image-get-active-layer headerLogoImage)))
+        (headerLogoImage (car (gimp-image-duplicate blurredLogoImage)))
+        (headerLogoBackgroundLayer(car (gimp-layer-new
+            headerLogoImage          ; image
+            350                      ; width
+            350                      ; height
+            RGB-IMAGE                ; type
+            "Background"             ; name
+            100                      ; opacity
+            LAYER-MODE-NORMAL-LEGACY ; mode 
+        )))
+    )
+
+    (gimp-item-set-name
+        (car (gimp-image-get-active-layer headerLogoImage)) ; item
+        "Logo"                                              ; name
+    )
+
+    (gimp-context-set-background '(180.0 202.0 125.0))
+
+    (gimp-drawable-fill
+        headerLogoBackgroundLayer ; drawable
+        FILL-BACKGROUND           ; fill-type
+    )
+
+    (gimp-image-insert-layer headerLogoImage
+        headerLogoBackgroundLayer ; layer
+        0                         ; parent (main layer stack)
+        1                         ; position (behind the headerLogoLayer)
     )
 
     (gimp-image-scale headerLogoImage 150 150)
@@ -26,7 +63,10 @@
     (file-webp-save
         RUN-NONINTERACTIVE      ; Interactive, non-interactive
         headerLogoImage         ; Input image
-        headerLogoDrawable      ; Drawable to save
+        (car (gimp-image-merge-visible-layers
+            headerLogoImage     ; image
+            CLIP-TO-IMAGE       ; merge-type
+        ))                      ; Drawable to save
         "dist/header-logo.webp" ; The name of the file to save the image to
         "dist/header-logo.webp" ; The name entered
         0                       ; preset
@@ -53,8 +93,35 @@
 (let*
 
     (
-        (footerLogoImage (car (gimp-image-duplicate logoImage)))
+        (footerLogoImage (car (gimp-image-duplicate originalLogoImage)))
         (footerLogoDrawable (car (gimp-image-get-active-layer footerLogoImage)))
+        (footerLogoBackgroundLayer(car (gimp-layer-new
+            footerLogoImage          ; image
+            350                      ; width
+            350                      ; height
+            RGB-IMAGE                ; type
+            "Background"             ; name
+            100                      ; opacity
+            LAYER-MODE-NORMAL-LEGACY ; mode 
+        )))
+    )
+
+    (gimp-item-set-name
+        (car (gimp-image-get-active-layer footerLogoImage)) ; item
+        "Logo"                                              ; name
+    )
+
+    (gimp-context-set-background '(82.0 128.0 52.0))
+
+    (gimp-drawable-fill
+        footerLogoBackgroundLayer ; drawable
+        FILL-BACKGROUND           ; fill-type
+    )
+
+    (gimp-image-insert-layer footerLogoImage
+        footerLogoBackgroundLayer ; layer
+        0                         ; parent (main layer stack)
+        1                         ; position (behind the headerLogoLayer)
     )
 
     (gimp-drawable-invert footerLogoDrawable TRUE)
@@ -63,7 +130,10 @@
     (file-webp-save
         RUN-NONINTERACTIVE      ; Interactive, non-interactive
         footerLogoImage         ; Input image
-        footerLogoDrawable      ; Drawable to save
+        (car (gimp-image-merge-visible-layers
+            footerLogoImage     ; image
+            CLIP-TO-IMAGE       ; merge-type
+        ))                      ; Drawable to save
         "dist/footer-logo.webp" ; The name of the file to save the image to
         "dist/footer-logo.webp" ; The name entered
         0                       ; preset
@@ -499,5 +569,6 @@
 
 )
 
-(gimp-image-delete logoImage)
+(gimp-image-delete originalLogoImage)
+(gimp-image-delete blurredLogoImage)
 (gimp-quit 0)
