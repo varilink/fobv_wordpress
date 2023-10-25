@@ -13,7 +13,7 @@
 )))
 ;; blurred-logo.png is based on logo.png, which is the original image provided
 ;; by the FoBV, with a mediun blur applied with radius set to 1 and alpha
-;; percentile set to 90 and all other settings left at their GIMP defaults.
+;; percentile set to 80 and all other settings left at their GIMP defaults.
 (define blurredLogoImage (car (gimp-file-load
     RUN-NONINTERACTIVE
     "src/blurred-logo.png"
