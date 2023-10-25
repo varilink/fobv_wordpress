@@ -19,11 +19,11 @@
 			"title": "Blog (Alternative)"
 		},
 		{
-			"name": "support-the-fobv-section-page",
+			"name": "support-our-charity-section-page",
 			"postTypes": [
 				"page"
 			],
-			"title": "Support the FoBV Section Page"
+			"title": "Support our Charity Section Page"
 		},
 		{
 			"name": "visit-the-viaduct-section-page",

@@ -42,7 +42,7 @@ wp rewrite flush
 # way to create the new type of menus used in block themes with their menu
 # items, short of setting the blocks in the post_content for the menu post.
 
-for menu in 'Main Menu' 'Visit the Viaduct Menu' 'Support the FoBV Menu'
+for menu in 'Main Menu' 'Visit the Viaduct Menu' 'Support our Charity Menu'
 do
 
   if [[ ! $(                                                                   \
@@ -145,26 +145,26 @@ history[title]=History
 history[menus]='Visit the Viaduct Menu'
 history[featured_image]=viaduct-panorama-4
 history[template]=visit-the-viaduct-section-page
-declare -A support_the_fobv
-support_the_fobv[title]='Support the FoBV'
-support_the_fobv[menus]='Main Menu:Support the FoBV Menu'
-support_the_fobv[featured_image]=viaduct-panorama-5
-support_the_fobv[template]=support-the-fobv-section-page
+declare -A support_our_charity
+support_our_charity[title]='Support our Charity'
+support_our_charity[menus]='Main Menu:Support our Charity Menu'
+support_our_charity[featured_image]=viaduct-panorama-5
+support_our_charity[template]=support-our-charity-section-page
 declare -A about_us
 about_us[title]='About Us'
-about_us[menus]='Support the FoBV Menu'
+about_us[menus]='Support our Charity Menu'
 about_us[featured_image]=viaduct-panorama-6
-about_us[template]=support-the-fobv-section-page
+about_us[template]=support-our-charity-section-page
 declare -A latest_news
 latest_news[title]='Latest News'
-latest_news[menus]='Support the FoBV Menu'
+latest_news[menus]='Support our Charity Menu'
 latest_news[featured_image]=viaduct-panorama-7
-latest_news[template]=support-the-fobv-section-page
+latest_news[template]=support-our-charity-section-page
 
 for page_var in \
   home_page \
   visit_the_viaduct getting_there history \
-  support_the_fobv about_us latest_news
+  support_our_charity about_us latest_news
 do
 
   post_name=`echo -n $page_var | tr '_' '-'`
