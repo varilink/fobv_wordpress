@@ -29,33 +29,6 @@
 
     (
         (headerLogoImage (car (gimp-image-duplicate blurredLogoImage)))
-        (headerLogoBackgroundLayer(car (gimp-layer-new
-            headerLogoImage          ; image
-            350                      ; width
-            350                      ; height
-            RGB-IMAGE                ; type
-            "Background"             ; name
-            100                      ; opacity
-            LAYER-MODE-NORMAL-LEGACY ; mode 
-        )))
-    )
-
-    (gimp-item-set-name
-        (car (gimp-image-get-active-layer headerLogoImage)) ; item
-        "Logo"                                              ; name
-    )
-
-    (gimp-context-set-background '(180.0 202.0 125.0))
-
-    (gimp-drawable-fill
-        headerLogoBackgroundLayer ; drawable
-        FILL-BACKGROUND           ; fill-type
-    )
-
-    (gimp-image-insert-layer headerLogoImage
-        headerLogoBackgroundLayer ; layer
-        0                         ; parent (main layer stack)
-        1                         ; position (behind the headerLogoLayer)
     )
 
     (gimp-image-scale headerLogoImage 150 150)
@@ -63,9 +36,8 @@
     (file-webp-save
         RUN-NONINTERACTIVE      ; Interactive, non-interactive
         headerLogoImage         ; Input image
-        (car (gimp-image-merge-visible-layers
-            headerLogoImage     ; image
-            CLIP-TO-IMAGE       ; merge-type
+        (car (gimp-image-get-active-layer
+            headerLogoImage         ; image
         ))                      ; Drawable to save
         "dist/header-logo.webp" ; The name of the file to save the image to
         "dist/header-logo.webp" ; The name entered
