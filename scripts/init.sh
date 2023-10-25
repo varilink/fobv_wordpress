@@ -31,6 +31,7 @@ wp plugin activate varilink-paypal
 # ----------
 
 wp option update permalink_structure /%postname%/
+wp rewrite flush
 
 # -----
 # Menus
