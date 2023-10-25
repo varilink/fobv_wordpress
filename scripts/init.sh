@@ -66,10 +66,12 @@ wp theme activate fobv-site
 
 wp option update uploads_use_yearmonth_folders 0
 
-images="footer-logo header-logo viaduct-panorama-1 viaduct-panorama-2"
-images="$images viaduct-panorama-3 viaduct-panorama-4 viaduct-panorama-5"
-images="$images viaduct-panorama-6 viaduct-panorama-7 viaduct-panorama-8"
-images="$images viaduct-panorama-9 viaduct-panorama-10"
+images="footer-logo.webp header-logo.webp viaduct-panorama-1.webp"
+images="$images viaduct-panorama-2.webp viaduct-panorama-3.webp"
+images="$images viaduct-panorama-4.webp viaduct-panorama-5.webp"
+images="$images viaduct-panorama-6.webp viaduct-panorama-7.webp"
+images="$images viaduct-panorama-8.webp viaduct-panorama-9.webp"
+images="$images viaduct-panorama-10.webp"
 
 for image in $images
 do
@@ -81,10 +83,10 @@ do
 
   id=$(                                                                        \
     wp media import                                                            \
-      ${wp_content}/${COMPOSE_PROJECT_NAME}-media/$image.webp --porcelain                                                              \
+      ${wp_content}/${COMPOSE_PROJECT_NAME}-media/$image --porcelain                                                              \
   )
 
-  if [ "$image" == 'header-logo' ]
+  if [ "$image" = 'header-logo.webp' ]
   then
 
     wp option update site_logo $id
