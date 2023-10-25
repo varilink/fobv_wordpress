@@ -171,6 +171,12 @@ do
   post_name=`echo -n $page_var | tr '_' '-'`
 
   declare -n this_page_var=$page_var
+REFLECT CHANGE IN TITLE OF HOME PAGE WITHIN THE WP-CLI INIT SCRIPT
+
+The title for the home page has been changed in live from "Bennerley
+Viaduct" to "Bennerley Viaduct: The Iron Giant". It's not particularly
+vital but we might as well reflect that change in the WP-CLI init
+script.
 
   # Get the ID of the page if it already exists.
   ID=$(                                                                        \
@@ -198,12 +204,21 @@ do
   for menu in ${this_page_var[menus]}
   do
 
+    if [ "${this_page_var[title]}" = 'Bennerley Viaduct: The Iron Giant' ]
+    then
+      menu_item_title='Home'
+    else
+      menu_item_title="${this_page_var[title]}"
+    fi
+
     if [[ ! $(                                                                 \
       wp menu item list "$menu" --fields=db_id,title --format=json |           \
-      jq ".[] | select(.title == \"${this_page_var[title]}\") | .db_id"
+      jq ".[] | select(.title == \"$menu_item_title\") | .db_id"
     ) ]]
     then
-      wp menu item add-post "$menu" $ID
+
+      wp menu item add-post "$menu" $ID --title="$menu_item_title"
+
     fi
 
   done
