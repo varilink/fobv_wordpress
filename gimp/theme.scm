@@ -70,7 +70,7 @@
         "dist/header-logo.webp" ; The name of the file to save the image to
         "dist/header-logo.webp" ; The name entered
         0                       ; preset
-        0                       ; Use lossless encoding
+        1                       ; Use lossless encoding
         90                      ; Quality of the image
         100                     ; Quality of the image's alpha channel
         0                       ; Use layers for animation
