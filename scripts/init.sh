@@ -128,7 +128,7 @@ wp option update uploads_use_yearmonth_folders 1
 
 # Page vars to hold page details. Var names can include '_' but not '-'.
 declare -A home_page
-home_page[title]='Bennerley Viaduct'
+home_page[title]='Bennerley Viaduct: The Iron Giant'
 home_page[menus]='Main Menu'
 home_page[featured_image]=viaduct-panorama-1
 declare -A visit_the_viaduct
