@@ -101,7 +101,8 @@ do
 
   id=$(                                                                        \
     wp media import                                                            \
-      ${wp_content}/${COMPOSE_PROJECT_NAME}-media/$image --porcelain                                                              \
+      $(wp eval 'echo ABSPATH;')/wp-content/uploads/fobv-media/$image.webp     \
+      --porcelain
   )
 
   if [ "$image" = 'header-logo.webp' ]
