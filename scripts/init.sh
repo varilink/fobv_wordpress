@@ -76,8 +76,25 @@ images="$images viaduct-panorama-10.webp"
 for image in $images
 do
 
-  wp post list --post_type=attachment --name=${image%.*} --format=ids          \
-    | xargs --no-run-if-empty wp post delete --force
+  # If we ever add an attachment with the same name as an existing attachment
+  # WordPress resolves this by adding '-' followed by an integer to the name.
+  # So include what are effectively duplicates if any are found when deleting
+  # existing posts associated with this image.
+
+  for post_name in $(                                                          \
+    wp post list --post_type=attachment --field=name                           \
+     | grep "^${image%.*}\(-[[:digit:]]\)\?" | tr '\n' ' '                     \
+  )
+  do
+
+    # A post list based on a post's name should only return one ID but since
+    # post list can return an empty list or a list containing more than one ID
+    # we use xargs.
+
+    wp post list --post_type=attachment --name=$post_name --format=ids        \
+     | xargs --no-run-if-empty wp post delete --force
+
+  done
 
   wp_content="$(wp eval 'echo ABSPATH;')/wp-content"
 
