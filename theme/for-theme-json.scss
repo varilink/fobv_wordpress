@@ -13,6 +13,25 @@ h1 {
     text-shadow: 2px 2px #cccccc;
 }
 
+.fobv-action-links {
+
+    a {
+
+        color: black;
+        text-decoration: none;
+
+        &.fobv-action-link-icon:hover {
+            opacity: 0.5;
+        }
+
+        &.fobv-action-link-text:hover {
+            text-decoration: underline;
+        }
+
+    }    
+
+}
+
 .fobv-page-menu-header {
 
     background-color: var(--wp--preset--color--custom-color-4);

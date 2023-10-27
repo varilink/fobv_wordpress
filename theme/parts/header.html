@@ -1,11 +1,50 @@
-<!-- wp:group {"style":{"spacing":{"padding":{"right":"1.5rem","bottom":"0","left":"1.5rem","top":"1.5rem"}}},"backgroundColor":"custom-color-1","layout":{"type":"constrained"}} -->
-<div class="wp-block-group has-custom-color-1-background-color has-background" style="padding-top:1.5rem;padding-right:1.5rem;padding-bottom:0;padding-left:1.5rem">
+<!-- wp:group {"style":{"spacing":{"padding":{"right":"1.5rem","bottom":"0","left":"1.5rem","top":"1.5rem"}},"typography":{"fontStyle":"normal","fontWeight":"600"}},"backgroundColor":"custom-color-1","layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-custom-color-1-background-color has-background" style="padding-top:1.5rem;padding-right:1.5rem;padding-bottom:0;padding-left:1.5rem;font-style:normal;font-weight:600">
 
     <!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|30"}}},"layout":{"type":"flex","justifyContent":"space-between"}} -->
     <div class="wp-block-group alignwide" style="padding-bottom:var(--wp--preset--spacing--30)">
 
-        <!-- wp:site-logo {"width":150} /-->
-        <!-- wp:navigation /-->
+        <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+        <div class="wp-block-group"><!-- wp:site-logo {"width":150} /-->
+
+            <!-- wp:group {"className":"fobv-action-links","layout":{"type":"flex","orientation":"vertical"}} -->
+            <div class="wp-block-group fobv-action-links">
+
+                <!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+                <div class="wp-block-group">
+
+                    <!-- wp:html -->
+                    <p><a class="fobv-action-link-icon" href="/contact-us/"><i class="fa-solid fa-envelope"></i></a></p>
+                    <!-- /wp:html -->
+
+                    <!-- wp:paragraph -->
+                    <p><a class="fobv-action-link-text" href="/contact-us/">Contact&nbsp;Us</a></p>
+                    <!-- /wp:paragraph -->
+
+                </div>
+                <!-- /wp:group -->
+
+                <!-- wp:group {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+                <div class="wp-block-group">
+
+                    <!-- wp:html -->
+                    <p><a class="fobv-action-link-icon" href="/support-our-charity/#donate"><i class="fa-solid fa-gift"></i></a></p>
+                    <!-- /wp:html -->
+    
+                    <!-- wp:paragraph -->
+                    <p><a class="fobv-action-link-text" href="/support-our-charity/#donate">Donate</a></p>
+                    <!-- /wp:paragraph -->
+
+                </div>
+                <!-- /wp:group -->
+
+            </div>
+            <!-- /wp:group -->
+
+        </div>
+        <!-- /wp:group -->
+
+        <!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"left"},"style":{"typography":{"fontSize":"1.25rem"},"spacing":{"blockGap":"2.5rem"}}} /-->
 
     </div>
     <!-- /wp:group -->
