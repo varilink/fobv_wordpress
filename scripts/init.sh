@@ -101,7 +101,7 @@ do
 
   id=$(                                                                        \
     wp media import                                                            \
-      $(wp eval 'echo ABSPATH;')/wp-content/uploads/fobv-media/$image.webp     \
+      $(wp eval 'echo ABSPATH;')/wp-content/uploads/fobv-media/$image          \
       --porcelain
   )
 
@@ -171,12 +171,6 @@ do
   post_name=`echo -n $page_var | tr '_' '-'`
 
   declare -n this_page_var=$page_var
-REFLECT CHANGE IN TITLE OF HOME PAGE WITHIN THE WP-CLI INIT SCRIPT
-
-The title for the home page has been changed in live from "Bennerley
-Viaduct" to "Bennerley Viaduct: The Iron Giant". It's not particularly
-vital but we might as well reflect that change in the WP-CLI init
-script.
 
   # Get the ID of the page if it already exists.
   ID=$(                                                                        \
