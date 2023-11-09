@@ -172,10 +172,10 @@ function fobv_payment_reference ( $atts ) {
 
 add_shortcode( 'fobv-payment-reference', 'fobv_payment_reference' );
 
-function fobv_write_log( $message ) {
+function fobv_write_log( $message, $divider = FALSE ) {
 
     if ( function_exists( 'varilink_write_log' ) ) {
-        varilink_write_log( $message, 'FOBV' );
+        varilink_write_log( $message, $divider );
     }
 
 };
