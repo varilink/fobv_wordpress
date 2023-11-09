@@ -11,6 +11,8 @@
 # Plugins
 # -------
 
+set -e
+
 # Plugins that are installed from the WordPress Plugin Directory and so the
 # versions of these plugins used are controlled by the install command. Note
 # that the restricted-site-access plugin is only activated when needed.
@@ -31,7 +33,7 @@ wp plugin activate varilink-paypal
 # ----------
 
 wp option update permalink_structure /%postname%/
-wp rewrite flush
+wp rewrite flush --hard
 
 # -----
 # Menus
