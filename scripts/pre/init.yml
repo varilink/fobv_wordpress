@@ -1,0 +1,10 @@
+- name: >-
+    Copy any media files that might need to be made available to the WP-CLI
+    script
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../wordpress/media/"
+    dest: "{{ wp_path }}/wp-content/uploads/{{ wp_project_name }}-media/"
+  when: >-
+    lookup(
+      'ansible.builtin.fileglob', playbook_dir + '/../wordpress/media/*'
+    )

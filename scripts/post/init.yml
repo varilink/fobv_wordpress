@@ -1,0 +1,5 @@
+- name: "\
+    Remove the varilink-media directory that we created a couple of tasks ago"
+  ansible.builtin.file:
+    path: "{{ wp_path }}/wp-content/uploads/{{ wp_project_name }}-media/"
+    state: absent
