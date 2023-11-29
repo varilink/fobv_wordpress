@@ -1,0 +1,6 @@
+{
+  "__file": "wp_block",
+  "title": "Cheque payment instructions",
+  "content": "<!-- wp:paragraph -->\n<p>Cheques should be made to payable to \"The Friends of Bennerley Viaduct\" and be posted to Castledine House, 5-9 Heanor Road, Ilkeston DE7 8DY. Please write the reference [fobv-payment-reference] on the back.</p><!-- /wp:paragraph -->",
+  "syncStatus": ""
+}
