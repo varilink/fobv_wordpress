@@ -143,27 +143,71 @@ add_action( 'init', 'fobv_start_session' );
 
 function fobv_payment_reference ( $atts ) {
 
+    // Function for outputting a payment reference on pages via a shortcode
+
     $atts = shortcode_atts( [
         'name' => NULL,
         'clear' => 'no'
     ], $atts );
 
-    if ( ! array_key_exists( 'payment_reference', $_SESSION ) ) {
-        $_SESSION[ 'payment_reference' ] = wp_rand( 10000000, 99999999 );
+    if ( $_SERVER[ 'REQUEST_METHOD' ] === 'GET' ) {
+        $vars = $_GET;
+    } elseif ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
+        $vars = $_POST;
+    }
+
+    if ( array_key_exists( 'transaction', $vars ) ) {
+
+        // We have been called from a page that is a step in an in-progress
+        // transaction. Get the payment reference from the transaction data.
+
+        $transaction = $vars[ 'transaction' ];
+        if ( preg_match( '/^fobv_donate/', $transaction ) ) {
+            $reference = $_SESSION[ $transaction ][ 'fobv_donate_reference' ];
+        } elseif ( preg_match( '/^fobv_join_us/', $transaction ) ) {
+            $reference = $_SESSION[ $transaction ][ 'fobv_join_us_reference' ];
+        }
+
+    } else {
+
+        // We have been called from a page that will create a transaction but
+        // one doesn't yet exists, so the payment reference is stored in the
+        // session for now, until a transaction is created.
+
+        if ( ! array_key_exists( 'payment_reference', $_SESSION ) ) {
+            $_SESSION[ 'payment_reference' ] = wp_rand( 10000000, 99999999 );
+        }
+
+        $reference = $_SESSION[ 'payment_reference' ];
+
+        if ( $atts[ 'clear' ] === 'yes' ) {
+
+            // We've been asked to "clear" the payment reference from the
+            // session. This is used to allow more than one payment reference to
+            // be output on the same page.
+
+            unset( $_SESSION[ 'payment_reference' ] );
+
+        }
+    
     }
 
     if ( isset( $atts['name'] ) ) {
+
+        // If a name is provided then the payment reference is output as the
+        // value of a hidden input field of that name. This is of course used to
+        // include the payment reference in form submission.
+
         $return  = '<input type="hidden" name="';
         $return .= $atts['name'];
         $return .= '" value="';
-        $return .= $_SESSION[ 'payment_reference' ];
+        $return .= $reference;
         $return .= '">';
-    } else {
-        $return = $_SESSION[ 'payment_reference' ];
-    }
 
-    if ( $atts[ 'clear' ] === 'yes' ) {
-        unset( $_SESSION[ 'payment_reference' ] );
+    } else {
+
+        $return = $reference;
+
     }
 
     return $return;
