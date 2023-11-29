@@ -58,7 +58,7 @@ function fobv_process_page () {
         'gift-aid' => [
             'parameters' => [ 'transaction' ],
             // Note that the gift-aid page only refers to itself in the rare
-            // circumstance that Javascript is disable and so the back-end
+            // circumstance that Javascript is disabled and so the back-end
             // duplication of the validation of the gift-aid form redirects back
             // to the form to correct an error.
             'referrers' => [ '/gift-aid/', '/support-our-charity/' ]

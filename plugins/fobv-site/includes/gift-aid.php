@@ -405,7 +405,7 @@ EOD;
             $message .= <<<"EOD"
 
 Since they chose to pay online, they would have been passed through to PayPal to
-authorise the payment. This does not mean that they follow through but if they
+authorise the payment. This does not mean that they followed through but if they
 did then the transaction in PayPal will have the reference $reference.
 
 EOD;
