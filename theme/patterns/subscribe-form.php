@@ -13,6 +13,10 @@
 [vari-nonce-field action='fobv_subscribe' name='fobv_subscribe_nonce']
 <!-- /wp:shortcode -->
 
+<!-- wp:shortcode -->
+[vari-transaction action='fobv-subscribe']
+<!-- /wp:shortcode -->
+
 <!-- wp:columns {"style":{"spacing":{"margin":{"bottom":"0"}}}} -->
 <div class="wp-block-columns" style="margin-bottom:0"><!-- wp:column {"verticalAlignment":"top","width":"8em"} -->
 <div class="wp-block-column is-vertically-aligned-top" style="flex-basis:8em"><!-- wp:html {"lock":{"move":true,"remove":true}} -->

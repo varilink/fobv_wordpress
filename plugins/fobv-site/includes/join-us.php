@@ -59,6 +59,16 @@ function fobv_join_us() {
     // 3. Validate the form inputs just received
     // -------------------------------------------------------------------------
 
+    foreach ( [
+        'first_name_class', 'first_name_error', 'surname_class',
+        'surname_error', 'email_address_class', 'email_address_error',
+        'confirm_email_address_class', 'confirm_email_address_error',
+        'post_code_class', 'post_code_error'
+    ] as $var ) {
+
+        unset( $_SESSION[ $transaction ][ "fobv_join_us_$var" ] );
+
+    }
 
     $errors = FALSE;
 
