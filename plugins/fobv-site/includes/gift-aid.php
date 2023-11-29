@@ -154,11 +154,40 @@ function fobv_gift_aid() {
         }
 
         $message = <<<"EOD"
-A donation of £$amount was initiated via the $fobv_env website. This does NOT
-necessarily mean that the donor followed through with the payment. If they did
-then the payment reference will be recorded in PayPal as $reference.
+A donation of £$amount using payment method $method was initiated via the
+$fobv_env website.
 
 EOD;
+
+        if ( $method === 'Cheque' ) {
+
+            $message .= <<<"EOD"
+
+They were requested to write the payment reference $reference on the back of the
+back of the cheque.
+
+EOD;
+
+        } elseif ( $method === 'Bank Transfer' ) {
+
+            $message .= <<<"EOD"
+
+They were requested to use the payment reference $reference when instructing
+their bank transfer.
+
+EOD;
+
+        } elseif ( $method === 'Online' ) {
+
+            $message .= <<<"EOD"
+
+Since they chose to pay online, they would have been passed through to PayPal to
+authorise the payment. This does not mean that they followed through but if they
+did then the transaction in PayPal will have the reference $reference.
+
+EOD;
+
+        }
 
         if ( isset( $email_address ) ) {
 
@@ -580,12 +609,12 @@ EOD;
         wp_redirect( $approve_link );
         exit();
 
-    } elseif ( preg_match( '/^fobv_join_us/', $transaction ) ) {
+    } elseif ( preg_match( '/^fobv_donate/', $transaction ) ) {
 
-        // The payment method is something other than "Online", which currently
-        // is only an option for the "join_us" transactions. Alternative payment
-        // methods will be introduced for "donation" transactions but that
-        // hasn't happened yet.
+        wp_redirect( "/donation-pledged/?$query" );
+        exit();
+
+    } elseif ( preg_match( '/^fobv_join_us/', $transaction ) ) {
 
         wp_redirect( '/membership-confirmed/' );
         exit();

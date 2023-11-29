@@ -49,6 +49,10 @@ function fobv_process_page () {
         // referrers  = The path of the URLs, one of which will be the HTTP
         //              referrer if the page is called within its process flow.
 
+        'donation-pledged' => [
+            'parameters' => [ 'reference' ],
+            'referrers' => [ '/gift-aid/' ]
+        ],
         'donation-cancelled' => [
             'parameters' => [ 'token' ]
         ],

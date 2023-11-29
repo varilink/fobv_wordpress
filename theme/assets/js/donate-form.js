@@ -16,6 +16,60 @@ jQuery( document ).ready( function() {
 
     } );
 
+
+    if ( ! jQuery( '#fobvDonateMethodCheque' ).attr('checked') ) {
+        jQuery( '#fobvDonateMethodChequeHelp' ).hide();
+    }
+
+    if ( ! jQuery( '#fobvDonateMethodBankTransfer' ).attr('checked') ) {
+        jQuery( '#fobvDonateMethodBankTransferHelp' ).hide();
+    }
+
+    if ( ! jQuery( '#fobvDonateMethodOnline' ).attr('checked') ) {
+        jQuery( '#fobvDonateMethodOnlineHelp' ).hide();
+    }
+
+    jQuery(
+        'input[type=radio][name=fobv_donate_method]'
+    ).change( function () {
+        if ( this.value == 'Cheque' ) {
+            jQuery( '#fobvDonateMethodChequeHelp' ).show(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodBankTransferHelp' ).hide(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodOnlineHelp' ).hide(
+                'slow', function () {
+            } );
+        } else if ( this.value == 'Bank Transfer' ) {
+            jQuery( '#fobvDonateMethodChequeHelp' ).hide(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodBankTransferHelp' ).show(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodOnlineHelp' ).hide(
+                'slow', function () {
+            } );
+        } else if ( this.value == 'Online' ) {
+            jQuery( '#fobvDonateMethodChequeHelp' ).hide(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodBankTransferHelp' ).hide(
+                'slow', function () {
+            } );
+            jQuery( '#fobvDonateMethodOnlineHelp' ).show(
+                'slow', function () {
+            } );
+        }
+    } );
+
+
+
+
+
+
     if ( jQuery( "#fobvDonateEmailAddress" ).val() ) {
         jQuery( '#fobvDonateConfirmEmailAddress' ).prop( "disabled", false );
     } else {
