@@ -194,20 +194,6 @@
 <div class="wp-block-column"><!-- wp:group {"style":{"spacing":{"blockGap":"0"}},"layout":{"type":"flex","orientation":"vertical"}} -->
 <div class="wp-block-group"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-group"><!-- wp:shortcode -->
-[vari-input-tag type='radio' id='fobvJoinUsMethodCash' name='fobv_join_us_method' value='Cash']
-<!-- /wp:shortcode -->
-
-<!-- wp:html -->
-<label for="fobvJoinUsMethodCash">Cash</label>
-<!-- /wp:html --></div>
-<!-- /wp:group -->
-
-<!-- wp:paragraph {"lock":{"move":false,"remove":false}} -->
-<p id="fobvJoinUsMethodCashHelp">Please give your cash payment to an officer of The Friends of Bennerley Viaduct when you first attend a membership meeting. Do not send cash payments through the post.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group"><!-- wp:shortcode -->
 [vari-input-tag type='radio' id='fobvJoinUsMethodCheque' name='fobv_join_us_method' value='Cheque']
 <!-- /wp:shortcode -->
 

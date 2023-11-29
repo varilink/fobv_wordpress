@@ -1,9 +1,5 @@
 jQuery( document ).ready( function() {
 
-    if ( ! jQuery( '#fobvJoinUsMethodCash' ).attr('checked') ) {
-        jQuery( '#fobvJoinUsMethodCashHelp' ).hide();
-    }
-
     if ( ! jQuery( '#fobvJoinUsMethodCheque' ).attr('checked') ) {
         jQuery( '#fobvJoinUsMethodChequeHelp' ).hide();
     }
@@ -19,23 +15,7 @@ jQuery( document ).ready( function() {
     jQuery(
         'input[type=radio][name=fobv_join_us_method]'
     ).change( function () {
-        if ( this.value == 'Cash' ) {
-            jQuery( '#fobvJoinUsMethodCashHelp' ).show(
-                'slow', function () {
-            } );
-            jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
-                'slow', function () {
-            } );
-            jQuery( '#fobvJoinUsMethodBankTransferHelp' ).hide(
-                'slow', function () {
-            } );
-            jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide(
-                'slow', function () {
-            } );
-        } else if ( this.value == 'Cheque' ) {
-            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
-                'slow', function () {
-            } );
+        if ( this.value == 'Cheque' ) {
             jQuery( '#fobvJoinUsMethodChequeHelp' ).show(
                 'slow', function () {
             } );
@@ -46,9 +26,6 @@ jQuery( document ).ready( function() {
                 'slow', function () {
             } );
         } else if ( this.value == 'Bank Transfer' ) {
-            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
-                'slow', function () {
-            } );
             jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
                 'slow', function () {
             } );
@@ -59,9 +36,6 @@ jQuery( document ).ready( function() {
                 'slow', function () {
             } );
         } else if ( this.value == 'Online' ) {
-            jQuery( '#fobvJoinUsMethodCashHelp' ).hide(
-                'slow', function () {
-            } );
             jQuery( '#fobvJoinUsMethodChequeHelp' ).hide(
                 'slow', function () {
             } );
