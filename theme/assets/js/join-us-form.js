@@ -48,6 +48,32 @@ jQuery( document ).ready( function() {
         }
     } );
 
+    jQuery( "#fobvJoinUsFormSubmit" ).on( "click", function( e ) {
+
+        e.preventDefault();
+
+        if ( jQuery( "#fobvJoinUsForm" ).valid() ) {
+
+            grecaptcha.ready( function() {
+
+                grecaptcha.execute(
+                    "6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB",
+                    { action: "join_us" }
+                ).then( function( token ) {
+                    jQuery( "#fobvJoinUsForm" ).append(
+                        '<input type="hidden" name="g-recaptcha-response" ' +
+                        'value="' + token + '">'
+                    );
+                    jQuery( "#fobvJoinUsForm" ).submit();
+                  }
+                );
+
+            } );
+
+        }
+
+    } );
+
     jQuery( '#fobvJoinUsForm' ).validate( {
         rules: {
             fobv_join_us_first_name: {

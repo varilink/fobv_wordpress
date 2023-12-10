@@ -93,6 +93,33 @@ jQuery( document ).ready( function() {
         }, 200)
 
     } );
+
+    jQuery( "#fobvDonateFormSubmit" ).on( "click", function( e ) {
+
+        e.preventDefault();
+
+        if ( jQuery( "#fobvDonateForm" ).valid() ) {
+
+            grecaptcha.ready( function() {
+
+                grecaptcha.execute(
+                    "6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB",
+                    { action: "donate" }
+                ).then( function( token ) {
+                    jQuery( "#fobvDonateForm" ).append(
+                        '<input type="hidden" name="g-recaptcha-response" ' +
+                        'value="' + token + '">'
+                    );
+                    jQuery( "#fobvDonateForm" ).submit();
+                  }
+                );
+
+            } );
+
+        }
+
+    } );
+
     jQuery( "#fobvDonateForm" ).validate( {
         rules: {
             fobv_donate_amount: {

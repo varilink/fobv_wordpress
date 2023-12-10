@@ -9,4 +9,30 @@ jQuery( document ).ready( function() {
         }
     } );
 
+    jQuery( "#fobvSubscribeFormSubmit" ).on( "click", function( e ) {
+
+        e.preventDefault();
+
+        if ( jQuery( "#fobvSubscribeForm" ).valid() ) {
+
+            grecaptcha.ready( function() {
+
+                grecaptcha.execute(
+                    "6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB",
+                    { action: "subscribe" }
+                ).then( function( token ) {
+                    jQuery( "#fobvSubscribeForm" ).append(
+                        '<input type="hidden" name="g-recaptcha-response" ' +
+                        'value="' + token + '">'
+                    );
+                    jQuery( "#fobvSubscribeForm" ).submit();
+                  }
+                );
+
+            } );
+
+        }
+
+    } );
+
 } );

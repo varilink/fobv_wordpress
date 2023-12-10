@@ -182,13 +182,10 @@
 
 <!-- wp:html {"lock":{"move":true,"remove":true}} -->
 <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
-<div class="wp-block-button"><button class="wp-element-button g-recaptcha" type="submit" data-sitekey="6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB" data-callback='onDonateSubmit' data-action='donate'>Next</button></div>
+<div class="wp-block-button">
+<button id="fobvDonateFormSubmit" class="wp-element-button g-recaptcha" type="submit">Next</button>
+</div>
 </div>
 </form>
 <script src="/wp-content/themes/fobv-site/assets/js/donate-form.js"></script>
-<script>
-  function onDonateSubmit(token) {
-    document.getElementById("fobvDonateForm").submit();
-  }
-</script>
 <!-- /wp:html -->

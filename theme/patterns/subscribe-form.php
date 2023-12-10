@@ -87,13 +87,10 @@
 
 <!-- wp:html {"lock":{"move":true,"remove":true}} -->
 <div class="wp-block-buttons is-layout-flex wp-block-buttons-is-layout-flex">
-<div class="wp-block-button"><button class="wp-element-button g-recaptcha" type="submit" data-sitekey="6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB" data-callback='onSubmit' data-action='subscribe'>Subscribe</button></div>
+<div class="wp-block-button">
+<button id="fobvSubscribeFormSubmit" class="wp-element-button g-recaptcha" type="submit">Subscribe</button>
+</div>
 </div>
 </form>
 <script src="/wp-content/themes/fobv-site/assets/js/subscribe-form.js"></script>
- <script>
-   function onSubmit(token) {
-     document.getElementById("fobvSubscribeForm").submit();
-   }
- </script>
 <!-- /wp:html -->
