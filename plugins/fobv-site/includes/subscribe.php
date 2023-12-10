@@ -19,7 +19,19 @@ function fobv_subscribe() {
     }
 
     // -------------------------------------------------------------------------
-    // 2. Start or update the transaction
+    // 2. Validate reCAPTHCA response
+    // -------------------------------------------------------------------------
+
+    $recaptcha_verification_result =
+        vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
+    wp_mail(
+        get_bloginfo( 'admin_email' ),                  # to
+        'reCAPTCHA verification result',                # subject
+        print_r( $recaptcha_verification_result, TRUE )
+    );
+
+    // -------------------------------------------------------------------------
+    // 3. Start or update the transaction
     // -------------------------------------------------------------------------
 
     $transaction = $_POST[ 'transaction' ];
@@ -56,7 +68,7 @@ function fobv_subscribe() {
     }
 
     // -------------------------------------------------------------------------
-    // 3. Validate the form inputs just received
+    // 4. Validate the form inputs just received
     // -------------------------------------------------------------------------
 
     foreach ( [ 'email_address_class', 'email_address_error' ] as $var ) {
@@ -140,7 +152,7 @@ function fobv_subscribe() {
     }
 
     // -------------------------------------------------------------------------
-    // 4. Notification
+    // 5. Notification
     // -------------------------------------------------------------------------
 
     $subject = 'Subscription Notification';
@@ -179,7 +191,7 @@ EOD;
     wp_mail( $to, $subject, $message );
 
     // -------------------------------------------------------------------------
-    // 5. Execution
+    // 6. Execution
     // -------------------------------------------------------------------------
 
     $request[ 'email_address' ] = $email_address;

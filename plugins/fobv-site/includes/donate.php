@@ -17,7 +17,19 @@ function fobv_donate() {
     }
 
     // -------------------------------------------------------------------------
-    // 2. Start or update the transaction
+    // 2. Validate reCAPTHCA response
+    // -------------------------------------------------------------------------
+
+    $recaptcha_verification_result =
+        vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
+    wp_mail(
+        get_bloginfo( 'admin_email' ),                  # to
+        'reCAPTCHA verification result',                # subject
+        print_r( $recaptcha_verification_result, TRUE )
+    );
+
+    // -------------------------------------------------------------------------
+    // 3. Start or update the transaction
     // -------------------------------------------------------------------------
 
     $transaction = $_POST[ 'transaction' ];
@@ -57,7 +69,7 @@ function fobv_donate() {
     }
 
     // -------------------------------------------------------------------------
-    // 3. Validate the form inputs just received
+    // 4. Validate the form inputs just received
     // -------------------------------------------------------------------------
 
     foreach ( [
@@ -137,7 +149,7 @@ function fobv_donate() {
     }
 
     // -------------------------------------------------------------------------
-    // 4. Execution
+    // 5. Execution
     // -------------------------------------------------------------------------
 
     wp_redirect( "/gift-aid/?$query" );
