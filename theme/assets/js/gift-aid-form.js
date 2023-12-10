@@ -1,17 +1,23 @@
 jQuery( document ).ready( function() {
 
+    // Show/hide gift aid declaration on page load
+
     if ( jQuery( '#fobvGiftAidToggle' ).attr( 'checked' ) ) {
         jQuery( '#fobvGiftAidDeclaration' ).show();
     } else {
         jQuery( '#fobvGiftAidDeclaration' ).hide();
     }
 
+
+    // Show/hide gift aid declaration on gift aid toggle
+
     jQuery( '#fobvGiftAidToggle' ).on( 'change', function () {
 
         if ( this.checked ) {
 
-            jQuery( '#fobvGiftAidDeclaration' ).show( 'slow', function () {
-            } );
+            jQuery( '#fobvGiftAidDeclaration' ).show( 'slow', function () { } );
+
+            // Validate gift aid declaration if gift aid is selected
 
             jQuery( '#fobvGiftAidForm' ).validate( {
                 rules: {
@@ -35,8 +41,7 @@ jQuery( document ).ready( function() {
 
         } else {
 
-            jQuery( '#fobvGiftAidDeclaration' ).hide( 'slow', function () {
-            } );
+            jQuery( '#fobvGiftAidDeclaration' ).hide( 'slow', function () { } );
 
         }
 

@@ -1,5 +1,7 @@
 jQuery( document ).ready( function() {
 
+    // Define validation rules for this form
+
     jQuery( '#fobvSubscribeForm' ).validate( {
         rules: {
             fobv_subscribe_email_address: {
@@ -8,6 +10,8 @@ jQuery( document ).ready( function() {
             }
         }
     } );
+
+    // Include the reCAPTCHA user response in the form submission
 
     jQuery( "#fobvSubscribeFormSubmit" ).on( "click", function( e ) {
 

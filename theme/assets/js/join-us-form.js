@@ -1,5 +1,7 @@
 jQuery( document ).ready( function() {
 
+    // Hide help for unchecked payment methods on page load
+
     if ( ! jQuery( '#fobvJoinUsMethodCheque' ).attr('checked') ) {
         jQuery( '#fobvJoinUsMethodChequeHelp' ).hide();
     }
@@ -11,6 +13,8 @@ jQuery( document ).ready( function() {
     if ( ! jQuery( '#fobvJoinUsMethodOnline' ).attr('checked') ) {
         jQuery( '#fobvJoinUsMethodOnlineHelp' ).hide();
     }
+
+    // Show/hide help for payment methods on payment method change
 
     jQuery(
         'input[type=radio][name=fobv_join_us_method]'
@@ -48,6 +52,8 @@ jQuery( document ).ready( function() {
         }
     } );
 
+    // Include the reCAPTCHA user response in the form submission
+
     jQuery( "#fobvJoinUsFormSubmit" ).on( "click", function( e ) {
 
         e.preventDefault();
@@ -74,7 +80,10 @@ jQuery( document ).ready( function() {
 
     } );
 
+    // Define validation rules for this form
+
     jQuery( '#fobvJoinUsForm' ).validate( {
+
         rules: {
             fobv_join_us_first_name: {
                 required: true
@@ -94,6 +103,7 @@ jQuery( document ).ready( function() {
                 required: true
             }
         }
+
     } );
 
 } );

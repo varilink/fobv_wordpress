@@ -1,10 +1,14 @@
 jQuery( document ).ready( function() {
 
+    // Enable/disable other amount value on page load
+
     if ( jQuery( "#fobvDonateAmountOther" ).is( ":checked" ) ) {
         jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", false );
     } else {
         jQuery( '#fobvDonateAmountOtherValue' ).prop( "disabled", true );
     }
+
+    // Enable/disable other amount value on amount change
 
     jQuery( "input:radio[name=fobv_donate_amount]").change( function () {
 
@@ -16,6 +20,7 @@ jQuery( document ).ready( function() {
 
     } );
 
+    // Hide help for unchecked payment methods on page load
 
     if ( ! jQuery( '#fobvDonateMethodCheque' ).attr('checked') ) {
         jQuery( '#fobvDonateMethodChequeHelp' ).hide();
@@ -28,6 +33,8 @@ jQuery( document ).ready( function() {
     if ( ! jQuery( '#fobvDonateMethodOnline' ).attr('checked') ) {
         jQuery( '#fobvDonateMethodOnlineHelp' ).hide();
     }
+
+    // Show/hide help for payment methods on payment method change
 
     jQuery(
         'input[type=radio][name=fobv_donate_method]'
@@ -65,16 +72,15 @@ jQuery( document ).ready( function() {
         }
     } );
 
-
-
-
-
+    // Enable/disable confirm email address on page load
 
     if ( jQuery( "#fobvDonateEmailAddress" ).val() ) {
         jQuery( '#fobvDonateConfirmEmailAddress' ).prop( "disabled", false );
     } else {
         jQuery( '#fobvDonateConfirmEmailAddress' ).prop( "disabled", true );
     }
+
+    // Enable/disable confirm email address on email address change
 
     jQuery( "#fobvDonateEmailAddress" ).on( "keydown", function() {
 
@@ -93,6 +99,8 @@ jQuery( document ).ready( function() {
         }, 200)
 
     } );
+
+    // Include the reCAPTCHA user response in the form submission
 
     jQuery( "#fobvDonateFormSubmit" ).on( "click", function( e ) {
 
@@ -120,7 +128,10 @@ jQuery( document ).ready( function() {
 
     } );
 
+    // Define validation rules for this form
+
     jQuery( "#fobvDonateForm" ).validate( {
+
         rules: {
             fobv_donate_amount: {
                 required: true
@@ -142,5 +153,7 @@ jQuery( document ).ready( function() {
                 digits: true
             }
         }
+
     } );
+
 } );
