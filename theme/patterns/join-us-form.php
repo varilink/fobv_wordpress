@@ -204,7 +204,7 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"constrained"}} -->
-<div id="fobvJoinUsMethodChequeHelp" class="wp-block-group"><!-- wp:block --></div>
+<div id="fobvJoinUsMethodChequeHelp" class="wp-block-group"><!-- wp:block /--></div>
 <!-- /wp:group -->
 
 <!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
