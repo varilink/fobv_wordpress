@@ -1,6 +1,6 @@
 {
   "__file": "wp_block",
   "title": "Bank transfer payment instructions",
-  "content": "<!-- wp:paragraph --><p>Please instruct your bank transfer to:<br>Payee = Friends of Bennerley Viaduct<br>Account Number = 34642813<br>Sort Code = 40-19-15<br>Reference = [fobv-payment-reference]</p><!-- /wp:paragraph -->",
+  "content": "<!-- wp:paragraph -->\n<p>Please instruct your bank transfer to:<br>Payee = Friends of Bennerley Viaduct<br>Account Number = 34642813<br>Sort Code = 40-19-15<br>Reference = [fobv-payment-reference clear=\"yes\"]</p>\n<!-- /wp:paragraph -->",
   "syncStatus": ""
 }
