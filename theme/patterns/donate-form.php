@@ -8,7 +8,6 @@
 <div class="wp-block-group"><!-- wp:html -->
 <form id="fobvDonateForm" action="/wp-admin/admin-post.php" method="post" enctype="application/x-www-form-urlencoded" novalidate>
 <input type="hidden" name="action" value="fobv_donate">
-<input type="hidden" name="fobv_donate_method" value="Online">
 <!-- /wp:html -->
 
 <!-- wp:shortcode -->
