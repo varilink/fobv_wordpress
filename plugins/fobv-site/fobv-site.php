@@ -50,7 +50,7 @@ function fobv_process_page () {
         //              referrer if the page is called within its process flow.
 
         'donation-pledged' => [
-            'parameters' => [ 'reference' ],
+            'parameters' => [ 'transaction' ],
             'referrers' => [ '/gift-aid/' ]
         ],
         'donation-cancelled' => [
