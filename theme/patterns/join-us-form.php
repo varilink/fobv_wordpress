@@ -98,8 +98,94 @@
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 
+<!-- wp:paragraph -->
+<p>You may choose to provide us with your full address so that we can send mail to you; for example, to send you a membership card. If you don't choose to provide us with your full address, we require at least the start of your postcode for purpose of demographic analysis of our membership.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:shortcode -->
+[vari-input-tag type='checkbox' id='fobvJoinUsAddressLinesToggle' name='fobv_join_us_address_lines_toggle']
+<!-- /wp:shortcode -->
+
+<!-- wp:html -->
+<label for="fobvJoinUsAddressLinesToggle">I want to give my full, postal address.</label>
+<!-- /wp:html -->
+
+<!-- wp:group {"style":{"spacing":{"margin":{"top":"1.5em","bottom":"1.75em"},"blockGap":"1.75em"}},"layout":{"type":"constrained"}} -->
+<div id="fobvJoinUsAddressLines" class="wp-block-group" style="margin-top:1.5em;margin-bottom:1.75em"><!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
+<div class="wp-block-column" style="flex-basis:13em"><!-- wp:html -->
+<label for="fobvJoinUsAddressLine1">Address Line 1:</label>
+<!-- /wp:html --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:shortcode -->
+[vari-input-tag id='fobvJoinUsAddressLine1' name='fobv_join_us_address_line_1' placeholder='Enter the first line of your address']
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode -->
+[vari-label-tag name='fobv_join_us_address_line_1_error' class='error']
+<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
 <!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
+<div class="wp-block-column" style="flex-basis:13em"><!-- wp:html -->
+<label for="fobvJoinUsAddressLine2">Address Line 2:</label>
+<!-- /wp:html --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:shortcode -->
+[vari-input-tag id='fobvJoinUsAddressLine2' name='fobv_join_us_address_line_2' placeholder='Enter the second line of your address']
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode -->
+[vari-label-tag name='fobv_join_us_address_line_2_error' class='error']
+<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
+<div class="wp-block-column" style="flex-basis:13em"><!-- wp:html -->
+<label for="fobvJoinUsAddressLine3">Address Line 3:</label>
+<!-- /wp:html --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:shortcode -->
+[vari-input-tag id='fobvJoinUsAddressLine3' name='fobv_join_us_address_line_3' placeholder='Enter the third line of your address']
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode -->
+[vari-label-tag name='fobv_join_us_address_line_3_error' class='error']
+<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns -->
+
+<!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"13em"} -->
+<div class="wp-block-column" style="flex-basis:13em"><!-- wp:html -->
+<label for="fobvJoinUsAddressLine4">Address Line 4:</label>
+<!-- /wp:html --></div>
+<!-- /wp:column -->
+
+<!-- wp:column -->
+<div class="wp-block-column"><!-- wp:shortcode -->
+[vari-input-tag id='fobvJoinUsAddressLine4' name='fobv_join_us_address_line_4' placeholder='Enter the fourth line of your address']
+<!-- /wp:shortcode -->
+
+<!-- wp:shortcode -->
+[vari-label-tag name='fobv_join_us_address_line_4_error' class='error']
+<!-- /wp:shortcode --></div>
+<!-- /wp:column --></div>
+<!-- /wp:columns --></div>
+<!-- /wp:group -->
+
+<!-- wp:columns {"style":{"spacing":{"margin":{"top":"1.5rem"}}}} -->
+<div class="wp-block-columns" style="margin-top:1.5rem"><!-- wp:column {"width":"13em"} -->
 <div class="wp-block-column" style="flex-basis:13em"><!-- wp:html -->
 <label for="fobvJoinUsPostcode">Postcode:</label>
 <!-- /wp:html --></div>

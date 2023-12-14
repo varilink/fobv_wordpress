@@ -20,13 +20,13 @@ function fobv_join_us() {
     // -------------------------------------------------------------------------
 
     if ( function_exists( 'vl_recaptcha_verify_user_response') ) {
-    $recaptcha_verification_result =
-        vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
-    wp_mail(
-        get_bloginfo( 'admin_email' ),                  # to
-        'reCAPTCHA verification result',                # subject
-        print_r( $recaptcha_verification_result, TRUE )
-    );
+        $recaptcha_verification_result =
+            vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
+        wp_mail(
+            get_bloginfo( 'admin_email' ),                  # to
+            'reCAPTCHA verification result',                # subject
+            print_r( $recaptcha_verification_result, TRUE )
+        );
     }
 
     // -------------------------------------------------------------------------
@@ -51,7 +51,9 @@ function fobv_join_us() {
 
     foreach ( [
         'first_name', 'surname', 'email_address', 'confirm_email_address',
-        'postcode', 'telephone', 'amount', 'method', 'reference'
+        'address_lines_toggle', 'address_line_1', 'address_line_2',
+        'address_line_3', 'address_line_4', 'postcode', 'telephone', 'amount',
+        'method', 'reference'
     ] as $var ) {
 
         $post_var = 'fobv_join_us_' . $var;
@@ -77,7 +79,8 @@ function fobv_join_us() {
         'first_name_class', 'first_name_error', 'surname_class',
         'surname_error', 'email_address_class', 'email_address_error',
         'confirm_email_address_class', 'confirm_email_address_error',
-        'post_code_class', 'post_code_error'
+        'address_line_1_class', 'address_line_1_error', 'address_line_2_class',
+        'address_line_2_error', 'post_code_class', 'post_code_error'
     ] as $var ) {
 
         unset( $_SESSION[ $transaction ][ "fobv_join_us_$var" ] );
@@ -137,6 +140,30 @@ function fobv_join_us() {
         $_SESSION[$transaction]['fobv_join_us_confirm_email_address_error']
             = 'Please enter the same value again.';
         $errors = TRUE;
+
+    }
+
+    if ( $address_lines_toggle === 'on' ) {
+
+        if ( ! isset( $address_line_1 ) ) {
+
+            $_SESSION[ $transaction ][ 'fobv_join_us_address_line_1_class' ]
+                = 'error';
+            $_SESSION[ $transaction ][ 'fobv_join_us_address_line_1_error' ]
+                = 'This field is required.';
+            $errors = TRUE;
+
+        }
+
+        if ( ! isset( $address_line_2 ) ) {
+
+            $_SESSION[ $transaction ][ 'fobv_join_us_address_line_2_class' ]
+                = 'error';
+            $_SESSION[ $transaction ][ 'fobv_join_us_address_line_2_error' ]
+                = 'This field is required.';
+            $errors = TRUE;
+
+        }
 
     }
 

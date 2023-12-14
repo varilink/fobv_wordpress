@@ -1,5 +1,29 @@
 jQuery( document ).ready( function() {
 
+    // Show/hide address lines (as opposed to postcode) on page load
+
+    if ( jQuery( '#fobvJoinUsAddressLinesToggle' ).attr( 'checked' ) ) {
+        jQuery( '#fobvJoinUsAddressLines' ).show();
+    } else {
+        jQuery( '#fobvJoinUsAddressLines' ).hide();
+    }
+
+    // Show/hide address lines on address lines toggle
+
+    jQuery( '#fobvJoinUsAddressLinesToggle' ).on( 'change', function () {
+
+        if ( this.checked ) {
+
+            jQuery( '#fobvJoinUsAddressLines' ).show( 'slow', function () { } );
+
+        } else {
+
+            jQuery( '#fobvJoinUsAddressLines' ).hide( 'slow', function () { } );
+
+        }
+
+    } );
+
     // Hide help for unchecked payment methods on page load
 
     if ( ! jQuery( '#fobvJoinUsMethodCheque' ).attr('checked') ) {
@@ -62,21 +86,21 @@ jQuery( document ).ready( function() {
 
             if ( typeof grecaptcha != 'undefined' ) {
 
-            grecaptcha.ready( function() {
+                grecaptcha.ready( function() {
 
-                grecaptcha.execute(
-                    "6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB",
-                    { action: "join_us" }
-                ).then( function( token ) {
-                    jQuery( "#fobvJoinUsForm" ).append(
-                        '<input type="hidden" name="g-recaptcha-response" ' +
-                        'value="' + token + '">'
+                    grecaptcha.execute(
+                        "6LdpFqcZAAAAAKRjxMkXmIS3ABny6VUVlnbc9AcB",
+                        { action: "join_us" }
+                    ).then( function( token ) {
+                        jQuery( "#fobvJoinUsForm" ).append(
+                            '<input type="hidden" name="g-recaptcha-response" ' +
+                            'value="' + token + '">'
+                        );
+                        jQuery( "#fobvJoinUsForm" ).submit();
+                      }
                     );
-                    jQuery( "#fobvJoinUsForm" ).submit();
-                  }
-                );
 
-            } );
+                } );
 
             } else {
 
@@ -106,6 +130,12 @@ jQuery( document ).ready( function() {
             fobv_join_us_confirm_email_address: {
                 required: true,
                 equalTo: '#fobvJoinUsEmailAddress'
+            },
+            fobv_join_us_address_line_1: {
+                required: true
+            },
+            fobv_join_us_address_line_2: {
+                required: true
             },
             fobv_join_us_postcode: {
                 required: true

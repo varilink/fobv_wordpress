@@ -214,8 +214,8 @@ EOD;
         // This is a membership renewal or a new joiner.
 
         foreach ( [
-            'first_name', 'surname', 'email_address', 'postcode', 'telephone',
-            'amount', 'method', 'reference'
+            'first_name', 'surname', 'email_address', 'address_lines_toggle',
+            'postcode', 'telephone', 'amount', 'method', 'reference'
         ] as $var ) {
 
             $$var = $_SESSION[$transaction]["fobv_join_us_$var"];
@@ -236,6 +236,29 @@ membership. They entered their contact details as follows:
 First Name=$first_name
 Surname=$surname
 Email Address=$email_address
+EOD;
+
+        if ( $address_lines_toggle === 'on' ) {
+
+            foreach ( [
+                'address_line_1', 'address_line_2', 'address_line_3',
+                'address_line_4'
+            ] as $var ) {
+
+                $$var = $_SESSION[$transaction]["fobv_join_us_$var"];
+
+            }
+
+            $message .= <<<"EOD"
+Address Line 1=$address_line_1
+Address Line 2=$address_line_2
+Address Line 3=$address_line_3
+Address Line 4=$address_line_4
+EOD;
+
+        }
+
+        $message = <<<"EOD"
 Postcode=$postcode
 Telephone=$telephone
 
