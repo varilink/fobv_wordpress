@@ -20,13 +20,15 @@ function fobv_donate() {
     // 2. Validate reCAPTHCA response
     // -------------------------------------------------------------------------
 
-    $recaptcha_verification_result =
-        vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
-    wp_mail(
-        get_bloginfo( 'admin_email' ),                  # to
-        'reCAPTCHA verification result',                # subject
-        print_r( $recaptcha_verification_result, TRUE )
-    );
+    if ( function_exists( 'vl_recaptcha_verify_user_response') ) {
+        $recaptcha_verification_result =
+            vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
+        wp_mail(
+            get_bloginfo( 'admin_email' ),                  # to
+            'reCAPTCHA verification result',                # subject
+            print_r( $recaptcha_verification_result, TRUE )
+        );
+    }
 
     // -------------------------------------------------------------------------
     // 3. Start or update the transaction

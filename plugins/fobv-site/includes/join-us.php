@@ -19,6 +19,7 @@ function fobv_join_us() {
     // 2. Validate reCAPTHCA response
     // -------------------------------------------------------------------------
 
+    if ( function_exists( 'vl_recaptcha_verify_user_response') ) {
     $recaptcha_verification_result =
         vl_recaptcha_verify_user_response( VL_RECAPTCHA_SECRET_KEY );
     wp_mail(
@@ -26,6 +27,7 @@ function fobv_join_us() {
         'reCAPTCHA verification result',                # subject
         print_r( $recaptcha_verification_result, TRUE )
     );
+    }
 
     // -------------------------------------------------------------------------
     // 3. Start or update the transaction

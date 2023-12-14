@@ -60,6 +60,8 @@ jQuery( document ).ready( function() {
 
         if ( jQuery( "#fobvJoinUsForm" ).valid() ) {
 
+            if ( typeof grecaptcha != 'undefined' ) {
+
             grecaptcha.ready( function() {
 
                 grecaptcha.execute(
@@ -75,6 +77,12 @@ jQuery( document ).ready( function() {
                 );
 
             } );
+
+            } else {
+
+                jQuery( "#fobvJoinUsForm" ).submit();
+
+            }
 
         }
 
