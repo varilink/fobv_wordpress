@@ -2,7 +2,7 @@
 # where the container user's home directory is mapped to a local volume.
 .bash_history
 
-# Any npm cache directories whereever they occur.
+# Any npm cache directories wherever they occur.
 .npm/
 
 # Any NPM dependency directories wherever they occur.
