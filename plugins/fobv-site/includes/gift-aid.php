@@ -130,6 +130,35 @@ function fobv_gift_aid() {
 
     $fobv_env = FOBV_ENV;
 
+    // If a gift aid declaration was made then generate the gift aid related
+    // part of the message now in case we reuse any of short variable names from
+    // the donate or join us data capture that preceded it.
+
+    if ( $toggle === 'on' ) {
+
+        $gift_aid_report = <<<"EOD"
+
+The payee made a Gift Aid declaration and provided details as follows:
+First name=$first_name
+Surname=$surname
+Address Line 1=$address_line_1
+Address Line 2=$address_line_2
+Address Line 3=$address_line_3
+Address Line 4=$address_line_4
+Postcode=$postcode
+
+EOD;
+
+    } else {
+
+        $gift_aid_report .= <<<'EOD'
+
+The payee did NOT make a Gift Aid declaration.
+
+EOD;
+
+    }
+
     if ( preg_match( '/^fobv_donate/', $transaction ) ) {
 
         // This is a donation
@@ -236,6 +265,7 @@ membership. They entered their contact details as follows:
 First Name=$first_name
 Surname=$surname
 Email Address=$email_address
+
 EOD;
 
         if ( $address_lines_toggle === 'on' ) {
@@ -254,11 +284,12 @@ Address Line 1=$address_line_1
 Address Line 2=$address_line_2
 Address Line 3=$address_line_3
 Address Line 4=$address_line_4
+
 EOD;
 
         }
 
-        $message = <<<"EOD"
+        $message .= <<<"EOD"
 Postcode=$postcode
 Telephone=$telephone
 
@@ -322,8 +353,10 @@ EOD;
                 );
 
                 $message .= <<<'EOD'
+
 The member was already subscribed to our Mailchimp list. Their subscription has
 been tagged with an interest in membership news, if it wasn't already.
+
 EOD;
 
             } elseif ( $response[ 'body' ][ 'status' ] === 'unsubscribed' ) {
@@ -471,30 +504,7 @@ EOD;
     // Report gift aid details, which we do for any payment, whether it is
     // associated with a donation or a new or renewing member.
 
-    if ( $toggle === 'on' ) {
-
-        $message .= <<<"EOD"
-
-The payee made a Gift Aid declaration and provided details as follows:
-First name=$first_name
-Surname=$surname
-Address Line 1=$address_line_1
-Address Line 2=$address_line_2
-Address Line 3=$address_line_3
-Address Line 4=$address_line_4
-Postcode=$postcode
-
-EOD;
-
-    } else {
-
-        $message .= <<<'EOD'
-
-The payee did NOT make a Gift Aid declaration.
-
-EOD;
-
-    }
+    $message .= $gift_aid_report;
 
     // Now send the notification email to the relevant officers of The FoBV,
     // either for a donation or a new or rejoining member.

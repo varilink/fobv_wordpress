@@ -70,7 +70,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidFirstName' name='fobv_gift_aid_first_name' placeholder='Enter your first name']
+[vari-input-tag id='fobvGiftAidFirstName' name='fobv_gift_aid_first_name' placeholder='Enter your first name' copy='fobv_join_us_first_name']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -88,7 +88,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidSurname' name='fobv_gift_aid_surname' placeholder='Enter your surname']
+[vari-input-tag id='fobvGiftAidSurname' name='fobv_gift_aid_surname' placeholder='Enter your surname' copy='fobv_join_us_surname']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -106,7 +106,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidAddressLine1' name='fobv_gift_aid_address_line_1' placeholder='Enter the first line of your address']
+[vari-input-tag id='fobvGiftAidAddressLine1' name='fobv_gift_aid_address_line_1' placeholder='Enter the first line of your address' copy='fobv_join_us_address_line_1']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -124,7 +124,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidAddressLine2' name='fobv_gift_aid_address_line_2' placeholder='Enter the second line of your address']
+[vari-input-tag id='fobvGiftAidAddressLine2' name='fobv_gift_aid_address_line_2' placeholder='Enter the second line of your address' copy='fobv_join_us_address_line_2']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -142,7 +142,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidAddressLine3' name='fobv_gift_aid_address_line_3' placeholder='Enter the third line of your address']
+[vari-input-tag id='fobvGiftAidAddressLine3' name='fobv_gift_aid_address_line_3' placeholder='Enter the third line of your address' copy='fobv_join_us_address_line_3']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -160,7 +160,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidAddressLine4' name='fobv_gift_aid_address_line_4' placeholder='Enter the fourth line of your address']
+[vari-input-tag id='fobvGiftAidAddressLine4' name='fobv_gift_aid_address_line_4' placeholder='Enter the fourth line of your address' copy='fobv_join_us_address_line_4']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
@@ -178,7 +178,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:shortcode -->
-[vari-input-tag id='fobvGiftAidPostcode' name='fobv_gift_aid_postcode' placeholder='Enter your postcode']
+[vari-input-tag id='fobvGiftAidPostcode' name='fobv_gift_aid_postcode' placeholder='Enter your postcode' copy='fobv_join_us_postcode']
 <!-- /wp:shortcode -->
 
 <!-- wp:shortcode -->
