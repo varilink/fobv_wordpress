@@ -39,8 +39,8 @@
         (car (gimp-image-get-active-layer
             headerLogoImage         ; image
         ))                      ; Drawable to save
-        "dist/header-logo.webp" ; The name of the file to save the image to
-        "dist/header-logo.webp" ; The name entered
+        "/media/header-logo.webp" ; The name of the file to save the image to
+        "/media/header-logo.webp" ; The name entered
         0                       ; preset
         1                       ; Use lossless encoding
         90                      ; Quality of the image
@@ -106,8 +106,8 @@
             footerLogoImage     ; image
             CLIP-TO-IMAGE       ; merge-type
         ))                      ; Drawable to save
-        "dist/footer-logo.webp" ; The name of the file to save the image to
-        "dist/footer-logo.webp" ; The name entered
+        "/media/footer-logo.webp" ; The name of the file to save the image to
+        "/media/footer-logo.webp" ; The name entered
         0                       ; preset
         0                       ; Use lossless encoding
         90                      ; Quality of the image
@@ -148,7 +148,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama1Image          ; Input image
         viaductPanorama1Drawable       ; Drawable to save
-        "dist/viaduct-panorama-1.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-1.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -190,7 +190,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama2Image          ; Input image
         viaductPanorama2Drawable       ; Drawable to save
-        "dist/viaduct-panorama-2.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-2.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -231,7 +231,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama3Image          ; Input image
         viaductPanorama3Drawable       ; Drawable to save
-        "dist/viaduct-panorama-3.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-3.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -273,7 +273,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama4Image          ; Input image
         viaductPanorama4Drawable       ; Drawable to save
-        "dist/viaduct-panorama-4.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-4.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -314,7 +314,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama5Image          ; Input image
         viaductPanorama5Drawable       ; Drawable to save
-        "dist/viaduct-panorama-5.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-5.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -356,7 +356,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama6Image          ; Input image
         viaductPanorama6Drawable       ; Drawable to save
-        "dist/viaduct-panorama-6.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-6.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -397,7 +397,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama7Image          ; Input image
         viaductPanorama7Drawable       ; Drawable to save
-        "dist/viaduct-panorama-7.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-7.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -438,7 +438,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama8Image          ; Input image
         viaductPanorama8Drawable       ; Drawable to save
-        "dist/viaduct-panorama-8.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-8.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -479,7 +479,7 @@
         RUN-NONINTERACTIVE             ; Interactive, non-interactive
         viaductPanorama9Image          ; Input image
         viaductPanorama9Drawable       ; Drawable to save
-        "dist/viaduct-panorama-9.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-9.webp" ; Name of the file to save the image to
         ""                             ; Name entered
         0                              ; preset
         0                              ; Use lossless encoding
@@ -520,7 +520,7 @@
         RUN-NONINTERACTIVE              ; Interactive, non-interactive
         viaductPanorama10Image          ; Input image
         viaductPanorama10Drawable       ; Drawable to save
-        "dist/viaduct-panorama-10.webp" ; Name of the file to save the image to
+        "/media/viaduct-panorama-10.webp" ; Name of the file to save the image to
         ""                              ; Name entered
         0                               ; preset
         0                               ; Use lossless encoding
