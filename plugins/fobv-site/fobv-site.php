@@ -4,12 +4,20 @@
  * Description: Site plugin for the FoBV website.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 // Require functionality divided into other files for manageability
 
 foreach ( scandir( dirname( __FILE__ ) . '/includes' ) as $filename ) {
     $path = dirname( __FILE__ ) . '/includes/' . $filename;
-    if ( is_file( $path ) && $filename != 'index.php' ) {
-        require $path;
+    if (
+        is_file( $path ) &&
+        pathinfo( $filename, PATHINFO_EXTENSION ) === 'php' &&
+        $filename != 'index.php'
+    ) {
+        require_once $path;
     }
 }
 
@@ -65,7 +73,7 @@ function fobv_process_page () {
             // circumstance that Javascript is disabled and so the back-end
             // duplication of the validation of the gift-aid form redirects back
             // to the form to correct an error.
-            'referrers' => [ '/gift-aid/', '/support-our-charity/' ]
+            'referrers' => [ '/gift-aid/', '/support-us/' ]
         ],
         'membership-confirmed' => [
             'referrers' => [ '/gift-aid/' ]
@@ -77,7 +85,7 @@ function fobv_process_page () {
             'parameters' => [ 'token', 'PayerID' ],
         ],
         'subscription-confirmed' => [
-            'referrers' => [ '/latest-news/' ]
+            'referrers' => [ '/' ]
         ]
 
     ];
