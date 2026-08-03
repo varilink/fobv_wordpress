@@ -1,6 +1,6 @@
 [submodule "varilink/plugins"]
-	path = varilink/plugins
+	path = plugins/varilink
 	url = git@github.com:varilink/libraries_wordpress-plugins.git
 [submodule "varilink/scripts"]
-	path = varilink/scripts
+	path = scripts/varilink
 	url = git@github.com:varilink/libraries_wp-cli-scripts.git
