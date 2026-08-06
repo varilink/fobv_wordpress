@@ -4,3 +4,13 @@
 [submodule "varilink/scripts"]
 	path = scripts/varilink
 	url = git@github.com:varilink/libraries_wp-cli-scripts.git
+
+# Docker Compose based tools for client asset build
+
+[submodule "tools/gimp"]
+	path = tools/gimp
+	url = git@github.com:varilink/tools_gimp.git
+
+[submodule "tools/node"]
+	path = tools/node
+	url = git@github.com:varilink/tools_node.git
