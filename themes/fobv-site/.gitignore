@@ -1,3 +1,5 @@
-# for-theme-json.css file which is generated using Sass and in any case is
-# copied into a field within the theme.json file.
-/for-theme-json.css
+# webpack generated asset files
+/assets
+
+# sass generated theme.json.css
+/theme.json.css
