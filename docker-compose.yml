@@ -1,0 +1,36 @@
+services:
+
+  fobv-event-plugin:
+    image: varilink/tools/node
+    command: npm ci && npm run build
+    volumes:
+      - ./plugins/fobv-event/:/workdir/
+
+  fobv-site-plugin:
+    image: varilink/tools/node
+    command: npm ci && npx webpack
+    volumes:
+      - ./plugins/fobv-site/:/workdir/
+
+  fobv-site-theme-1:
+    image: varilink/tools/gimp
+    command: theme.scm
+    volumes:
+      - ./themes/fobv-site/src/scm/theme.scm:/workdir/theme.scm
+      - ./themes/fobv-site/src/img/:/workdir/src/
+      - ./themes/fobv-site/assets/uploads/:/workdir/dist/
+
+  fobv-site-theme-2:
+    image: varilink/tools/node
+    command: >-
+      npm ci &&
+      npx webpack &&
+      npx sass --no-source-map theme.json.scss theme.json.css
+    volumes:
+      - ./themes/fobv-site/:/workdir/
+
+  fobv-site-theme-3:
+    image: varilink/tools/perl
+    command: wp-theme-css-to-json.pl
+    volumes:
+      - ./themes/fobv-site/:/workdir/
